@@ -51,7 +51,7 @@ module.exports = {
      * 
      * @param {String} board
      * @param {String} sketch
-     * @param {Integer} day
+     * @param {Integer} activity
      * @param {String} workspace 
      * 
      * @return {Submission}

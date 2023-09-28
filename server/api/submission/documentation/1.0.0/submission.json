@@ -602,7 +602,7 @@
               }
             }
           },
-          "day": {
+          "activity": {
             "required": [
               "id",
               "number",
@@ -702,7 +702,7 @@
           "session": {
             "type": "string"
           },
-          "day": {
+          "activity": {
             "type": "string"
           },
           "job_id": {

@@ -7,14 +7,14 @@ const MAKING = 2;
 const COMPUTATION = 3;
 
 module.exports = {
-  // update day description and objective
+  // update activity description and objective
   async update(ctx) {
     const { id } = ctx.params;
 
     // ensure request was not sent as formdata
     if (ctx.is('multipart'))
       return ctx.badRequest('Multipart requests are not accepted!', {
-        id: 'day.update.format.invalid',
+        id: 'activity.update.format.invalid',
         error: 'ValidationError',
       });
 
@@ -30,12 +30,12 @@ module.exports = {
     } = ctx.request.body;
     if (!TekS || !description)
       return ctx.badRequest('A description, Teks must be provided!', {
-        id: 'day.update.body.invalid',
+        id: 'activity.update.body.invalid',
         error: 'ValidationError',
       });
 
     // array to store new component
-    let dayComponents = [];
+    let activityComponents = [];
 
     // add the science components
     scienceComponents.forEach(async (component) => {
@@ -46,7 +46,7 @@ module.exports = {
         { type: word, learning_component_type: SCIENCE }
       );
       if (foundComponent) {
-        dayComponents.push(foundComponent);
+        activityComponents.push(foundComponent);
       }
       // if component not found, create new ones
       else {
@@ -54,10 +54,10 @@ module.exports = {
           'learning-components'
         ].create({
           type: word,
-          days: id,
+          activities: id,
           learning_component_type: SCIENCE,
         });
-        dayComponents.push(newComponent);
+        activityComponents.push(newComponent);
       }
     });
 
@@ -69,16 +69,16 @@ module.exports = {
         { type: word, learning_component_type: MAKING }
       );
       if (foundComponent) {
-        dayComponents.push(foundComponent);
+        activityComponents.push(foundComponent);
       } else {
         const newComponent = await strapi.services[
           'learning-components'
         ].create({
           type: word,
-          days: id,
+          activities: id,
           learning_component_type: MAKING,
         });
-        dayComponents.push(newComponent);
+        activityComponents.push(newComponent);
       }
     });
 
@@ -90,39 +90,39 @@ module.exports = {
         { type: word, learning_component_type: COMPUTATION }
       );
       if (foundComponent) {
-        dayComponents.push(foundComponent);
+        activityComponents.push(foundComponent);
       } else {
         const newComponent = await strapi.services[
           'learning-components'
         ].create({
           type: word,
-          days: id,
+          activities: id,
           learning_component_type: COMPUTATION,
         });
-        dayComponents.push(newComponent);
+        activityComponents.push(newComponent);
       }
     });
 
-    const updatedDay = await strapi.services.day.update(
+    const updatedActivity = await strapi.services.activity.update(
       { id },
-      { description, images, TekS, link, learning_components: dayComponents }
+      { description, images, TekS, link, learning_components: activityComponents }
     );
-    return sanitizeEntity(updatedDay, { model: strapi.models.day });
+    return sanitizeEntity(updatedActivity, { model: strapi.models.activity });
   },
 
-  // Update day template and block list
+  // Update activity template and block list
   async templateUpdate(ctx) {
-    // find the day
+    // find the activity
     const { id } = ctx.params;
-    let day = await strapi.services.day.findOne({ id: id });
-    if (!day)
+    let activity = await strapi.services.activity.findOne({ id: id });
+    if (!activity)
       return ctx.notFound(
         'The student id provided does not correspond to a valid student!',
-        { id: 'day.id.invalid', error: 'ValidationError' }
+        { id: 'activity.id.invalid', error: 'ValidationError' }
       );
 
     // update template and blocks
-    day.template = ctx.request.body.template;
+    activity.template = ctx.request.body.template;
     let unfriendlyBlocks = ctx.request.body.blocks;
     let friendlyBlocks = [];
     for (let i = 0; i < unfriendlyBlocks.length; i++) {
@@ -131,44 +131,44 @@ module.exports = {
       });
       friendlyBlocks.push(currentBlock);
     }
-    day.blocks = friendlyBlocks;
+    activity.blocks = friendlyBlocks;
 
-    const updatedDay = await strapi.services.day.update({ id: id }, day);
-    return sanitizeEntity(updatedDay, { model: strapi.models.day });
+    const updatedActivity = await strapi.services.activity.update({ id: id }, activity);
+    return sanitizeEntity(updatedActivity, { model: strapi.models.activity });
   },
 
   async toolbox(ctx) {
     const { id } = ctx.params;
 
     // get the blocks
-    const blocks = await strapi.services.block.findByDay(id);
+    const blocks = await strapi.services.block.findByActivity(id);
 
     // return 404 if blocks is undefined
-    // (only the case of a day not existing)
+    // (only the case of an activity not existing)
     if (!blocks) return undefined;
 
-    // return the day id and the toolbox
+    // return the activity id and the toolbox
     return {
       id,
       toolbox: strapi.services.block.blocksToToolbox(blocks),
     };
   },
 
-  // Update day activity template
+  // Update activity template
   async activityTemplateUpdate(ctx) {
-    // find the day
+    // find the activity
     const { id } = ctx.params;
-    let day = await strapi.services.day.findOne({ id: id });
-    if (!day)
+    let activity = await strapi.services.activity.findOne({ id: id });
+    if (!activity)
       return ctx.notFound(
         'The student id provided does not correspond to a valid student!',
-        { id: 'day.id.invalid', error: 'ValidationError' }
+        { id: 'activity.id.invalid', error: 'ValidationError' }
       );
 
     // update template and blocks
-    day.activity_template = ctx.request.body.activity_template;
+    activity.activity_template = ctx.request.body.activity_template;
 
-    const updatedDay = await strapi.services.day.update({ id: id }, day);
-    return sanitizeEntity(updatedDay, { model: strapi.models.day });
+    const updatedActivity = await strapi.services.activity.update({ id: id }, activity);
+    return sanitizeEntity(updatedActivity, { model: strapi.models.activity });
   },
 };

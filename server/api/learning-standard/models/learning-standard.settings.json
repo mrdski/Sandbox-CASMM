@@ -22,9 +22,9 @@
     "expectations": {
       "type": "text"
     },
-    "days": {
+    "activities": {
       "via": "learning_standard",
-      "collection": "day"
+      "collection": "activity"
     },
     "unit": {
       "model": "unit",

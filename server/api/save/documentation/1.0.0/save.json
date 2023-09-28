@@ -311,7 +311,7 @@
         "parameters": []
       }
     },
-    "/saves/day/{day}": {
+    "/saves/activity/{activity}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -367,7 +367,7 @@
         ],
         "parameters": [
           {
-            "name": "day",
+            "name": "activity",
             "in": "path",
             "description": "",
             "deprecated": false,
@@ -591,7 +591,7 @@
           "id": {
             "type": "string"
           },
-          "day": {
+          "activity": {
             "required": [
               "id",
               "number",
@@ -742,7 +742,7 @@
           "workspace"
         ],
         "properties": {
-          "day": {
+          "activity": {
             "type": "string"
           },
           "student": {

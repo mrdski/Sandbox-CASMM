@@ -11,8 +11,8 @@
     "draftAndPublish": false
   },
   "attributes": {
-    "day": {
-      "model": "day"
+    "activity": {
+      "model": "activity"
     },
     "student": {
       "model": "student"

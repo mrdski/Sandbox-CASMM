@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "days",
+  "collectionName": "activities",
   "info": {
-    "name": "Day",
+    "name": "Activity",
     "description": ""
   },
   "options": {
@@ -12,7 +12,7 @@
   },
   "attributes": {
     "learning_standard": {
-      "via": "days",
+      "via": "activities",
       "model": "learning-standard"
     },
     "number": {
@@ -40,7 +40,7 @@
       "required": false
     },
     "learning_components": {
-      "via": "days",
+      "via": "activities",
       "collection": "learning-components"
     },
     "activity_template": {

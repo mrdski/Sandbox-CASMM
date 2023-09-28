@@ -2,15 +2,15 @@
 
 module.exports = {
   /**
-   * Get the current student(s) saves for a day
+   * Get the current student(s) saves for an activity
    *
    * @param {*} ctx
    */
-  async findByDay(ctx) {
+  async findByActivity(ctx) {
     const { ids, session } = ctx.state.user;
-    const { day } = ctx.params;
+    const { activity } = ctx.params;
 
-    const allSaves = await strapi.services.save.find({ student: ids, day });
+    const allSaves = await strapi.services.save.find({ student: ids, activity });
 
     const saves = {
       current: allSaves.find((save) => save.session.id === session),
@@ -38,28 +38,28 @@ module.exports = {
 
     // validate the request
     // at somept validate the xml...could lead to bad things...
-    const { day, workspace, replay } = ctx.request.body;
-    if (!strapi.services.validator.isInt(day) || !workspace)
-      return ctx.badRequest('A day and workspace must be provided!', {
+    const { activity, workspace, replay } = ctx.request.body;
+    if (!strapi.services.validator.isInt(activity) || !workspace)
+      return ctx.badRequest('A activity and workspace must be provided!', {
         id: 'Save.create.body.invalid',
         error: 'ValidationError',
       });
 
-    // ensure the day is valid
-    const validDay = await strapi.services.day.findOne({ id: day });
-    if (validDay === null)
-      return ctx.notFound('The day provided is invalid!', {
-        id: 'Save.create.day.invalid',
+    // ensure the activity is valid
+    const validActivity = await strapi.services.activity.findOne({ id: activity });
+    if (validActivity === null)
+      return ctx.notFound('The activity provided is invalid!', {
+        id: 'Save.create.activity.invalid',
         error: 'ValidationError',
       });
 
     // get the current student(s) and session
     const { ids, session } = ctx.state.user;
 
-    // get the save(s) for the student(s) for the target day and session
+    // get the save(s) for the student(s) for the target activity and session
     const saves = await strapi.services.save.find({
       student: ids,
-      day,
+      activity,
       session,
     });
 
@@ -81,7 +81,7 @@ module.exports = {
         // else, create a new save
         return strapi.services.save.create({
           student: id,
-          day,
+          activity,
           workspace,
           session,
           replay,

@@ -538,7 +538,7 @@
           "type": {
             "type": "string"
           },
-          "days": {
+          "activities": {
             "type": "array",
             "items": {
               "required": [
@@ -634,7 +634,7 @@
           "type": {
             "type": "string"
           },
-          "days": {
+          "activities": {
             "type": "array",
             "items": {
               "type": "string"

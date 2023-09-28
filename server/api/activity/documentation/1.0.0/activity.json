@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/days": {
+    "/activities": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -12,7 +12,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Day"
+                    "$ref": "#/components/schemas/Activity"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Day"
+          "Activity"
         ],
         "parameters": [
           {
@@ -201,7 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Day"
+                  "$ref": "#/components/schemas/Activity"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Day"
+          "Activity"
         ],
         "requestBody": {
           "description": "",
@@ -247,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewDay"
+                "$ref": "#/components/schemas/NewActivity"
               }
             }
           }
         }
       }
     },
-    "/days/count": {
+    "/activities/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -306,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "Day"
+          "Activity"
         ],
         "parameters": []
       }
     },
-    "/days/{id}": {
+    "/activities/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -321,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Day"
+                  "$ref": "#/components/schemas/Activity"
                 }
               }
             }
@@ -359,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Day"
+          "Activity"
         ],
         "parameters": [
           {
@@ -383,7 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Day"
+                  "$ref": "#/components/schemas/Activity"
                 }
               }
             }
@@ -421,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Day"
+          "Activity"
         ],
         "requestBody": {
           "description": "",
@@ -429,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewDay"
+                "$ref": "#/components/schemas/NewActivity"
               }
             }
           }
@@ -495,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Day"
+          "Activity"
         ],
         "parameters": [
           {
@@ -511,7 +511,7 @@
         ]
       }
     },
-    "/days/toolbox/{id}": {
+    "/activities/toolbox/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -563,7 +563,7 @@
         },
         "summary": "",
         "tags": [
-          "Day"
+          "Activity"
         ],
         "parameters": [
           {
@@ -579,7 +579,7 @@
         ]
       }
     },
-    "/days/template/{id}": {
+    "/activities/template/{id}": {
       "put": {
         "deprecated": false,
         "description": "Update a record",
@@ -631,7 +631,7 @@
         },
         "summary": "",
         "tags": [
-          "Day"
+          "Activity"
         ],
         "requestBody": {
           "description": "",
@@ -662,7 +662,7 @@
         ]
       }
     },
-    "/days/activity_template/{id}": {
+    "/activities/activity_template/{id}": {
       "put": {
         "deprecated": false,
         "description": "Update a record",
@@ -714,7 +714,7 @@
         },
         "summary": "",
         "tags": [
-          "Day"
+          "Activity"
         ],
         "requestBody": {
           "description": "",
@@ -748,7 +748,7 @@
   },
   "components": {
     "schemas": {
-      "Day": {
+      "Activity": {
         "required": [
           "id",
           "number",
@@ -777,7 +777,7 @@
               "expectations": {
                 "type": "string"
               },
-              "days": {
+              "activities": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -863,7 +863,7 @@
                 "type": {
                   "type": "string"
                 },
-                "days": {
+                "activities": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -889,7 +889,7 @@
           }
         }
       },
-      "NewDay": {
+      "NewActivity": {
         "required": [
           "number",
           "template"
@@ -943,7 +943,7 @@
   },
   "tags": [
     {
-      "name": "Day"
+      "name": "Activity"
     }
   ]
 }

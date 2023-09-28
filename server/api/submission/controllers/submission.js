@@ -43,7 +43,7 @@ module.exports = {
      * 
      * @param {String} board
      * @param {String} sketch
-     * @param {Integer} day
+     * @param {Integer} activity
      * @param {String} workspace 
      * 
      * @return {Submission}
@@ -64,17 +64,17 @@ module.exports = {
         )
 
         // validate the request
-        const { day: dayId, workspace, board, sketch } = ctx.request.body
-        if (!strapi.services.validator.isInt(dayId) || !workspace || !board || !sketch ) return ctx.badRequest(
-            'A day, workspace, board, and sketch must be provided!',
+        const { activity: activityId, workspace, board, sketch } = ctx.request.body
+        if (!strapi.services.validator.isInt(activityId) || !workspace || !board || !sketch ) return ctx.badRequest(
+            'A activity, workspace, board, and sketch must be provided!',
             { id: 'Submission.create.body.invalid', error: 'ValidationError' }
         )
 
-        // ensure the day is valid
-        const day = await strapi.services.day.findOne({ id: dayId })
-        if (!day) return ctx.notFound(
-            'The day provided is invalid!',
-            { id: 'Submission.create.day.invalid', error: 'ValidationError' }
+        // ensure the activity is valid
+        const activity = await strapi.services.activity.findOne({ id: activityId })
+        if (!activity) return ctx.notFound(
+            'The activity provided is invalid!',
+            { id: 'Submission.create.activity.invalid', error: 'ValidationError' }
         )
 
         // get the current session
@@ -82,7 +82,7 @@ module.exports = {
 
         // construct submission
         return await strapi.services.submission.startJob({
-            day: dayId, 
+            activity: activityId,
             session,
             workspace,
             board,
