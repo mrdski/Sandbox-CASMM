@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Table, Button, Tag } from 'antd';
-import './DayLevelReport.less';
+import './ActivityLevelReport.less';
 import { useSearchParam } from '../../Utils/useSearchParam';
 import NavBar from '../../components/NavBar/NavBar';
 
@@ -15,7 +15,7 @@ import {
 } from '../../Utils/requests';
 import Form from 'antd/lib/form/Form';
 
-const DayLevelReport = () => {
+const ActivityLevelReport = () => {
   const [sessions, setSessions] = useState([]);
   const [sessionCount, setSessionCount] = useState(0);
   const navigate = useNavigate();
@@ -466,4 +466,4 @@ const Filter = ({ setSearchParam, paramObj }) => {
   );
 };
 
-export default DayLevelReport;
+export default ActivityLevelReport;

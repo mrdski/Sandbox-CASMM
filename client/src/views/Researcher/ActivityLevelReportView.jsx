@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar';
 import { getSession } from '../../Utils/requests';
-import './DayLevelReportView.less';
+import './ActivityLevelReportView.less';
 
-const DayLevelReportView = () => {
+const ActivityLevelReportView = () => {
   const { id } = useParams();
   const [session, setSession] = useState({});
   const [studentName, setStudentsName] = useState([]);
@@ -116,4 +116,4 @@ const DayLevelReportView = () => {
   );
 };
 
-export default DayLevelReportView;
+export default ActivityLevelReportView;
