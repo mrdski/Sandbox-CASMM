@@ -9,8 +9,8 @@ export default function SaveAsModal({
   studentToolbox,
   visible,
   setVisible,
-  day,
-  setDay,
+  activity,
+  setActivity,
   isSandbox,
   classroomId,
 }) {
@@ -39,17 +39,17 @@ export default function SaveAsModal({
     if (res.err) {
       message.error(res.err);
     } else {
-      let localDay = res.data;
+      let localActivity = res.data;
       // if we are on sandbox mode, set the current workspace to the saved worksapce
       if (isSandbox) {
         if (value.role === 'ContentCreator') {
           const toolboxRes = await getCCWorkspaceToolbox(res.data.id);
           if (toolboxRes.data) {
             message.success('Workspace saved successfully');
-            localDay = {
-              ...localDay,
+            localActivity = {
+              ...localActivity,
               selectedToolbox: toolboxRes.data.toolbox,
-              toolbox: day.toolbox,
+              toolbox: activity.toolbox,
             };
           } else {
             message.error(toolboxRes.err);
@@ -58,7 +58,7 @@ export default function SaveAsModal({
           message.success('Workspace saved successfully');
         }
       }
-      setDay(localDay);
+      setActivity(localActivity);
       setVisible(false);
     }
   };

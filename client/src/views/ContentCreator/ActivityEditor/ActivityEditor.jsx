@@ -2,64 +2,64 @@ import { Button, Card, Form, List, message, Modal } from "antd"
 import React, { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import {
-  createDay,
-  deleteDay,
-  getLearningStandardDays,
+  createActivity,
+  deleteActivity,
+  getLearningStandardActivities,
 } from "../../../Utils/requests"
-import DayDetailModal from "./components/DayDetailModal"
-import "./DayEditor.less"
+import ActivityDetailModal from "./components/ActivityDetailModal"
+import "./ActivityEditor.less"
 
-const DayEditor = ({ learningStandard, viewing, setViewing, page, tab }) => {
+const ActivityEditor = ({ learningStandard, viewing, setViewing, page, tab }) => {
   const [visible, setVisible] = useState(false)
-  const [dayDetailsVisible, setDayDetailsVisible] = useState(false)
-  const [days, setDays] = useState([])
-  const [selectDay, setSelectDay] = useState("")
+  const [activityDetailsVisible, setActivityDetailsVisible] = useState(false)
+  const [activities, setActivities] = useState([])
+  const [selectActivity, setSelectActivity] = useState("")
   // eslint-disable-next-line
   const [_, setSearchParams] = useSearchParams()
 
-  const showDayDetailsModal = async dayObj => {
-    setDayDetailsVisible(true)
-    setSelectDay(dayObj)
+  const showActivityDetailsModal = async activityObj => {
+    setActivityDetailsVisible(true)
+    setSelectActivity(activityObj)
   }
 
   useEffect(() => {
-    const getSavedDay = async () => {
+    const getSavedActivity = async () => {
       if (viewing && viewing === learningStandard.id) {
-        const getDayAll = await getLearningStandardDays(viewing)
-        const myDays = getDayAll.data
-        myDays.sort((a, b) => (a.number > b.number ? 1 : -1))
-        setDays([...myDays])
+        const getActivityAll = await getLearningStandardActivities(viewing)
+        const myActivities = getActivityAll.data
+        myActivities.sort((a, b) => (a.number > b.number ? 1 : -1))
+        setActivities([...myActivities])
         setVisible(true)
       }
     }
-    getSavedDay()
+    getSavedActivity()
   }, [viewing, learningStandard.id])
 
-  const addBasicDay = async () => {
-    let newDay = 1
-    if (days.length !== 0) {
-      newDay = parseInt(days[days.length - 1].number) + 1
+  const addBasicActivity = async () => {
+    let newActivity = 1
+    if (activities.length !== 0) {
+      newActivity = parseInt(activities[activities.length - 1].number) + 1
     }
 
-    const response = await createDay(newDay, learningStandard.id)
+    const response = await createActivity(newActivity, learningStandard.id)
     if (response.err) {
       message.error(response.err)
     }
-    setDays([...days, response.data])
+    setActivities([...activities, response.data])
   }
 
-  const removeBasicDay = async currDay => {
-    if (window.confirm(`Deleting Day ${currDay.number}`)) {
-      const response = await deleteDay(currDay.id)
+  const removeBasicActivity = async currActivity => {
+    if (window.confirm(`Deleting Activity ${currActivity.number}`)) {
+      const response = await deleteActivity(currActivity.id)
       if (response.err) {
         message.error(response.err)
       }
 
-      const getDayAll = await getLearningStandardDays(learningStandard.id)
-      if (getDayAll.err) {
-        message.error(getDayAll.err)
+      const getActivityAll = await getLearningStandardActivities(learningStandard.id)
+      if (getActivityAll.err) {
+        message.error(getActivityAll.err)
       }
-      setDays([...getDayAll.data])
+      setActivities([...getActivityAll.data])
     }
   }
 
@@ -79,28 +79,28 @@ const DayEditor = ({ learningStandard, viewing, setViewing, page, tab }) => {
         size="large"
       >
         <div className="list-position">
-          {days.length > 0 ? (
+          {activities.length > 0 ? (
             <div>
-              <p id="day-editor-subtitle">
-                Click on a <strong>Day</strong> to edit details and workspace
+              <p id="activity-editor-subtitle">
+                Click on a <strong>Activity</strong> to edit details and workspace
               </p>
               <List
                 grid={{ gutter: 16, column: 3 }}
                 style={{ marginTop: "2vh" }}
-                dataSource={days}
+                dataSource={activities}
                 renderItem={item => (
                   <List.Item>
                     <Card
-                      id="card-day"
+                      id="card-activity"
                       key={item.id}
-                      title={"Day " + item.number}
+                      title={"Activity " + item.number}
                       hoverable="true"
                       style={item.description ? { background: "#a6ffb3" } : {}}
-                      onClick={() => showDayDetailsModal(item)}
+                      onClick={() => showActivityDetailsModal(item)}
                     />
                     <span
                       className="delete-btn"
-                      onClick={() => removeBasicDay(item)}
+                      onClick={() => removeBasicActivity(item)}
                     >
                       &times;
                     </span>
@@ -111,7 +111,7 @@ const DayEditor = ({ learningStandard, viewing, setViewing, page, tab }) => {
           ) : null}
           <div>
             <Form
-              id="add-day"
+              id="add-activity"
               wrapperCol={{
                 span: 14,
               }}
@@ -126,12 +126,12 @@ const DayEditor = ({ learningStandard, viewing, setViewing, page, tab }) => {
                 style={{ marginBottom: "0px" }}
               >
                 <Button
-                  onClick={addBasicDay}
+                  onClick={addBasicActivity}
                   type="primary"
                   size="large"
                   className="content-creator-button"
                 >
-                  Add Day
+                  Add Activity
                 </Button>
                 <Button
                   onClick={handleCancel}
@@ -146,13 +146,13 @@ const DayEditor = ({ learningStandard, viewing, setViewing, page, tab }) => {
         </div>
       </Modal>
 
-      {dayDetailsVisible && (
-        <DayDetailModal
+      {activityDetailsVisible && (
+        <ActivityDetailModal
           learningStandard={learningStandard}
-          selectDay={selectDay}
-          dayDetailsVisible={dayDetailsVisible}
-          setDayDetailsVisible={setDayDetailsVisible}
-          setDays={setDays}
+          selectActivity={selectActivity}
+          activityDetailsVisible={activityDetailsVisible}
+          setActivityDetailsVisible={setActivityDetailsVisible}
+          setActivities={setActivities}
           viewing={viewing}
         />
       )}
@@ -160,4 +160,4 @@ const DayEditor = ({ learningStandard, viewing, setViewing, page, tab }) => {
   )
 }
 
-export default DayEditor
+export default ActivityEditor

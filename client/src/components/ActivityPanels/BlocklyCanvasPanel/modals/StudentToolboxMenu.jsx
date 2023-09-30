@@ -9,7 +9,7 @@ export default function StudentToolboxMenu(props) {
     []
   );
   const {
-    day,
+    activity,
     studentToolbox,
     setStudentToolbox,
     openedToolBoxCategories,
@@ -19,14 +19,14 @@ export default function StudentToolboxMenu(props) {
   const { SubMenu } = Menu;
 
   useEffect(() => {
-    // once the day state is set, set the workspace and save
+    // once the activity state is set, set the workspace and save
     const setUp = async () => {
       //set selected blocks in toolbox
       let tempCategories = [],
         tempToolBox = [];
-      day &&
-        day.selectedToolbox &&
-        day.selectedToolbox.forEach(([category, blocks]) => {
+      activity &&
+        activity.selectedToolbox &&
+        activity.selectedToolbox.forEach(([category, blocks]) => {
           tempCategories.push(category);
           tempToolBox = [...tempToolBox, ...blocks.map((block) => block.name)];
         });
@@ -35,16 +35,16 @@ export default function StudentToolboxMenu(props) {
       setStudentToolbox(tempToolBox);
     };
     setUp();
-  }, [day, setStudentToolbox, setOpenedToolBoxCategories]);
+  }, [activity, setStudentToolbox, setOpenedToolBoxCategories]);
 
   const handleSearchFilterChange = (value) => {
     let validCategories = [];
 
     if (value === '') {
       validCategories =
-        day &&
-        day.toolbox &&
-        day.toolbox.reduce((accume, [category, blocks]) => {
+        activity &&
+          activity.toolbox &&
+          activity.toolbox.reduce((accume, [category, blocks]) => {
           if (blocks.some((block) => studentToolbox.includes(block.name))) {
             return [...accume, category];
           } else {
@@ -53,9 +53,9 @@ export default function StudentToolboxMenu(props) {
         }, []);
     } else {
       validCategories =
-        day &&
-        day.toolbox &&
-        day.toolbox.reduce((accume, [category, blocks]) => {
+        activity &&
+          activity.toolbox &&
+          activity.toolbox.reduce((accume, [category, blocks]) => {
           if (blocks.some((block) => block.name.includes(value))) {
             return [...accume, category];
           } else {
@@ -84,9 +84,9 @@ export default function StudentToolboxMenu(props) {
     if (event.target.checked) {
       let tempToolBox = [];
       let tempCategories = [];
-      day &&
-        day.toolbox &&
-        day.toolbox.forEach(([category, blocks]) => {
+      activity &&
+      activity.toolbox &&
+      activity.toolbox.forEach(([category, blocks]) => {
           tempCategories.push(category);
           tempToolBox = [...tempToolBox, ...blocks.map((block) => block.name)];
         });
@@ -186,9 +186,9 @@ export default function StudentToolboxMenu(props) {
         >
           {
             // Maps out block categories
-            day &&
-              day.toolbox &&
-              day.toolbox.map(([category, blocks]) => (
+              activity &&
+              activity.toolbox &&
+              activity.toolbox.map(([category, blocks]) => (
                 <SubMenu
                   key={category}
                   title={

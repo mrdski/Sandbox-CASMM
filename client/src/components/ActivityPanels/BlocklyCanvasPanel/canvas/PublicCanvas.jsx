@@ -16,7 +16,7 @@ import PlotterLogo from '../Icons/PlotterLogo';
 
 let plotId = 1;
 
-export default function PublicCanvas({ day, isSandbox }) {
+export default function PublicCanvas({ activity, isSandbox }) {
   const [hoverUndo, setHoverUndo] = useState(false);
   const [hoverRedo, setHoverRedo] = useState(false);
   const [hoverCompile, setHoverCompile] = useState(false);
@@ -30,7 +30,7 @@ export default function PublicCanvas({ day, isSandbox }) {
 
   const [forceUpdate] = useReducer((x) => x + 1, 0);
   const workspaceRef = useRef(null);
-  const dayRef = useRef(null);
+  const activityRef = useRef(null);
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
@@ -39,15 +39,15 @@ export default function PublicCanvas({ day, isSandbox }) {
   };
 
   useEffect(() => {
-    // once the day state is set, set the workspace and save
+    // once the activity state is set, set the workspace and save
     const setUp = async () => {
-      dayRef.current = day;
-      if (!workspaceRef.current && day && Object.keys(day).length !== 0) {
+      activityRef.current = activity;
+      if (!workspaceRef.current && activity && Object.keys(activity).length !== 0) {
         setWorkspace();
       }
     };
     setUp();
-  }, [day]);
+  }, [activity]);
 
   const handleUndo = () => {
     if (workspaceRef.current.undoStack_.length > 0)
@@ -135,7 +135,7 @@ export default function PublicCanvas({ day, isSandbox }) {
         workspaceRef.current,
         setSelectedCompile,
         setCompileError,
-        day,
+        activity,
         false
       );
     }
@@ -291,9 +291,9 @@ export default function PublicCanvas({ day, isSandbox }) {
       <xml id='toolbox' is='Blockly workspace'>
         {
           // Maps out block categories
-          day &&
-            day.toolbox &&
-            day.toolbox.map(([category, blocks]) => (
+          activity &&
+            activity.toolbox &&
+            activity.toolbox.map(([category, blocks]) => (
               <category name={category} is='Blockly category' key={category}>
                 {
                   // maps out blocks in category

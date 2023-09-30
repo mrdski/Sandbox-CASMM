@@ -2,17 +2,17 @@ import { Button, Card, Form, List, message, Modal } from "antd"
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import {
-  createDay,
-  deleteDay,
-  getDayToolbox,
-  getDayToolboxAll,
+  createActivity,
+  deleteActivity,
+  getActivityToolbox,
+  getActivityToolboxAll,
   getLearningStandard,
 } from "../../../Utils/requests"
-import "./DayEditor.less"
+import "./ActivityEditor.less"
 
 export default function ContentCreator({ learningStandard }) {
   const [visible, setVisible] = useState(false)
-  const [days, setDay] = useState([])
+  const [activities, setActivities] = useState([])
 
   const navigate = useNavigate()
 
@@ -22,28 +22,28 @@ export default function ContentCreator({ learningStandard }) {
 
   const showModal = async () => {
     const lsResponse = await getLearningStandard(learningStandard.id)
-    const myDays = lsResponse.data.days
-    myDays.sort((a, b) => (a.number > b.number ? 1 : -1))
-    setDay([...myDays])
+    const myActivities = lsResponse.data.activities
+    myActivities.sort((a, b) => (a.number > b.number ? 1 : -1))
+    setActivities([...myActivities])
     setVisible(true)
   }
 
-  const addBasicDay = async () => {
-    let newDay = 1
-    if (days.length !== 0) {
-      newDay = parseInt(days[days.length - 1].number) + 1
+  const addBasicActivity = async () => {
+    let newActivity = 1
+    if (activities.length !== 0) {
+      newActivity = parseInt(activities[activities.length - 1].number) + 1
     }
 
-    const response = await createDay(newDay, learningStandard.id)
+    const response = await createActivity(newActivity, learningStandard.id)
     if (response.err) {
       message.error(response.err)
     }
-    setDay([...days, response.data])
+    setActivities([...activities, response.data])
   }
 
-  const removeBasicDay = async currDay => {
-    if (window.confirm(`Deleting Day ${currDay.number}`)) {
-      const response = await deleteDay(currDay.id)
+  const removeBasicActivity = async currActivity => {
+    if (window.confirm(`Deleting Activity ${currActivity.number}`)) {
+      const response = await deleteActivity(currActivity.id)
       if (response.err) {
         message.error(response.err)
       }
@@ -52,19 +52,19 @@ export default function ContentCreator({ learningStandard }) {
       if (lsResponse.err) {
         message.error(lsResponse.err)
       }
-      setDay([...lsResponse.data.days])
+      setActivities([...lsResponse.data.activities])
     }
   }
 
-  const handleViewDay = async day => {
-    const allToolBoxRes = await getDayToolboxAll()
-    const selectedToolBoxRes = await getDayToolbox(day.id)
-    day.selectedToolbox = selectedToolBoxRes.data.toolbox
-    day.toolbox = allToolBoxRes.data.toolbox
+  const handleViewActivities = async activity => {
+    const allToolBoxRes = await getActivityToolboxAll()
+    const selectedToolBoxRes = await getActivityToolbox(activity.id)
+    activity.selectedToolbox = selectedToolBoxRes.data.toolbox
+    activity.toolbox = allToolBoxRes.data.toolbox
 
-    day.learning_standard_name = learningStandard.name
-    localStorage.setItem("my-day", JSON.stringify(day))
-    navigate("/day")
+    activity.learning_standard_name = learningStandard.name
+    localStorage.setItem("my-activity", JSON.stringify(activity))
+    navigate("/activity")
   }
 
   return (
@@ -81,22 +81,22 @@ export default function ContentCreator({ learningStandard }) {
         size="large"
       >
         <div className="list-position">
-          {days.length > 0 ? (
+          {activities.length > 0 ? (
             <List
               grid={{ gutter: 16, column: 3 }}
-              dataSource={days}
+              dataSource={activities}
               renderItem={item => (
                 <List.Item>
                   <Card
-                    id="card-day"
+                    id="card-activity"
                     key={item.id}
-                    title={"Day " + item.number}
+                    title={"Activity " + item.number}
                     hoverable={true}
-                    onClick={() => handleViewDay(item)}
+                    onClick={() => handleViewActivities(item)}
                   />
                   <span
                     className="delete-btn"
-                    onClick={() => removeBasicDay(item)}
+                    onClick={() => removeBasicActivity(item)}
                   >
                     &times;
                   </span>
@@ -106,15 +106,15 @@ export default function ContentCreator({ learningStandard }) {
           ) : null}
           <div>
             <Form
-              id="add-day"
+              id="add-activity"
               wrapperCol={{
                 span: 14,
               }}
               layout="horizontal"
               size="default"
             >
-              <Button onClick={addBasicDay} type="primary">
-                Add Day
+              <Button onClick={addBasicActivity} type="primary">
+                Add Activity
               </Button>
             </Form>
           </div>

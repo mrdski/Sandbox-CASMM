@@ -2,12 +2,12 @@ import { Button, Form, Input, message, Modal } from "antd"
 import React, { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import {
-  createDay,
+  createActivity,
   createLearningStandard,
   getAllUnits,
   getLearningStandardAll,
 } from "../../../Utils/requests"
-import DayEditor from "../DayEditor/DayEditor"
+import ActivityEditor from "../ActivityEditor/ActivityEditor"
 import "./LearningStandardCreator.less"
 
 export default function LearningStandardCreator({
@@ -20,7 +20,7 @@ export default function LearningStandardCreator({
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [unit, setUnit] = useState("")
-  const [numofDays, setNumofDays] = useState("")
+  const [numOfActivityLevels, setNumOfActivityLevels] = useState("")
   const [teks, setTeks] = useState("")
   const [link, setLink] = useState("")
   const [linkError, setLinkError] = useState(false)
@@ -46,7 +46,7 @@ export default function LearningStandardCreator({
     setTeks("")
     setLink("")
     setLinkError(false)
-    setNumofDays("")
+    setNumOfActivityLevels("")
     setVisible(true)
   }
 
@@ -75,10 +75,10 @@ export default function LearningStandardCreator({
     if (res.err) {
       message.error("Fail to create new learning standard")
     } else {
-      for (let i = 1; i <= numofDays; i++) {
-        const dayRes = await createDay(i, res.data)
-        if (dayRes.err) {
-          message.error("Fail to create days")
+      for (let i = 1; i <= numOfActivityLevels; i++) {
+        const activityRes = await createActivity(i, res.data)
+        if (activityRes.err) {
+          message.error("Fail to create activities")
         }
       }
       message.success("Successfully created lesson")
@@ -91,7 +91,7 @@ export default function LearningStandardCreator({
       found = Math.ceil(found / 10)
       // set the history so that modal will reopen when
       // user comes back from workspace
-      setSearchParams({ tab: "home", day: res.data.id })
+      setSearchParams({ tab: "home", activity: res.data.id })
 
       setViewing(res.data.id)
       setVisible(false)
@@ -158,14 +158,14 @@ export default function LearningStandardCreator({
               placeholder="Enter lesson name"
             />
           </Form.Item>
-          <Form.Item label="Number of Days">
+          <Form.Item label="Number of Activities">
             <Input
               onChange={e => {
-                setNumofDays(e.target.value)
+                setNumOfActivityLevels(e.target.value)
               }}
               required
-              value={numofDays}
-              placeholder="Enter number of days"
+              value={numOfActivityLevels}
+              placeholder="Enter number of activities"
               type="number"
               min={1}
               max={10}
@@ -230,7 +230,7 @@ export default function LearningStandardCreator({
       </Modal>
 
       {!visible ? (
-        <DayEditor
+        <ActivityEditor
           learningStandard={learningStandardObj}
           viewing={viewing}
           setViewing={setViewing}

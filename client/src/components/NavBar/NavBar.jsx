@@ -64,7 +64,7 @@ export default function NavBar() {
         <Menu.Item
           key='4'
           onClick={() => {
-            localStorage.removeItem('sandbox-day');
+            localStorage.removeItem('sandbox-activity');
             handleRouteChange(routes.Sandbox);
           }}
         >

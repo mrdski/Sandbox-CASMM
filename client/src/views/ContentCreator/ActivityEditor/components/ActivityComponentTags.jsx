@@ -1,7 +1,7 @@
 import { Input, Tag } from "antd"
 import React, { useState } from "react"
 
-const DayComponentTags = ({ components, setComponents, colorOffset }) => {
+const ActivityComponentTags = ({ components, setComponents, colorOffset }) => {
   const [inputVisible, setInputVisible] = useState(false)
   const [inputValue, setInputValue] = useState("")
 
@@ -72,4 +72,4 @@ const DayComponentTags = ({ components, setComponents, colorOffset }) => {
   )
 }
 
-export default DayComponentTags
+export default ActivityComponentTags

@@ -5,7 +5,7 @@ import './LearningStandardSelect.less';
 import {
   getLearningStandard,
   getUnits,
-  getLearningStandardDays,
+  getLearningStandardActivities,
 } from '../../../../../Utils/requests';
 import CheckUnits from './CheckUnits';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -16,8 +16,8 @@ export default function LearningStandardSelect({
   activePanel,
   setActivePanel,
   gradeId,
-  days,
-  setDays,
+  activities,
+  setActivities,
 }) {
   const [searchOptions, setSearchOptions] = useState([]);
   const [units, setUnits] = useState([]);
@@ -58,10 +58,10 @@ export default function LearningStandardSelect({
     } else {
       message.error(res.err);
     }
-    const daysRes = await getLearningStandardDays(res.data.id);
-    if (daysRes) setDays(daysRes.data);
+    const activitiresRes = await getLearningStandardActivities(res.data.id);
+    if (activitiresRes) setActivities(activitiresRes.data);
     else {
-      message.error(daysRes.err);
+      message.error(activitiresRes.err);
     }
   };
 
@@ -110,10 +110,10 @@ export default function LearningStandardSelect({
       : setVisibleStandardsByUnit(units);
   };
 
-  const handleViewDay = (day) => {
-    day.learning_standard_name = selected.name;
-    localStorage.setItem('my-day', JSON.stringify(day));
-    navigator('/day');
+  const handleViewActivity = (activity) => {
+    activity.learning_standard_name = selected.name;
+    localStorage.setItem('my-activity', JSON.stringify(activity));
+    navigator('/activity');
   };
 
   const handleBack = () => {
@@ -204,29 +204,29 @@ export default function LearningStandardSelect({
             </p>
           ) : null}
           <div id='btn-container' className='flex space-between'>
-            {days
-              ? days.map((day) => (
-                  // <button key={day.id} onClick={() => handleViewDay(day)}>{`View Day ${day.number}`}</button>
-                  <div id='view-day-button' key={day.id}>
+            {activities
+              ? activities.map((activity) => (
+                  // <button key={activity.id} onClick={() => handleViewActivity(activity)}>{`View Activity ${activity.number}`}</button>
+                  <div id='view-activity-button' key={activity.id}>
                     <h3
-                      onClick={() => handleViewDay(day)}
-                      id='view-day-title'
-                    >{`View Day ${day.number}`}</h3>
-                    <div id='view-day-description'>
+                      onClick={() => handleViewActivity(activity)}
+                      id='view-activity-title'
+                    >{`View Activity ${activity.number}`}</h3>
+                    <div id='view-activity-description'>
                       <p
-                        className='view-day-component-label'
+                        className='view-activity-component-label'
                         style={{ marginTop: '0px' }}
                       >
-                        <strong>TEKS:</strong> {day.TekS}
+                        <strong>TEKS:</strong> {activity.TekS}
                       </p>
-                      <p className='view-day-component-label'>
-                        <strong>Description:</strong> {day.description}
+                      <p className='view-activity-component-label'>
+                        <strong>Description:</strong> {activity.description}
                       </p>
-                      <p className='view-day-component-label'>
+                      <p className='view-activity-component-label'>
                         <strong>Science Components: </strong>
                       </p>
                       <div>
-                        {day.learning_components
+                        {activity.learning_components
                           .filter(
                             (component) =>
                               component.learning_component_type === SCIENCE
@@ -243,11 +243,11 @@ export default function LearningStandardSelect({
                             );
                           })}
                       </div>
-                      <p className='view-day-component-label'>
+                      <p className='view-activity-component-label'>
                         <strong>Making Components: </strong>
                       </p>
                       <div>
-                        {day.learning_components
+                        {activity.learning_components
                           .filter(
                             (component) =>
                               component.learning_component_type === MAKING
@@ -264,11 +264,11 @@ export default function LearningStandardSelect({
                             );
                           })}
                       </div>
-                      <p className='view-day-component-label'>
+                      <p className='view-activity-component-label'>
                         <strong>Computation Components: </strong>
                       </p>
                       <div>
-                        {day.learning_components
+                        {activity.learning_components
                           .filter(
                             (component) =>
                               component.learning_component_type === COMPUTATION
@@ -285,11 +285,11 @@ export default function LearningStandardSelect({
                             );
                           })}
                       </div>
-                      {day.link ? (
-                        <p className='view-day-component-label'>
+                      {activity.link ? (
+                        <p className='view-activity-component-label'>
                           <strong>Link to Additional Information: </strong>
-                          <a href={day.link} target='_blank' rel='noreferrer'>
-                            {day.link}
+                          <a href={activity.link} target='_blank' rel='noreferrer'>
+                            {activity.link}
                           </a>
                         </p>
                       ) : null}

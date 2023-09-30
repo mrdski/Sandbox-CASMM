@@ -64,14 +64,14 @@ const ActivityLevelReportView = () => {
     <div className='container nav-padding'>
       <NavBar />
       <div className='menu-bar'>
-        <div id='day-level-report-header'>Day Level - Student Report</div>
+        <div id='activity-level-report-header'>Activity Level - Student Report</div>
         <button
-          id={'day-level-return'}
+          id={'activity-level-return'}
           className={`btn-${'primary'} btn-${'sm'}`}
           type='button'
           onClick={() => navigate(-1)}
         >
-          Return to Day Level
+          Return to Activity Level
         </button>
       </div>
 

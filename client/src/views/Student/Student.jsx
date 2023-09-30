@@ -25,9 +25,9 @@ function Student() {
     fetchData();
   }, []);
 
-  const handleSelection = (day) => {
-    day.learning_standard_name = learningStandard.name;
-    localStorage.setItem('my-day', JSON.stringify(day));
+  const handleSelection = (activity) => {
+    activity.learning_standard_name = learningStandard.name;
+    localStorage.setItem('my-activity', JSON.stringify(activity));
 
     navigate('/workspace');
   };
@@ -37,19 +37,19 @@ function Student() {
       <NavBar />
       <div id='activity-container'>
         <div id='header'>
-          <div>Select your Day</div>
+          <div>Select your Activity</div>
         </div>
         <ul>
-          {learningStandard.days ? (
-            learningStandard.days
-              .sort((day1, day2) => day1.number - day2.number)
-              .map((day) => ( 
+          {learningStandard.activities ? (
+            learningStandard.activities
+              .sort((activity1, activity2) => activity1.number - activity2.number)
+              .map((activity) => (
                 <div
-                  key={day.id}
+                  key={activity.id}
                   id='list-item-wrapper'
-                  onClick={() => handleSelection(day)}
+                  onClick={() => handleSelection(activity)}
                 >
-                  <li>{`${learningStandard.name}: Day ${day.number}`}</li>
+                  <li>{`${learningStandard.name}: Activity ${activity.number}`}</li>
                 </div>
               ))
           ) : (

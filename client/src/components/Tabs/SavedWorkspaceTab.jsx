@@ -61,7 +61,7 @@ export default function SavedWorkSpaceTab({searchParams, setSearchParams, classr
           render: (_, key) => (
             <Link
               onClick={() =>
-                localStorage.setItem('sandbox-day', JSON.stringify(key))
+                localStorage.setItem('sandbox-activity', JSON.stringify(key))
               }
               to={'/sandbox'}
             >

@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router-dom';
 
 let plotId = 1;
 
-export default function StudentCanvas({ day }) {
+export default function StudentCanvas({ activity }) {
   const [hoverSave, setHoverSave] = useState(false);
   const [hoverUndo, setHoverUndo] = useState(false);
   const [hoverRedo, setHoverRedo] = useState(false);
@@ -39,7 +39,7 @@ export default function StudentCanvas({ day }) {
   const [forceUpdate] = useReducer((x) => x + 1, 0);
   const navigate = useNavigate();
   const workspaceRef = useRef(null);
-  const dayRef = useRef(null);
+  const activityRef = useRef(null);
 
   const replayRef = useRef([]);
   const clicks = useRef(0);
@@ -53,7 +53,7 @@ export default function StudentCanvas({ day }) {
 
   const loadSave = (selectedSave) => {
     try {
-      let toLoad = day.template;
+      let toLoad = activity.template;
       if (selectedSave !== -1) {
         if (lastAutoSave && selectedSave === -2) {
           toLoad = lastAutoSave.workspace;
@@ -158,9 +158,9 @@ export default function StudentCanvas({ day }) {
   useEffect(() => {
     // automatically save workspace every min
     let autosaveInterval = setInterval(async () => {
-      if (workspaceRef.current && dayRef.current) {
+      if (workspaceRef.current && activityRef.current) {
         const res = await handleSave(
-          dayRef.current.id,
+          activityRef.current.id,
           workspaceRef,
           replayRef.current
         );
@@ -178,14 +178,14 @@ export default function StudentCanvas({ day }) {
   }, []);
 
   useEffect(() => {
-    // once the day state is set, set the workspace and save
+    // once the activity state is set, set the workspace and save
     const setUp = async () => {
-      dayRef.current = day;
-      if (!workspaceRef.current && day && Object.keys(day).length !== 0) {
+      activityRef.current = activity;
+      if (!workspaceRef.current && activity && Object.keys(activity).length !== 0) {
         setWorkspace();
 
         let onLoadSave = null;
-        const res = await getSaves(day.id);
+        const res = await getSaves(activity.id);
         if (res.data) {
           if (res.data.current) onLoadSave = res.data.current;
           setSaves(res.data);
@@ -198,8 +198,8 @@ export default function StudentCanvas({ day }) {
           window.Blockly.Xml.domToWorkspace(xml, workspaceRef.current);
           replayRef.current = onLoadSave.replay;
           setLastSavedTime(getFormattedDate(onLoadSave.updated_at));
-        } else if (day.template) {
-          let xml = window.Blockly.Xml.textToDom(day.template);
+        } else if (activity.template) {
+          let xml = window.Blockly.Xml.textToDom(activity.template);
           window.Blockly.Xml.domToWorkspace(xml, workspaceRef.current);
         }
 
@@ -208,12 +208,12 @@ export default function StudentCanvas({ day }) {
       }
     };
     setUp();
-  }, [day]);
+  }, [activity]);
 
   const handleManualSave = async () => {
     // save workspace then update load save options
     pushEvent('save');
-    const res = await handleSave(day.id, workspaceRef, replayRef.current);
+    const res = await handleSave(activity.id, workspaceRef, replayRef.current);
     if (res.err) {
       message.error(res.err);
     } else {
@@ -221,7 +221,7 @@ export default function StudentCanvas({ day }) {
       message.success('Workspace saved successfully.');
     }
 
-    const savesRes = await getSaves(day.id);
+    const savesRes = await getSaves(activity.id);
     if (savesRes.data) setSaves(savesRes.data);
   };
 
@@ -316,7 +316,7 @@ export default function StudentCanvas({ day }) {
         workspaceRef.current,
         setSelectedCompile,
         setCompileError,
-        day,
+        activity,
         true
       );
       pushEvent('compile');
@@ -364,7 +364,7 @@ export default function StudentCanvas({ day }) {
           >
             <Row id='icon-control-panel'>
               <Col flex='none' id='section-header'>
-                {day.learning_standard_name}
+                {activity.learning_standard_name}
               </Col>
               <Col flex='auto'>
                 <Row align='middle' justify='end' id='description-container'>
@@ -388,7 +388,7 @@ export default function StudentCanvas({ day }) {
                         <VersionHistoryModal
                           saves={saves}
                           lastAutoSave={lastAutoSave}
-                          defaultTemplate={day}
+                          defaultTemplate={activity}
                           getFormattedDate={getFormattedDate}
                           loadSave={loadSave}
                           pushEvent={pushEvent}
@@ -473,7 +473,7 @@ export default function StudentCanvas({ day }) {
                         </div>
                       )}
                     <DisplayDiagramModal
-                      image={day.images}
+                      image={activity.images}
                     />
                       <i
                         onClick={() => handleConsole()}
@@ -518,9 +518,9 @@ export default function StudentCanvas({ day }) {
       <xml id='toolbox' is='Blockly workspace'>
         {
           // Maps out block categories
-          day &&
-            day.toolbox &&
-            day.toolbox.map(([category, blocks]) => (
+          activity &&
+            activity.toolbox &&
+            activity.toolbox.map(([category, blocks]) => (
               <category name={category} is='Blockly category' key={category}>
                 {
                   // maps out blocks in category

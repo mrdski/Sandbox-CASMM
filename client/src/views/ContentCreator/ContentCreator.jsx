@@ -5,7 +5,7 @@ import Navbar from '../../components/NavBar/NavBar';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import SavedWorkSpaceTab from '../../components/Tabs/SavedWorkspaceTab';
 import UnitCreator from './UnitCreator/UnitCreator';
-import LearningStandardDayCreator from './LearningStandardCreator/LearningStandardCreator';
+import LearningStandardActivityCreator from './LearningStandardCreator/LearningStandardCreator';
 import {
   getLearningStandardAll,
   deleteLearningStandard,
@@ -30,7 +30,7 @@ export default function ContentCreator() {
   const [page, setPage] = useState(
     searchParams.has('page') ? parseInt(searchParams.get('page')) : 1
   );
-  const [viewing, setViewing] = useState(parseInt(searchParams.get('day')));
+  const [viewing, setViewing] = useState(parseInt(searchParams.get('activity')));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -131,7 +131,7 @@ export default function ContentCreator() {
         <div id='content-creator-table-container'>
           <div id='content-creator-btn-container'>
             <UnitCreator gradeList={gradeList} />
-            <LearningStandardDayCreator />
+            <LearningStandardActivityCreator />
           </div>
           <Table
             columns={columns}
@@ -171,7 +171,7 @@ export default function ContentCreator() {
           <div id='content-creator-table-container'>
             <div id='content-creator-btn-container'>
               <UnitCreator gradeList={gradeList} />
-              <LearningStandardDayCreator
+              <LearningStandardActivityCreator
                 setLearningStandardList={setLearningStandardList}
                 viewing={viewing}
                 setViewing={setViewing}

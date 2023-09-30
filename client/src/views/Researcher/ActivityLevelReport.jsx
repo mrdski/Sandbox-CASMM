@@ -205,7 +205,7 @@ const ActivityLevelReport = () => {
       width: '2%',
       align: 'right',
       render: (_, session) => (
-        <Link to={`/daylevel/${session.id}`}>View Report</Link>
+        <Link to={`/activityLevel/${session.id}`}>View Report</Link>
       ),
     },
   ];
@@ -214,10 +214,10 @@ const ActivityLevelReport = () => {
     <div className='container nav-padding'>
       <NavBar />
       <div className='menu-bar'>
-        <div id='day-level-report-header'>Day Level - Student Report</div>
+        <div id='activity-level-report-header'>Activity Level - Student Report</div>
 
         <button
-          className='day-level-return'
+          className='activity-level-return'
           onClick={() => navigate('/report')}
         >
           Return to Dashboard
@@ -241,7 +241,7 @@ const ActivityLevelReport = () => {
           <Filter setSearchParam={setSearchParam} paramObj={paramObj} />
         </div>
       )}
-      <main id='day-report-content-wrapper'>
+      <main id='activity-report-content-wrapper'>
         <Table
           columns={columns}
           dataSource={sessions}
@@ -441,7 +441,7 @@ const Filter = ({ setSearchParam, paramObj }) => {
         <br />
         <Button
           type='secondary'
-          className='day-level-submit'
+          className='activity-level-submit'
           htmlType='submit'
           size='large'
         >
