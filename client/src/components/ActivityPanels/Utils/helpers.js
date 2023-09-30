@@ -2,7 +2,7 @@ import {
   createSubmission,
   getSubmission,
   saveWorkspace,
-  updateDayTemplate,
+  updateActivityLevelTemplate,
   createCCWorkspace,
   updateCCWorkspace,
   updateActivityTemplate,
@@ -14,10 +14,10 @@ const AvrboyArduino = window.AvrgirlArduino;
 export const setLocalSandbox = (workspaceRef) => {
   let workspaceDom = window.Blockly.Xml.workspaceToDom(workspaceRef);
   let workspaceText = window.Blockly.Xml.domToText(workspaceDom);
-  const localActivity = JSON.parse(localStorage.getItem('sandbox-day'));
+  const localActivity = JSON.parse(localStorage.getItem('sandbox-activity'));
 
   let lastActivity = { ...localActivity, template: workspaceText };
-  localStorage.setItem('sandbox-day', JSON.stringify(lastActivity));
+  localStorage.setItem('sandbox-activity', JSON.stringify(lastActivity));
 };
 
 // Generates xml from blockly canvas
@@ -57,7 +57,7 @@ export const compileArduinoCode = async (
   workspaceRef,
   setSelectedCompile,
   setCompileError,
-  day,
+  activity,
   isStudent
 ) => {
   setSelectedCompile(true);
@@ -66,7 +66,7 @@ export const compileArduinoCode = async (
   let workspaceText = window.Blockly.Xml.domToText(workspaceDom);
   let path;
   isStudent ? (path = '/submissions') : (path = '/sandbox/submission');
-  let id = isStudent ? day.id : undefined;
+  let id = isStudent ? activity.id : undefined;
 
   // create an initial submission
   const initialSubmission = await createSubmission(
@@ -186,24 +186,24 @@ const flashArduino = async (response, setSelectedCompile, setCompileError) => {
 };
 
 // save current workspace
-export const handleSave = async (dayId, workspaceRef, replay) => {
+export const handleSave = async (activityId, workspaceRef, replay) => {
   let xml = window.Blockly.Xml.workspaceToDom(workspaceRef.current);
   let xml_text = window.Blockly.Xml.domToText(xml);
-  return await saveWorkspace(dayId, xml_text, replay);
+  return await saveWorkspace(activityId, xml_text, replay);
 };
 
-export const handleCreatorSaveDay = async (dayId, workspaceRef, blocksList) => {
+export const handleCreatorSaveActivityLevel = async (activityId, workspaceRef, blocksList) => {
   let xml = window.Blockly.Xml.workspaceToDom(workspaceRef.current);
   let xml_text = window.Blockly.Xml.domToText(xml);
 
-  return await updateDayTemplate(dayId, xml_text, blocksList);
+  return await updateActivityLevelTemplate(activityId, xml_text, blocksList);
 };
 
-export const handleCreatorSaveActivity = async (dayId, workspaceRef) => {
+export const handleCreatorSaveActivity = async (activityId, workspaceRef) => {
   let xml = window.Blockly.Xml.workspaceToDom(workspaceRef.current);
   let xml_text = window.Blockly.Xml.domToText(xml);
 
-  return await updateActivityTemplate(dayId, xml_text);
+  return await updateActivityTemplate(activityId, xml_text);
 };
 
 export const handleSaveAsWorkspace = async (

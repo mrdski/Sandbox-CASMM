@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useReducer } from 'react';
-import '../../DayPanels.less';
+import '../../ActivityLevels.less';
 import { compileArduinoCode, handleSave } from '../../Utils/helpers';
 import { message, Spin, Row, Col, Alert, Dropdown, Menu } from 'antd';
 import { getSaves } from '../../../../Utils/requests';

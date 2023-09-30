@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useReducer } from 'react';
 import { Link } from 'react-router-dom';
-import '../../DayPanels.less';
+import '../../ActivityLevels.less';
 import { compileArduinoCode } from '../../Utils/helpers';
 import { message, Spin, Row, Col, Alert, Menu, Dropdown } from 'antd';
 import CodeModal from '../modals/CodeModal';

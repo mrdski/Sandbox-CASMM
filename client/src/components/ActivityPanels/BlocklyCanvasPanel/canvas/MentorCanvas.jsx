@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../DayPanels.less';
-import { compileArduinoCode, handleUpdateWorkspace,  handleCreatorSaveDay, handleCreatorSaveActivity } from '../../Utils/helpers';
+import '../../ActivityLevels.less';
+import { compileArduinoCode, handleUpdateWorkspace,  handleCreatorSaveActivityLevel, handleCreatorSaveActivity } from '../../Utils/helpers';
 import { message, Spin, Row, Col, Alert, Menu, Dropdown } from 'antd';
 import CodeModal from '../modals/CodeModal';
 import ConsoleModal from '../modals/ConsoleModal';
@@ -223,7 +223,7 @@ export default function MentorCanvas({ day, isSandbox, setDay,  isMentorActivity
     // Save day template
 
     if (!isSandbox && !isMentorActivity) {
-      const res = await handleCreatorSaveDay(
+      const res = await handleCreatorSaveActivityLevel(
         day.id,
         workspaceRef,
         studentToolbox

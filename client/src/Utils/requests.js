@@ -330,7 +330,7 @@ export const deleteStudent = async (student) =>
     error: 'Failed to delete student.',
   });
 
-export const updateDayTemplate = async (id, workspace, blocksList) =>
+export const updateActivityLevelTemplate = async (id, workspace, blocksList) =>
   makeRequest({
     method: PUT,
     path: `${server}/days/template/${id}`,

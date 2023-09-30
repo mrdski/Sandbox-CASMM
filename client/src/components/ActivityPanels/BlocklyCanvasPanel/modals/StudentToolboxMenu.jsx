@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../../DayPanels.less';
+import '../../ActivityLevels.less';
 import { Menu, Checkbox, Input, Switch } from 'antd';
 
 export default function StudentToolboxMenu(props) {

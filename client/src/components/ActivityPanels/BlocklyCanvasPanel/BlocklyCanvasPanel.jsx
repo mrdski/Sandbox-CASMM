@@ -5,30 +5,30 @@ import MentorCanvas from './canvas/MentorCanvas';
 import ContentCreatorCanvas from './canvas/ContentCreatorCanvas';
 import { useGlobalState } from '../../../Utils/userState';
 
-const BlocklyCanvasPanel = ({ day, isSandbox, setDay }) => {
+const BlocklyCanvasPanel = ({ activity, isSandbox, setActivity }) => {
   const [value] = useGlobalState('currUser');
 
   const userRole = value.role;
 
   switch (userRole) {
     case 'DefaultUser':
-      return <PublicCanvas day={day} isSandbox={isSandbox} />;
+      return <PublicCanvas activity={activity} isSandbox={isSandbox} />;
     case 'Student':
-      return <StudentCanvas day={day} />;
+      return <StudentCanvas activity={activity} />;
     case 'Mentor':
-      return <MentorCanvas 
-      day={day}
-      setDay={setDay}
+      return <MentorCanvas
+      activity={activity}
+      setActivity={setActivity}
       isSandbox={isSandbox}
-      isMentorActivity={!day.selectedToolbox && !isSandbox}
+      isMentorActivity={!activity.selectedToolbox && !isSandbox}
       />;
     case 'ContentCreator':
       return (
         <ContentCreatorCanvas
-          day={day}
-          setDay={setDay}
+          activity={activity}
+          setActivity={setActivity}
           isSandbox={isSandbox}
-          isMentorActivity={!day.selectedToolbox && !isSandbox}
+          isMentorActivity={!activity.selectedToolbox && !isSandbox}
         />
       );
     default:

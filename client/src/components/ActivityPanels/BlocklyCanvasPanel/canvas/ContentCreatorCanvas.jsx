@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState, useReducer } from 'react';
-import '../../DayPanels.less';
+import '../../ActivityLevels.less';
 import {
   compileArduinoCode,
   handleCreatorSaveActivity,
-  handleCreatorSaveDay,
+  handleCreatorSaveActivityLevel,
   handleUpdateWorkspace,
 } from '../../Utils/helpers';
 import { message, Spin, Row, Col, Alert, Dropdown, Menu } from 'antd';
@@ -30,9 +30,9 @@ import { useNavigate } from 'react-router-dom';
 let plotId = 1;
 
 export default function ContentCreatorCanvas({
-  day,
+  activity,
   isSandbox,
-  setDay,
+  setActivity,
   isMentorActivity,
 }) {
   const [hoverUndo, setHoverUndo] = useState(false);
@@ -52,7 +52,7 @@ export default function ContentCreatorCanvas({
   const navigate = useNavigate();
   const [forceUpdate] = useReducer((x) => x + 1, 0);
   const workspaceRef = useRef(null);
-  const dayRef = useRef(null);
+  const activityRef = useRef(null);
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
@@ -96,12 +96,12 @@ export default function ContentCreatorCanvas({
         const toolboxRes = await getCCWorkspaceToolbox(res.data.id);
         if (toolboxRes.data) {
           //update localstorage
-          let localDay = {
+          let localActivity = {
             ...res.data,
             selectedToolbox: toolboxRes.data.toolbox,
-            toolbox: day.toolbox,
+            toolbox: activity.toolbox,
           };
-          setDay(localDay);
+          setActivity(localActivity);
         }
       }
       return true;
@@ -121,38 +121,38 @@ export default function ContentCreatorCanvas({
   };
 
   useEffect(() => {
-    // once the day state is set, set the workspace and save
+    // once the activity state is set, set the workspace and save
     const setUp = async () => {
-      dayRef.current = day;
-      if (!workspaceRef.current && day && Object.keys(day).length !== 0) {
+      activityRef.current = activity;
+      if (!workspaceRef.current && activity && Object.keys(activity).length !== 0) {
         setWorkspace();
 
         let xml = isMentorActivity
-          ? window.Blockly.Xml.textToDom(day.activity_template)
-          : window.Blockly.Xml.textToDom(day.template);
+          ? window.Blockly.Xml.textToDom(activity.activity_template)
+          : window.Blockly.Xml.textToDom(activity.template);
         window.Blockly.Xml.domToWorkspace(xml, workspaceRef.current);
         workspaceRef.current.clearUndo();
       }
     };
     setUp();
-  }, [day, isSandbox]);
+  }, [activity, isSandbox]);
 
   const handleCreatorSave = async () => {
-    // Save day template
+    // Save activity template
     if (!isSandbox && !isMentorActivity) {
-      const res = await handleCreatorSaveDay(
-        day.id,
+      const res = await handleCreatorSaveActivityLevel(
+        activity.id,
         workspaceRef,
         studentToolbox
       );
       if (res.err) {
         message.error(res.err);
       } else {
-        message.success('Day Template saved successfully');
+        message.success('Activity Template saved successfully');
       }
     } else if (!isSandbox && isMentorActivity) {
       // Save activity template
-      const res = await handleCreatorSaveActivity(day.id, workspaceRef);
+      const res = await handleCreatorSaveActivity(activity.id, workspaceRef);
       if (res.err) {
         message.error(res.err);
       } else {
@@ -160,9 +160,9 @@ export default function ContentCreatorCanvas({
       }
     } else {
       // if we already have the workspace in the db, just update it.
-      if (day && day.id) {
+      if (activity && activity.id) {
         const updateRes = await handleUpdateWorkspace(
-          day.id,
+          activity.id,
           workspaceRef,
           studentToolbox
         );
@@ -265,7 +265,7 @@ export default function ContentCreatorCanvas({
         workspaceRef.current,
         setSelectedCompile,
         setCompileError,
-        day,
+        activity,
         false
       );
     }
@@ -282,8 +282,8 @@ export default function ContentCreatorCanvas({
         setVisible={setShowSaveAsModal}
         workspaceRef={workspaceRef}
         studentToolbox={studentToolbox}
-        day={day}
-        setDay={setDay}
+        activity={activity}
+        setActivity={setActivity}
         isSandbox={isSandbox}
       />
       <LoadWorkspaceModal loadSave={loadSave} />
@@ -318,12 +318,12 @@ export default function ContentCreatorCanvas({
           >
             <Row id='icon-control-panel'>
               <Col flex='none' id='section-header'>
-                {day.learning_standard_name
-                  ? `${day.learning_standard_name} - Day ${day.number} - ${
-                      isMentorActivity ? 'Activity' : 'Day'
+                {activity.learning_standard_name
+                  ? `${activity.learning_standard_name} - Activity ${activity.number} - ${
+                      isMentorActivity ? 'Activity' : 'Activity Level'
                     } Template`
-                  : day.name
-                  ? `Workspace: ${day.name}`
+                  : activity.name
+                  ? `Workspace: ${activity.name}`
                   : 'New Workspace!'}
               </Col>
               <Col flex='auto'>
@@ -411,7 +411,7 @@ export default function ContentCreatorCanvas({
                           </div>
                         )}
                   <DisplayDiagramModal
-                      image={day.images}
+                      image={activity.images}
                     />
                         <i
                           onClick={() => handleConsole()}
@@ -439,7 +439,7 @@ export default function ContentCreatorCanvas({
         </div>
         {!isMentorActivity && (
           <StudentToolboxMenu
-            day={day}
+            activity={activity}
             studentToolbox={studentToolbox}
             setStudentToolbox={setStudentToolbox}
             openedToolBoxCategories={openedToolBoxCategories}
@@ -465,9 +465,9 @@ export default function ContentCreatorCanvas({
       <xml id='toolbox' is='Blockly workspace'>
         {
           // Maps out block categories
-          day &&
-            day.toolbox &&
-            day.toolbox.map(([category, blocks]) => (
+          activity &&
+            activity.toolbox &&
+            activity.toolbox.map(([category, blocks]) => (
               <category name={category} is='Blockly category' key={category}>
                 {
                   // maps out blocks in category

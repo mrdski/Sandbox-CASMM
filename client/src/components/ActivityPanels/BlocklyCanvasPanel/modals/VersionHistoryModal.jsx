@@ -1,6 +1,6 @@
 import { Modal, Button } from 'antd';
 import React, { useState } from 'react';
-import '../../DayPanels.less';
+import '../../ActivityLevels.less';
 
 export default function VersionHistoryModal(props) {
   const [visible, setVisible] = useState(false);
