@@ -20,8 +20,8 @@ import {
   handleOpenConnection,
 } from '../../Utils/consoleHelpers';
 import {
-  getCCWorkspace,
-  getCCWorkspaceToolbox,
+  getAuthorizedWorkspace,
+  getAuthorizedWorkspaceToolbox,
 } from '../../../../Utils/requests';
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
@@ -62,7 +62,7 @@ export default function ContentCreatorCanvas({
 
   const loadSave = async (workspaceId) => {
     // get the corresponding workspace
-    const res = await getCCWorkspace(workspaceId);
+    const res = await getAuthorizedWorkspace(workspaceId);
     if (res.data) {
       // set up the canvas
       if (workspaceRef.current) workspaceRef.current.clear();
@@ -72,7 +72,7 @@ export default function ContentCreatorCanvas({
       // if we are not in sandbox mode, only the canvas will be changed.
       // set the toolbox here
       if (!isSandbox) {
-        const toolboxRes = await getCCWorkspaceToolbox(workspaceId);
+        const toolboxRes = await getAuthorizedWorkspaceToolbox(workspaceId);
         if (toolboxRes.data) {
           let tempCategories = [],
             tempToolBox = [];
@@ -93,7 +93,7 @@ export default function ContentCreatorCanvas({
       // else if we are in sandbox, we will change the current workspace to the loaded worksapce
       else {
         // set up the student toolbox
-        const toolboxRes = await getCCWorkspaceToolbox(res.data.id);
+        const toolboxRes = await getAuthorizedWorkspaceToolbox(res.data.id);
         if (toolboxRes.data) {
           //update localstorage
           let localActivity = {

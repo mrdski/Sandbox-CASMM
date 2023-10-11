@@ -33,27 +33,27 @@ module.exports = {
 
     workspace.classroom = classroom;
 
-    const createdWorkspace = await strapi.services['cc-workspace'].create(
+    const createdWorkspace = await strapi.services['authorized-workspace'].create(
       workspace
     );
     return sanitizeEntity(createdWorkspace, {
-      model: strapi.models['cc-workspace'],
+      model: strapi.models['authorized-workspace'],
     });
   },
 
   // overload the find to only return workspaces that don't belong to any classrooms
   async find(ctx){
-    const workspaces = await strapi.services['cc-workspace'].find({classroom_null: true});
+    const workspaces = await strapi.services['authorized-workspace'].find({classroom_null: true});
     return workspaces;
   },
   // Update workspace template and block list
   async update(ctx) {
     // find the activity
     const { id } = ctx.params;
-    let workspace = await strapi.services['cc-workspace'].findOne({ id: id });
+    let workspace = await strapi.services['authorized-workspace'].findOne({ id: id });
     if (!workspace)
       return ctx.notFound('Invalid workspace id', {
-        id: 'cc-workspace.id.invalid',
+        id: 'authorized-workspace.id.invalid',
         error: 'ValidationError',
       });
 
@@ -69,12 +69,12 @@ module.exports = {
     }
     workspace.blocks = friendlyBlocks;
 
-    const updatedWorkspace = await strapi.services['cc-workspace'].update(
+    const updatedWorkspace = await strapi.services['authorized-workspace'].update(
       { id: id },
       workspace
     );
     return sanitizeEntity(updatedWorkspace, {
-      model: strapi.models['cc-workspace'],
+      model: strapi.models['authorized-workspace'],
     });
   },
 

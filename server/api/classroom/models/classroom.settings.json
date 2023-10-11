@@ -42,10 +42,10 @@
       "via": "classroom",
       "collection": "selection"
     },
-    "cc_workspaces": {
+    "authorized_workspaces": {
       "via": "classroom",
       "private": true,
-      "collection": "cc-workspace"
+      "collection": "authorized-workspace"
     }
   }
 }

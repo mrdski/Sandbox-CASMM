@@ -1301,7 +1301,7 @@
         ]
       }
     },
-    "/blocks-categories": {
+    "/authorized-workspaces": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -1353,7 +1353,7 @@
         },
         "summary": "",
         "tags": [
-          "Blocks-category"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -1545,7 +1545,7 @@
         },
         "summary": "",
         "tags": [
-          "Blocks-category"
+          "Authorized-workspace"
         ],
         "requestBody": {
           "description": "",
@@ -1553,14 +1553,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewBlocks-category"
+                "$ref": "#/components/schemas/NewAuthorized-workspace"
               }
             }
           }
         }
       }
     },
-    "/blocks-categories/count": {
+    "/authorized-workspaces/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -1612,12 +1612,12 @@
         },
         "summary": "",
         "tags": [
-          "Blocks-category"
+          "Authorized-workspace"
         ],
         "parameters": []
       }
     },
-    "/blocks-categories/{id}": {
+    "/authorized-workspaces/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -1669,7 +1669,7 @@
         },
         "summary": "",
         "tags": [
-          "Blocks-category"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -1735,7 +1735,7 @@
         },
         "summary": "",
         "tags": [
-          "Blocks-category"
+          "Authorized-workspace"
         ],
         "requestBody": {
           "description": "",
@@ -1743,7 +1743,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewBlocks-category"
+                "$ref": "#/components/schemas/NewAuthorized-workspace"
               }
             }
           }
@@ -1809,7 +1809,7 @@
         },
         "summary": "",
         "tags": [
-          "Blocks-category"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -1825,7 +1825,7 @@
         ]
       }
     },
-    "/cc-workspaces": {
+    "/authorized-workspaces/toolbox/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -1877,7 +1877,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "authorized-workspace"
         ],
         "parameters": [
           {
@@ -2069,7 +2069,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "requestBody": {
           "description": "",
@@ -2077,14 +2077,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewCc-workspace"
+                "$ref": "#/components/schemas/NewAuthorized-workspace"
               }
             }
           }
         }
       }
     },
-    "/cc-workspaces/count": {
+    "/authorized-workspaces/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -2136,12 +2136,12 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": []
       }
     },
-    "/cc-workspaces/{id}": {
+    "/authorized-workspaces/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -2193,7 +2193,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -2259,7 +2259,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "requestBody": {
           "description": "",
@@ -2267,7 +2267,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewCc-workspace"
+                "$ref": "#/components/schemas/NewAuthorized-workspace"
               }
             }
           }
@@ -2333,7 +2333,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -2349,7 +2349,7 @@
         ]
       }
     },
-    "/cc-workspaces/toolbox/{id}": {
+    "/authorized-workspaces/toolbox/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -2401,7 +2401,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -11926,7 +11926,7 @@
           }
         }
       },
-      "Block": {
+      "Authorized-workspace": {
         "required": [
           "id",
           "name"
@@ -11961,61 +11961,36 @@
               "created_by": {
                 "type": "string"
               },
-              "updated_by": {
+              "activities": {
+                "type": "integer"
+              },
+              "blocks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "description": {
                 "type": "string"
-              }
-            }
-          },
-          "image_url": {
-            "type": "string"
-          }
-        }
-      },
-      "NewBlock": {
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "blocks_category": {
-            "type": "string"
-          },
-          "image_url": {
-            "type": "string"
-          },
-          "created_by": {
-            "type": "string"
-          },
-          "updated_by": {
-            "type": "string"
-          }
-        }
-      },
-      "Blocks-category": {
-        "required": [
-          "id"
-        ],
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "blocks": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "name"
-              ],
-              "properties": {
-                "id": {
+              },
+              "authorized_workspaces": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "TekS": {
+                "type": "string"
+              },
+              "images": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "learning_components": {
+                "type": "array",
+                "items": {
                   "type": "string"
                 },
                 "name": {
@@ -12060,7 +12035,7 @@
           }
         }
       },
-      "Cc-workspace": {
+      "Authorized-workspace": {
         "required": [
           "id",
           "name",
@@ -12085,7 +12060,7 @@
           }
         }
       },
-      "NewCc-workspace": {
+      "NewAuthorized-workspace": {
         "required": [
           "name",
           "template"
@@ -12404,11 +12379,262 @@
               "type": "string"
             }
           },
-          "cc_workspaces": {
+          "authorized_workspaces": {
             "type": "array",
             "items": {
               "type": "string"
             }
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "updated_by": {
+            "type": "string"
+          }
+        }
+      },
+      "Activity": {
+        "required": [
+          "id",
+          "number",
+          "template"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "learning_standard": {
+            "required": [
+              "id",
+              "number",
+              "name"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "number": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "expectations": {
+                "type": "string"
+              },
+              "activities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "unit": {
+                "type": "string"
+              },
+              "teks": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "number": {
+            "type": "integer"
+          },
+          "template": {
+            "type": "string"
+          },
+          "activities": {
+            "type": "integer"
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "blocks_category": {
+                  "type": "string"
+                },
+                "image_url": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "authorized_workspaces": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "template"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "activities": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "images": {
+                  "type": "string"
+                },
+                "template": {
+                  "type": "string"
+                },
+                "blocks": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "classroom": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "TekS": {
+            "type": "string"
+          },
+          "images": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "learning_components": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "activities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "learning_component_type": {
+                  "type": "string"
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "activity_template": {
+            "type": "string"
+          }
+        }
+      },
+      "NewActivity": {
+        "required": [
+          "number",
+          "template"
+        ],
+        "properties": {
+          "learning_standard": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer"
+          },
+          "template": {
+            "type": "string"
+          },
+          "activities": {
+            "type": "integer"
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "authorized_workspaces": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "TekS": {
+            "type": "string"
+          },
+          "images": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "learning_components": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "activity_template": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"
@@ -12477,7 +12703,7 @@
                     "type": "string"
                   }
                 },
-                "cc_workspaces": {
+                "authorized_workspaces": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -12679,6 +12905,12 @@
                 "description": {
                   "type": "string"
                 },
+                "authorized_workspaces": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "TekS": {
                   "type": "string"
                 },
@@ -12814,6 +13046,12 @@
                 },
                 "description": {
                   "type": "string"
+                },
+                "authorized_workspaces": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "TekS": {
                   "type": "string"
@@ -13025,7 +13263,7 @@
                     "type": "string"
                   }
                 },
-                "cc_workspaces": {
+                "authorized_workspaces": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -13151,6 +13389,12 @@
               },
               "description": {
                 "type": "string"
+              },
+              "authorized_workspaces": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "TekS": {
                 "type": "string"
@@ -13362,7 +13606,7 @@
                     "type": "string"
                   }
                 },
-                "cc_workspaces": {
+                "authorized_workspaces": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -13501,7 +13745,7 @@
                   "type": "string"
                 }
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -13639,7 +13883,7 @@
                   "type": "string"
                 }
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -14004,7 +14248,7 @@
                   "type": "string"
                 }
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -14228,6 +14472,12 @@
               },
               "description": {
                 "type": "string"
+              },
+              "authorized_workspaces": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "TekS": {
                 "type": "string"

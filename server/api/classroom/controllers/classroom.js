@@ -127,7 +127,7 @@ module.exports = {
     // check if the classroom exists
     let response;
     if (classroom) {
-      response = classroom.cc_workspaces;
+      response = classroom.authorized_workspaces;
     }
 
     return response;

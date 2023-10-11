@@ -15,7 +15,7 @@ import {
   handleCloseConnection,
   handleOpenConnection,
 } from '../../Utils/consoleHelpers';
-import { getCCWorkspace } from '../../../../Utils/requests';
+import { getAuthorizedWorkspace } from '../../../../Utils/requests';
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
 
@@ -71,7 +71,7 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
 
   const loadSave = async (workspaceId) => {
     // get the corresponding workspace
-    const res = await getCCWorkspace(workspaceId);
+    const res = await getAuthorizedWorkspace(workspaceId);
     if (res.data) {
       // set up the canvas
       if (workspaceRef.current) workspaceRef.current.clear();
@@ -84,7 +84,7 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
     }
 
     if (!isSandbox) {
-      const toolboxRes = await getCCWorkspaceToolbox(workspaceId);
+      const toolboxRes = await getAuthorizedWorkspaceToolbox(workspaceId);
       if (toolboxRes.data) {
         let tempCategories = [],
           tempToolBox = [];

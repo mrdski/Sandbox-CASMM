@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/cc-workspaces": {
+    "/authorized-workspaces": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -52,7 +52,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -244,7 +244,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "requestBody": {
           "description": "",
@@ -252,14 +252,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewCc-workspace"
+                "$ref": "#/components/schemas/NewAuthorized-workspace"
               }
             }
           }
         }
       }
     },
-    "/cc-workspaces/count": {
+    "/authorized-workspaces/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -311,12 +311,12 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": []
       }
     },
-    "/cc-workspaces/{id}": {
+    "/authorized-workspaces/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -368,7 +368,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -434,7 +434,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "requestBody": {
           "description": "",
@@ -442,7 +442,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewCc-workspace"
+                "$ref": "#/components/schemas/NewAuthorized-workspace"
               }
             }
           }
@@ -508,7 +508,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -524,7 +524,7 @@
         ]
       }
     },
-    "/cc-workspaces/toolbox/{id}": {
+    "/authorized-workspaces/toolbox/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -576,7 +576,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -595,7 +595,7 @@
   },
   "components": {
     "schemas": {
-      "Cc-workspace": {
+      "Authorized-workspace": {
         "required": [
           "id",
           "name",
@@ -620,7 +620,7 @@
           }
         }
       },
-      "NewCc-workspace": {
+      "NewAuthorized-workspace": {
         "required": [
           "name",
           "template"

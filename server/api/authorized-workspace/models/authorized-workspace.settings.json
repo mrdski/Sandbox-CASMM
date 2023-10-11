@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "cc_workspaces",
+  "collectionName": "authorized_workspaces",
   "info": {
-    "name": "CCWorkspace",
+    "name": "AuthorizedWorkspace",
     "description": ""
   },
   "options": {
@@ -28,7 +28,7 @@
     },
     "classroom": {
       "private": true,
-      "via": "cc_workspaces",
+      "via": "authorized_workspaces",
       "model": "classroom"
     }
   }

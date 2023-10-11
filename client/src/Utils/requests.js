@@ -507,7 +507,11 @@ export const getLearningStandardActivities = async (lsId) =>
   export const getActivityLevels = async (lsId) =>
   makeRequest({
     method: GET,
+<<<<<<< HEAD
     path: `${server}/cc-workspaces?activities.id=${lsId}`,
+=======
+    path: `${server}/authorized-workspaces?activities.id=${lsId}`,
+>>>>>>> workspaceChanges2
     auth: true,
     error: 'Activities cannot be retrieved',
   });
@@ -602,23 +606,23 @@ export const submitBugReport = async (
     error: 'Unable to submit bug-report',
   });
 
-export const getCCWorkspaces = async () =>
+export const getAuthorizedWorkspaces = async () =>
   makeRequest({
     method: GET,
-    path: `${server}/cc-workspaces`,
+    path: `${server}/authorized-workspaces`,
     auth: true,
     error: 'Unable to retrive cc worksapces',
   });
 
-export const getCCWorkspace = async (id) =>
+export const getAuthorizedWorkspace = async (id) =>
   makeRequest({
     method: GET,
-    path: `${server}/cc-workspaces/${id}`,
+    path: `${server}/authorized-workspaces/${id}`,
     auth: true,
     error: 'Unable to retrive cc workspace',
   });
 
-export const createCCWorkspace = async (
+export const createAuthorizedWorkspace = async (
   name,
   description,
   template,
@@ -627,7 +631,7 @@ export const createCCWorkspace = async (
 ) =>
   makeRequest({
     method: POST,
-    path: `${server}/cc-workspaces`,
+    path: `${server}/authorized-workspaces`,
     auth: true,
     data: {
       name,
@@ -638,18 +642,18 @@ export const createCCWorkspace = async (
     },
     error: 'Unable to create cc workspace',
   });
-export const getCCWorkspaceToolbox = async (id) =>
+export const getAuthorizedWorkspaceToolbox = async (id) =>
   makeRequest({
     method: GET,
-    path: `${server}/cc-workspaces/toolbox/${id}`,
+    path: `${server}/authorized-workspaces/toolbox/${id}`,
     auth: true,
     error: 'Toolbox could not be retrieved.',
   });
 
-export const updateCCWorkspace = async (id, template, blocks) =>
+export const updateAuthorizedWorkspace = async (id, template, blocks) =>
   makeRequest({
     method: PUT,
-    path: `${server}/cc-workspaces/${id}`,
+    path: `${server}/authorized-workspaces/${id}`,
     auth: true,
     data: {
       template,
@@ -657,10 +661,10 @@ export const updateCCWorkspace = async (id, template, blocks) =>
     },
     error: 'Unable to create cc workspace',
   });
-export const deleteCCWorkspace = async (id) =>
+export const deleteAuthorizedWorkspace = async (id) =>
   makeRequest({
     method: DELETE,
-    path: `${server}/cc-workspaces/${id}`,
+    path: `${server}/authorized-workspaces/${id}`,
     auth: true,
     error: 'Unable to delete cc workspace',
   });
