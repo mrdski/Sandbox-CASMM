@@ -16,13 +16,13 @@ export default function Report(props) {
           <div class='child inline-block-child'>Home</div>
           <div class='child inline-block-child'>Reports</div>
         </div> */}
-        <Link to={'/daylevel'}>
+        <Link to={'/activityLevel'}>
           <button
             id={'route-button'}
             className={`btn-${'primary'} btn-${'sm'}`}
             type='button'
           >
-            Day Level Report
+            Activity Level Report
           </button>
         </Link>
         <Link to={'/group-report'}>

@@ -10,8 +10,8 @@ import Classroom from './views/Mentor/Classroom/Classroom';
 import Dashboard from './views/Mentor/Dashboard/Dashboard';
 import NotFound from './views/NotFound';
 import Replay from './views/Replay/Replay';
-import DayLevelReport from './views/Researcher/DayLevelReport';
-import DayLevelReportView from './views/Researcher/DayLevelReportView';
+import ActivityLevelReport from './views/Researcher/ActivityLevelReport';
+import ActivityLevelReportView from './views/Researcher/ActivityLevelReportView';
 import GroupReport from './views/Researcher/GroupReport';
 import Report from './views/Researcher/Report';
 import Student from './views/Student/Student';
@@ -41,18 +41,18 @@ const App = () => {
           }
         />
         <Route
-          path='/daylevel'
+          path='/activityLevel'
           element={
             <PrivateRoute>
-              <DayLevelReport />
+              <ActivityLevelReport />
             </PrivateRoute>
           }
         />
         <Route
-          path='/daylevel/:id'
+          path='/activityLevel/:id'
           element={
             <PrivateRoute>
-              <DayLevelReportView />
+              <ActivityLevelReportView />
             </PrivateRoute>
           }
         />
@@ -97,7 +97,7 @@ const App = () => {
           }
         />
         <Route
-          path='/day'
+          path='/activity'
           element={
             <PrivateRoute>
               <BlocklyPage isSandbox={false} />

@@ -4,7 +4,7 @@ import LearningStandardSelect from './LearningStandardSelect';
 import {
   getLearningStandard,
   setSelection,
-  getLearningStandardDays,
+  getLearningStandardActivities,
 } from '../../../../../Utils/requests';
 import { useSearchParams } from 'react-router-dom';
 
@@ -13,11 +13,11 @@ export default function LearningStandardModal({
   gradeId,
   classroomId,
   viewing,
-  setDays,
+  setActivities,
 }) {
   const [visible, setVisible] = useState(false);
   const [activePanel, setActivePanel] = useState('panel-1');
-  const [selectedDays, setSelectedDays] = useState([]);
+  const [selectedActivities, setSelectedActivities] = useState([]);
   const [selected, setSelected] = useState({});
   // eslint-disable-next-line
   const [_, setSearchParams] = useSearchParams();
@@ -28,10 +28,10 @@ export default function LearningStandardModal({
         const res = await getLearningStandard(viewing);
         if (res.data) {
           setSelected(res.data);
-          const daysRes = await getLearningStandardDays(res.data.id);
-          if (daysRes) setSelectedDays(daysRes.data);
+          const activitiesRes = await getLearningStandardActivities(res.data.id);
+          if (activitiesRes) setSelectedActivities(activitiesRes.data);
           else {
-            message.error(daysRes.err);
+            message.error(activitiesRes.err);
           }
           setVisible(true);
           setActivePanel('panel-2');
@@ -59,7 +59,7 @@ export default function LearningStandardModal({
       message.error(res.err);
     } else {
       setActiveLearningStandard(selected);
-      setDays(selectedDays);
+      setActivities(selectedActivities);
       message.success('Successfully updated active learning standard.');
       setSearchParams({ tab: 'home' });
       setVisible(false);
@@ -104,8 +104,8 @@ export default function LearningStandardModal({
           selected={selected}
           setSelected={setSelected}
           gradeId={gradeId}
-          days={selectedDays}
-          setDays={setSelectedDays}
+          activities={selectedActivities}
+          setActivities={setSelectedActivities}
         />
       </Modal>
     </div>

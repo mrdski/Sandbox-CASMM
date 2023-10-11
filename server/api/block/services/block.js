@@ -22,25 +22,25 @@ const sortCategory = (toolbox) => {
   return sorted;
 };
 
-// get all the blocks for a day
-module.exports.findByDay = async (id) => {
-  // get the target day
-  const day = await strapi.services.day.findOne({ id }, [
+// get all the blocks for an activity
+module.exports.findByActivity = async (id) => {
+  // get the target activity
+  const activity = await strapi.services.activity.findOne({ id }, [
     'blocks.blocks_category',
   ]);
 
-  // return the blocks only if the day is found
-  return day ? day.blocks : undefined;
+  // return the blocks only if the activity is found
+  return activity ? activity.blocks : undefined;
 };
 
 // get all the blocks for a cc workspace
 module.exports.findByWorkspace = async (id) => {
-  // get the target day
+  // get the target activity
   const workspace = await strapi.services['cc-workspace'].findOne({ id }, [
     'blocks.blocks_category',
   ]);
 
-  // return the blocks only if the day is found
+  // return the blocks only if the activity is found
   return workspace ? workspace.blocks : undefined;
 };
 

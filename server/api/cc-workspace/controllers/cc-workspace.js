@@ -48,7 +48,7 @@ module.exports = {
   },
   // Update workspace template and block list
   async update(ctx) {
-    // find the day
+    // find the activity
     const { id } = ctx.params;
     let workspace = await strapi.services['cc-workspace'].findOne({ id: id });
     if (!workspace)
@@ -85,10 +85,10 @@ module.exports = {
     const blocks = await strapi.services.block.findByWorkspace(id);
 
     // return 404 if blocks is undefined
-    // (only the case of a day not existing)
+    // (only the case of an activity not existing)
     if (!blocks) return undefined;
 
-    // return the day id and the toolbox
+    // return the activity id and the toolbox
     return {
       id,
       toolbox: strapi.services.block.blocksToToolbox(blocks),

@@ -1,0 +1,161 @@
+@import '../../../assets/style.less';
+
+#base {
+  background-color: #colors[primary];
+}
+
+#search-button {
+  left: 100px;
+}
+
+#list-position {
+  position: relative;
+
+  #add-button {
+    position: absolute;
+  }
+}
+
+#carousel {
+  width: '160px';
+}
+
+#display-code-modal {
+  #display-code-btn {
+    width: 15vw;
+    min-height: 10vh;
+    font-size: 1em;
+
+
+    &:hover {
+      width: 18vw;
+    }
+  }
+}
+
+.border-card-info {
+  width: 50px;
+}
+
+.delete-btn {
+  cursor: pointer;
+  font-weight: bolder;
+  font-size: 1.4em;
+  position: absolute;
+  right: 18px;
+  top: 5px;
+}
+
+#activity-editor-subtitle {
+  font-size: 1.1em;
+}
+
+#card-activity {
+  background: #colors[tertiary];
+  border: none;
+  border-radius: 10px;
+
+  .ant-card-head {
+    border-bottom: 0px !important;
+    background-color: #colors[quaternary];
+    height: 1vh;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align: center;
+  }
+}
+
+#add-activity {
+  input[type='text'] {
+    display: block;
+    margin: 5px auto 0px;
+    background: none;
+    border: 2px solid;
+    border-color: #colors[secondary];
+    padding: 10px 10px;
+    width: 90%;
+    outline: none;
+    color: #colors[text-primary];
+    border-radius: 8px;
+    transition: 0.25s;
+  }
+
+  input[type='text']:focus {
+    width: 95%;
+  }
+
+  label {
+    margin: 10px auto 10px;
+  }
+}
+
+#activity-detail-editor {
+  .input,
+  textarea {
+    display: block;
+    margin: 0px 5px 0px;
+    background: none;
+    border: 1px solid;
+    border-color: #colors[secondary];
+    padding: 10px 10px;
+    width: 95%;
+    outline: none;
+    color: #colors[text-primary];
+    border-radius: 4px;
+    transition: 0.25s;
+  }
+
+  label {
+    margin: 10px auto 12px;
+    white-space: pre-wrap;
+    font-weight: 450;
+  }
+
+  #tag-input {
+    width: 85px;
+    line-height: 20px;
+  }
+}
+
+//ActivityDetailModel
+
+#subtitle {
+  font-size: 1.2em;
+}
+
+#save--set-activity-btn {
+  width: 11vw;
+  height: auto;
+  background: #colors[quaternary];
+  border: none;
+  border-radius: 30px;
+  color: #colors[text-primary];
+  font-size: 1em;
+  font-weight: 600;
+  padding: 6px;
+  margin-right: 15px;
+
+  &:hover {
+    width: 12vw;
+    cursor: pointer;
+    background: #colors[quinary];
+  }
+}
+
+#save-set-activity-btn {
+  width: 11vw;
+  height: auto;
+  background: #colors[quaternary];
+  border: none;
+  border-radius: 30px;
+  color: #colors[text-primary];
+  font-size: 1em;
+  font-weight: 600;
+  padding: 6px;
+
+  &:hover {
+    width: 12vw;
+    cursor: pointer;
+    background: #colors[quinary];
+  }
+}

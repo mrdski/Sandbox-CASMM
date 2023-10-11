@@ -601,7 +601,7 @@
               "expectations": {
                 "type": "string"
               },
-              "days": {
+              "activities": {
                 "type": "array",
                 "items": {
                   "type": "string"

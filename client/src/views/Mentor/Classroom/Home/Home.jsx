@@ -3,21 +3,21 @@ import './Home.less';
 import {
   getClassroom,
   getLearningStandard,
-  getLearningStandardDays,
+  getLearningStandardActivities,
 } from '../../../../Utils/requests';
 import MentorSubHeader from '../../../../components/MentorSubHeader/MentorSubHeader';
 import DisplayCodeModal from './DisplayCodeModal';
-import MentorDayDetailModal from './MentorDayDetailModal';
+import MentorActivityDetailModal from './MentorActivityDetailModal';
 import LearningStandardModal from './LearningStandardSelect/LearningStandardModal';
 import { message, Tag } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 export default function Home({ classroomId, viewing }) {
   const [classroom, setClassroom] = useState({});
-  const [days, setDays] = useState([]);
+  const [activities, setActivities] = useState([]);
   const [gradeId, setGradeId] = useState(null);
   const [activeLearningStandard, setActiveLearningStandard] = useState(null);
-  const [dayDetailsVisible, setDayDetailsVisible] = useState(false)
+  const [activityDetailsVisible, setActivityDetailsVisible] = useState(false)
   const navigate = useNavigate();
 
   const SCIENCE = 1;
@@ -40,10 +40,10 @@ export default function Home({ classroomId, viewing }) {
             else {
               message.error(lsRes.err);
             }
-            const daysRes = await getLearningStandardDays(lsRes.data.id);
-            if (daysRes) setDays(daysRes.data);
+            const activityRes = await getLearningStandardActivities(lsRes.data.id);
+            if (activityRes) setActivities(activityRes.data);
             else {
-              message.error(daysRes.err);
+              message.error(activityRes.err);
             }
           }
         });
@@ -54,18 +54,18 @@ export default function Home({ classroomId, viewing }) {
     fetchData();
   }, [classroomId]);
 
-  const handleViewDay = (day, name) => {
-    day.learning_standard_name = name;
-    localStorage.setItem('sandbox-day', JSON.stringify(day));
+  const handleViewActivity = (activity, name) => {
+    activity.learning_standard_name = name;
+    localStorage.setItem('sandbox-activity', JSON.stringify(activity));
     navigate('/sandbox');
   };
 
-  const openActivityInWorkspace = (day, name) => {
-    day.learning_standard_name = name;
-    day.template = day.activity_template;
-    delete day.id;
-    delete day.activity_template;
-    localStorage.setItem('sandbox-day', JSON.stringify(day));
+  const openActivityInWorkspace = (activity, name) => {
+    activity.learning_standard_name = name;
+    activity.template = activity.activity_template;
+    delete activity.id;
+    delete activity.activity_template;
+    localStorage.setItem('sandbox-activity', JSON.stringify(activity));
     navigate('/sandbox');
   };
 
@@ -105,7 +105,7 @@ export default function Home({ classroomId, viewing }) {
                   classroomId={classroomId}
                   gradeId={gradeId}
                   viewing={viewing}
-                  setDays={setDays}
+                  setActivities={setActivities}
                 />
               </div>
               <p id='learning-standard-expectations'>{`Expectations: ${activeLearningStandard.expectations}`}</p>
@@ -121,31 +121,31 @@ export default function Home({ classroomId, viewing }) {
                   </a>
                 </p>
               ) : null}
-              {days ? (
+              {activities ? (
                 <div id='card-btn-container' className='flex space-between'>
-                  {days.map((day) => (
-                    <div id='view-day-card' key={day.id}>
-                      <div id='day-title'>
-                       Day {day.number}
+                  {activities.map((activity) => (
+                    <div id="view-activity-card" key={activity.id}>
+                      <div id='activity-title'>
+                       Activity Level {activity.number}
                        </div>
-                      <div id='view-day-heading' style={{display: "flex"}}>
+                      <div id='view-activity-heading' style={{display: "flex"}}>
                         
                         <button
-                          id='view-day-button'
+                          id='view-activity-button'
                           style={{marginRight: "auto"}}
                           onClick={() =>
-                            handleViewDay(day, activeLearningStandard.name)
+                            handleViewActivity(activity, activeLearningStandard.name)
                           }
                         >
                           Student Template
                         </button>
-                        {day.activity_template && (
+                        {activity.activity_template && (
                           <button
-                            id='view-day-button'
+                            id='view-activity-button'
                             style={{marginRight: "auto"}}
                             onClick={() =>
                               openActivityInWorkspace(
-                                day,
+                                activity,
                                 activeLearningStandard.name
                               )
                             }
@@ -153,27 +153,27 @@ export default function Home({ classroomId, viewing }) {
                             Mentor Template
                           </button>
                         )}
-                        <MentorDayDetailModal 
+                        <MentorActivityDetailModal
                           learningStandard={activeLearningStandard}
-                          selectDay={day}
-                          dayDetailsVisible={false}
-                          setDayDetailsVisible={false}
-                          setDays={setDays}
+                          selectActivity={activity}
+                          activityDetailsVisible={false}
+                          setActivityDetailsVisible={false}
+                          setActivities={setActivities}
                           viewing={false}
                         />
                       </div>
-                      <div id='view-day-info'>
+                      <div id='view-activity-info'>
                         <p>
                           <strong>TEKS: </strong>
-                          {day.TekS}
+                          {activity.TekS}
                         </p>
                         <p>
                           <strong>Description: </strong>
-                          {day.description}
+                          {activity.description}
                         </p>
                         <p>
                           <strong>Classroom Materials: </strong>
-                          {day.learning_components
+                          {activity.learning_components
                             .filter(
                               (component) =>
                                 component.learning_component_type === SCIENCE
@@ -191,7 +191,7 @@ export default function Home({ classroomId, viewing }) {
                         </p>
                         <p>
                           <strong>Student Materials: </strong>
-                          {day.learning_components
+                          {activity.learning_components
                             .filter(
                               (component) =>
                                 component.learning_component_type === MAKING
@@ -209,7 +209,7 @@ export default function Home({ classroomId, viewing }) {
                         </p>
                         <p>
                           <strong>Arduino Components: </strong>
-                          {day.learning_components
+                          {activity.learning_components
                             .filter(
                               (component) =>
                                 component.learning_component_type ===
@@ -226,11 +226,11 @@ export default function Home({ classroomId, viewing }) {
                               );
                             })}
                         </p>
-                        {day.link ? (
+                        {activity.link ? (
                           <p>
                             <strong>Link to Additional Information: </strong>
-                            <a href={day.link} target='_blank' rel='noreferrer'>
-                              {day.link}
+                            <a href={activity.link} target='_blank' rel='noreferrer'>
+                              {activity.link}
                             </a>
                           </p>
                         ) : null}
@@ -249,7 +249,7 @@ export default function Home({ classroomId, viewing }) {
                 classroomId={classroomId}
                 gradeId={gradeId}
                 viewing={viewing}
-                setDays={setDays}
+                setActivities={setActivities}
               />
             </div>
           )}

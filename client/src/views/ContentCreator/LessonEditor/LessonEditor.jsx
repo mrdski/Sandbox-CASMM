@@ -5,7 +5,7 @@ import {
   getLearningStandard,
   updateLearningStandard,
 } from "../../../Utils/requests"
-import DayEditor from "../DayEditor/DayEditor"
+import ActivityEditor from "../ActivityEditor/ActivityEditor"
 
 export default function LessonEditor({
   learningStandard,
@@ -63,7 +63,7 @@ export default function LessonEditor({
     } else {
       message.success("Update lesson success")
       setDisplayName(name)
-      setSearchParams({ tab, page, day: response.data.id })
+      setSearchParams({ tab, page, activity: response.data.id })
       setViewing(response.data.id)
       setVisible(false)
     }
@@ -164,7 +164,7 @@ export default function LessonEditor({
         </Form>
       </Modal>
       {!visible ? (
-        <DayEditor
+        <ActivityEditor
           learningStandard={learningStandard}
           viewing={viewing}
           setViewing={setViewing}

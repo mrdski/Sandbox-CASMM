@@ -44,12 +44,12 @@ const makeRequest = async ({ method, path, data, auth = false, error }) => {
   return { data: res, err: err };
 };
 
-export const getDays = async () =>
+export const getActivities = async () =>
   makeRequest({
     method: GET,
-    path: `${server}/days`,
+    path: `${server}/activities`,
     auth: true,
-    error: 'Days could not be retrieved.',
+    error: 'Activities could not be retrieved.',
   });
 
 export const getTeachers = async () =>
@@ -76,30 +76,30 @@ export const getAllStudents = async () =>
     error: 'Students could not be retrieved.',
   });
 
-export const getDayToolboxAll = async () =>
+export const getActivityToolboxAll = async () =>
   makeRequest({
     method: GET,
     path: `${server}/sandbox/toolbox`,
     error: 'Toolbox could not be retrieved.',
   });
 
-// export cost getDayActivities = async () =>
+// export cost getActivityLevels = async () =>
 //   makeRequest({
 //     method: GET,
-//     path: `${server}/days/`
+//     path: `${server}/activities/`
 //   })
 
-// export const getLearningStandardDays = async (lsId) =>
+// export const getLearningStandardActivities = async (lsId) =>
 //   makeRequest({
 //     method: GET,
-//     path: `${server}/days?learning_standard.id=${lsId}`,
+//     path: `${server}/activities?learning_standard.id=${lsId}`,
 //     auth: true,
-//     error: 'Day cannot be retrived',
+//     error: 'Activity cannot be retrived',
 //   });
-export const getDayToolbox = async (id) =>
+export const getActivityToolbox = async (id) =>
   makeRequest({
     method: GET,
-    path: `${server}/days/toolbox/${id}`,
+    path: `${server}/activities/toolbox/${id}`,
     auth: true,
     error: 'Toolbox could not be retrieved.',
   });
@@ -156,13 +156,13 @@ export const postJoin = async (code, ids) =>
     error: 'Login failed.',
   });
 
-export const createDay = async (day, learningStandard) =>
+export const createActivity = async (activity, learningStandard) =>
   makeRequest({
     method: POST,
-    path: `${server}/days`,
+    path: `${server}/activities`,
     data: {
       learning_standard: learningStandard,
-      number: day,
+      number: activity,
       template: '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>)',
     },
     auth: true,
@@ -249,12 +249,12 @@ export const setSelection = async (classroom, learningStandard) =>
     error: 'Failed to set active learning standard.',
   });
 
-export const saveWorkspace = async (day, workspace, replay) =>
+export const saveWorkspace = async (activity, workspace, replay) =>
   makeRequest({
     method: POST,
     path: `${server}/saves`,
     data: {
-      day,
+      activity,
       workspace,
       replay,
     },
@@ -262,10 +262,10 @@ export const saveWorkspace = async (day, workspace, replay) =>
     error: 'Failed to save your workspace.',
   });
 
-export const getSaves = async (day) =>
+export const getSaves = async (activity) =>
   makeRequest({
     method: GET,
-    path: `${server}/saves/day/${day}`,
+    path: `${server}/saves/activity/${activity}`,
     auth: true,
     error: 'Past saves could not be retrieved.',
   });
@@ -283,7 +283,7 @@ export const createSubmission = async (id, workspace, sketch, path, isAuth) =>
     method: POST,
     path: `${server}${path}`,
     data: {
-      day: id,
+      activity: id,
       workspace: workspace,
       board: 'arduino:avr:uno',
       sketch: sketch,
@@ -330,36 +330,36 @@ export const deleteStudent = async (student) =>
     error: 'Failed to delete student.',
   });
 
-export const updateDayTemplate = async (id, workspace, blocksList) =>
+export const updateActivityLevelTemplate = async (id, workspace, blocksList) =>
   makeRequest({
     method: PUT,
-    path: `${server}/days/template/${id}`,
+    path: `${server}/activities/template/${id}`,
     data: {
       template: workspace,
       blocks: blocksList,
     },
     auth: true,
-    error: 'Failed to update the template for the day',
+    error: 'Failed to update the template for the activity',
   });
 
 export const updateActivityTemplate = async (id, workspace) =>
   makeRequest({
     method: PUT,
-    path: `${server}/days/activity_template/${id}`,
+    path: `${server}/activities/activity_template/${id}`,
     data: {
       activity_template: workspace,
       //blocks: blocksList,
     },
     auth: true,
-    error: 'Failed to update the activity template for the day',
+    error: 'Failed to update the activity template for the activity',
   });
 
-export const deleteDay = async (id) =>
+export const deleteActivity = async (id) =>
   makeRequest({
     method: DELETE,
-    path: `${server}/days/${id}`,
+    path: `${server}/activities/${id}`,
     auth: true,
-    error: 'Failed to delete day.',
+    error: 'Failed to delete activity.',
   });
 
 export const deleteLearningStandard = async (id) =>
@@ -466,7 +466,7 @@ export const updateLearningStandard = async (
     error: 'Failed to update unit',
   });
 
-export const updateDayDetails = async (
+export const updateActivityDetails = async (
   id,
   description,
   // template,
@@ -480,7 +480,7 @@ export const updateDayDetails = async (
 ) =>
   makeRequest({
     method: PUT,
-    path: `${server}/days/${id}`,
+    path: `${server}/activities/${id}`,
     data: {
       description,
       // template,
@@ -496,28 +496,28 @@ export const updateDayDetails = async (
     error: 'Failed to update unit',
   });
 
-export const getLearningStandardDays = async (lsId) =>
+export const getLearningStandardActivities = async (lsId) =>
   makeRequest({
     method: GET,
-    path: `${server}/days?learning_standard.id=${lsId}`,
+    path: `${server}/activities?learning_standard.id=${lsId}`,
     auth: true,
-    error: 'Day cannot be retrived',
+    error: 'Activity cannot be retrived',
   });
 
-  export const getDayActivities = async (lsId) =>
+  export const getActivityLevels = async (lsId) =>
   makeRequest({
     method: GET,
-    path: `${server}/cc-workspaces?days.id=${lsId}`,
+    path: `${server}/cc-workspaces?activities.id=${lsId}`,
     auth: true,
     error: 'Activities cannot be retrieved',
   });
 
-export const getDay = async (id) =>
+export const getActivity = async (id) =>
   makeRequest({
     method: GET,
-    path: `${server}/days/${id}`,
+    path: `${server}/activities/${id}`,
     auth: true,
-    error: 'Day cannot be retrived',
+    error: 'Activity cannot be retrived',
   });
 
 export const forgetPassword = async (email) =>
