@@ -13,7 +13,7 @@ module.exports = async (ctx, next) => {
   let { id } = ctx.params;
   if (id) {
     id = parseInt(id);
-    const workspace = await strapi.services['cc-workspace'].findOne(
+    const workspace = await strapi.services['authorized-workspace'].findOne(
       { id: id },
       ['classroom.id']
     );

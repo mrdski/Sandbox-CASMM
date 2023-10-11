@@ -36,7 +36,7 @@ module.exports.findByDay = async (id) => {
 // get all the blocks for a cc workspace
 module.exports.findByWorkspace = async (id) => {
   // get the target day
-  const workspace = await strapi.services['cc-workspace'].findOne({ id }, [
+  const workspace = await strapi.services['authorized-workspace'].findOne({ id }, [
     'blocks.blocks_category',
   ]);
 

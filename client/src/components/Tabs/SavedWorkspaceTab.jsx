@@ -3,9 +3,9 @@ import { Table, Popconfirm, message } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import {
-    getCCWorkspaces,
+    getAuthorizedWorkspaces,
     getClassroomWorkspace,
-    deleteCCWorkspace,
+    deleteAuthorizedWorkspace,
   } from '../../Utils/requests';
 
 
@@ -24,7 +24,7 @@ export default function SavedWorkSpaceTab({searchParams, setSearchParams, classr
             wsResponse = await getClassroomWorkspace(classroomId);
           }
           else{
-            wsResponse = await getCCWorkspaces();
+            wsResponse = await getAuthorizedWorkspaces();
           }
             
             setWorkspaceList(wsResponse.data);
@@ -80,7 +80,7 @@ export default function SavedWorkSpaceTab({searchParams, setSearchParams, classr
               title={'Are you sure you want to delete this workspace?'}
               icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
               onConfirm={async () => {
-                const res = await deleteCCWorkspace(key.id);
+                const res = await deleteAuthorizedWorkspace(key.id);
                 if (res.err) {
                   message.error(res.err);
                 } else {

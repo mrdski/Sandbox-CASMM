@@ -1080,7 +1080,7 @@
         ]
       }
     },
-    "/cc-workspaces": {
+    "/authorized-workspaces": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -1132,7 +1132,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -1324,7 +1324,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "requestBody": {
           "description": "",
@@ -1332,14 +1332,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewCc-workspace"
+                "$ref": "#/components/schemas/NewAuthorized-workspace"
               }
             }
           }
         }
       }
     },
-    "/cc-workspaces/count": {
+    "/authorized-workspaces/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -1391,12 +1391,12 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": []
       }
     },
-    "/cc-workspaces/{id}": {
+    "/authorized-workspaces/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -1448,7 +1448,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -1514,7 +1514,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "requestBody": {
           "description": "",
@@ -1522,7 +1522,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewCc-workspace"
+                "$ref": "#/components/schemas/NewAuthorized-workspace"
               }
             }
           }
@@ -1588,7 +1588,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -1604,7 +1604,7 @@
         ]
       }
     },
-    "/cc-workspaces/toolbox/{id}": {
+    "/authorized-workspaces/toolbox/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -1656,7 +1656,7 @@
         },
         "summary": "",
         "tags": [
-          "Cc-workspace"
+          "Authorized-workspace"
         ],
         "parameters": [
           {
@@ -11869,7 +11869,7 @@
           }
         }
       },
-      "Cc-workspace": {
+      "Authorized-workspace": {
         "required": [
           "id",
           "name",
@@ -11910,7 +11910,7 @@
               "description": {
                 "type": "string"
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -11960,7 +11960,7 @@
           }
         }
       },
-      "NewCc-workspace": {
+      "NewAuthorized-workspace": {
         "required": [
           "name",
           "template"
@@ -12285,7 +12285,7 @@
               "type": "string"
             }
           },
-          "cc_workspaces": {
+          "authorized_workspaces": {
             "type": "array",
             "items": {
               "type": "string"
@@ -12395,7 +12395,7 @@
           "description": {
             "type": "string"
           },
-          "cc_workspaces": {
+          "authorized_workspaces": {
             "type": "array",
             "items": {
               "required": [
@@ -12518,7 +12518,7 @@
           "description": {
             "type": "string"
           },
-          "cc_workspaces": {
+          "authorized_workspaces": {
             "type": "array",
             "items": {
               "type": "string"
@@ -12609,7 +12609,7 @@
                     "type": "string"
                   }
                 },
-                "cc_workspaces": {
+                "authorized_workspaces": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -12814,7 +12814,7 @@
                 "description": {
                   "type": "string"
                 },
-                "cc_workspaces": {
+                "authorized_workspaces": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -12959,7 +12959,7 @@
                 "description": {
                   "type": "string"
                 },
-                "cc_workspaces": {
+                "authorized_workspaces": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -13175,7 +13175,7 @@
                     "type": "string"
                   }
                 },
-                "cc_workspaces": {
+                "authorized_workspaces": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -13305,7 +13305,7 @@
               "description": {
                 "type": "string"
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -13521,7 +13521,7 @@
                     "type": "string"
                   }
                 },
-                "cc_workspaces": {
+                "authorized_workspaces": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -13660,7 +13660,7 @@
                   "type": "string"
                 }
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -13798,7 +13798,7 @@
                   "type": "string"
                 }
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -14163,7 +14163,7 @@
                   "type": "string"
                 }
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -14391,7 +14391,7 @@
               "description": {
                 "type": "string"
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"

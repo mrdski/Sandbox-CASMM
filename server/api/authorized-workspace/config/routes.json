@@ -2,56 +2,56 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/cc-workspaces",
-      "handler": "cc-workspace.find",
+      "path": "/authorized-workspaces",
+      "handler": "authorized-workspace.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/cc-workspaces/count",
-      "handler": "cc-workspace.count",
+      "path": "/authorized-workspaces/count",
+      "handler": "authorized-workspace.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/cc-workspaces/:id",
-      "handler": "cc-workspace.findOne",
+      "path": "/authorized-workspaces/:id",
+      "handler": "authorized-workspace.findOne",
       "config": {
         "policies": ["isContentCreatorOrHasClassroom"]
       }
     },
     {
       "method": "GET",
-      "path": "/cc-workspaces/toolbox/:id",
-      "handler": "cc-workspace.toolbox",
+      "path": "/authorized-workspaces/toolbox/:id",
+      "handler": "authorized-workspace.toolbox",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/cc-workspaces",
-      "handler": "cc-workspace.create",
+      "path": "/authorized-workspaces",
+      "handler": "authorized-workspace.create",
       "config": {
         "policies": ["isContentCreatorOrHasClassroom"]
       }
     },
     {
       "method": "PUT",
-      "path": "/cc-workspaces/:id",
-      "handler": "cc-workspace.update",
+      "path": "/authorized-workspaces/:id",
+      "handler": "authorized-workspace.update",
       "config": {
         "policies": ["isContentCreatorOrHasClassroom"]
       }
     },
     {
       "method": "DELETE",
-      "path": "/cc-workspaces/:id",
-      "handler": "cc-workspace.delete",
+      "path": "/authorized-workspaces/:id",
+      "handler": "authorized-workspace.delete",
       "config": {
         "policies": ["isContentCreatorOrHasClassroom"]
       }

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import BlocklyCanvasPanel from "../../components/DayPanels/BlocklyCanvasPanel/BlocklyCanvasPanel"
 import NavBar from "../../components/NavBar/NavBar"
 import {
-  getCCWorkspaceToolbox,
+  getAuthorizedWorkspaceToolbox,
   getDayToolbox,
   getDayToolboxAll,
 } from "../../Utils/requests"
@@ -33,7 +33,7 @@ export default function BlocklyPage({ isSandbox }) {
             message.error(AllToolboxRes.err)
           }
         } else if (value.role === "ContentCreator") {
-          const res = await getCCWorkspaceToolbox(sandboxDay.id)
+          const res = await getAuthorizedWorkspaceToolbox(sandboxDay.id)
           if (res.data) {
             let loadedDay = { ...sandboxDay, selectedToolbox: res.data.toolbox }
             loadedDay = { ...loadedDay, toolbox: AllToolboxRes.data.toolbox }

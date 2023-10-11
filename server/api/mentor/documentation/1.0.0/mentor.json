@@ -612,7 +612,7 @@
                     "type": "string"
                   }
                 },
-                "cc_workspaces": {
+                "authorized_workspaces": {
                   "type": "array",
                   "items": {
                     "type": "string"
