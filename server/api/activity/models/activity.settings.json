@@ -11,9 +11,9 @@
     "draftAndPublish": false
   },
   "attributes": {
-    "learning_standard": {
+    "lesson_module": {
       "via": "activities",
-      "model": "learning-standard"
+      "model": "lesson-module"
     },
     "number": {
       "type": "biginteger",

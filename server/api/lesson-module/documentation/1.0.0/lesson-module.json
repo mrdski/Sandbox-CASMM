@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/learning-standards": {
+    "/lesson-modules": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -52,7 +52,7 @@
         },
         "summary": "",
         "tags": [
-          "Learning-standard"
+          "Lesson-module"
         ],
         "parameters": [
           {
@@ -244,7 +244,7 @@
         },
         "summary": "",
         "tags": [
-          "Learning-standard"
+          "Lesson-module"
         ],
         "requestBody": {
           "description": "",
@@ -252,14 +252,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewLearning-standard"
+                "$ref": "#/components/schemas/NewLesson-module"
               }
             }
           }
         }
       }
     },
-    "/learning-standards/count": {
+    "/lesson-modules/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -311,12 +311,12 @@
         },
         "summary": "",
         "tags": [
-          "Learning-standard"
+          "Lesson-module"
         ],
         "parameters": []
       }
     },
-    "/learning-standards/{id}": {
+    "/lesson-modules/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -368,7 +368,7 @@
         },
         "summary": "",
         "tags": [
-          "Learning-standard"
+          "Lesson-module"
         ],
         "parameters": [
           {
@@ -434,7 +434,7 @@
         },
         "summary": "",
         "tags": [
-          "Learning-standard"
+          "Lesson-module"
         ],
         "requestBody": {
           "description": "",
@@ -442,7 +442,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewLearning-standard"
+                "$ref": "#/components/schemas/NewLesson-module"
               }
             }
           }
@@ -508,7 +508,7 @@
         },
         "summary": "",
         "tags": [
-          "Learning-standard"
+          "Lesson-module"
         ],
         "parameters": [
           {
@@ -527,7 +527,7 @@
   },
   "components": {
     "schemas": {
-      "Learning-standard": {
+      "Lesson-module": {
         "required": [
           "id",
           "number",
@@ -558,7 +558,7 @@
                 "id": {
                   "type": "string"
                 },
-                "learning_standard": {
+                "lesson_module": {
                   "type": "string"
                 },
                 "number": {
@@ -628,7 +628,7 @@
               "number": {
                 "type": "integer"
               },
-              "learning_standards": {
+              "lesson_modules": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -650,7 +650,7 @@
           }
         }
       },
-      "NewLearning-standard": {
+      "NewLesson-module": {
         "required": [
           "number",
           "name"

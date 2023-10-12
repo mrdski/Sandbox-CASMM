@@ -550,7 +550,7 @@
                 "id": {
                   "type": "string"
                 },
-                "learning_standard": {
+                "lesson_module": {
                   "type": "string"
                 },
                 "number": {

@@ -6,7 +6,7 @@ import {
   deleteActivity,
   getActivityToolbox,
   getActivityToolboxAll,
-  getLearningStandard,
+  getLessonModule,
 } from "../../../Utils/requests"
 import "./ActivityEditor.less"
 
@@ -21,7 +21,7 @@ export default function ContentCreator({ learningStandard }) {
   }
 
   const showModal = async () => {
-    const lsResponse = await getLearningStandard(learningStandard.id)
+    const lsResponse = await getLessonModule(learningStandard.id)
     const myActivities = lsResponse.data.activities
     myActivities.sort((a, b) => (a.number > b.number ? 1 : -1))
     setActivities([...myActivities])
@@ -48,7 +48,7 @@ export default function ContentCreator({ learningStandard }) {
         message.error(response.err)
       }
 
-      const lsResponse = await getLearningStandard(learningStandard.id)
+      const lsResponse = await getLessonModule(learningStandard.id)
       if (lsResponse.err) {
         message.error(lsResponse.err)
       }
@@ -62,7 +62,7 @@ export default function ContentCreator({ learningStandard }) {
     activity.selectedToolbox = selectedToolBoxRes.data.toolbox
     activity.toolbox = allToolBoxRes.data.toolbox
 
-    activity.learning_standard_name = learningStandard.name
+    activity.lesson_module_name = learningStandard.name
     localStorage.setItem("my-activity", JSON.stringify(activity))
     navigate("/activity")
   }

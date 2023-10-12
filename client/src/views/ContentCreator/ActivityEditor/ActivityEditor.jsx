@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom"
 import {
   createActivity,
   deleteActivity,
-  getLearningStandardActivities,
+  getLessonModuleActivities,
 } from "../../../Utils/requests"
 import ActivityDetailModal from "./components/ActivityDetailModal"
 import "./ActivityEditor.less"
@@ -25,7 +25,7 @@ const ActivityEditor = ({ learningStandard, viewing, setViewing, page, tab }) =>
   useEffect(() => {
     const getSavedActivity = async () => {
       if (viewing && viewing === learningStandard.id) {
-        const getActivityAll = await getLearningStandardActivities(viewing)
+        const getActivityAll = await getLessonModuleActivities(viewing)
         const myActivities = getActivityAll.data
         myActivities.sort((a, b) => (a.number > b.number ? 1 : -1))
         setActivities([...myActivities])
@@ -55,7 +55,7 @@ const ActivityEditor = ({ learningStandard, viewing, setViewing, page, tab }) =>
         message.error(response.err)
       }
 
-      const getActivityAll = await getLearningStandardActivities(learningStandard.id)
+      const getActivityAll = await getLessonModuleActivities(learningStandard.id)
       if (getActivityAll.err) {
         message.error(getActivityAll.err)
       }

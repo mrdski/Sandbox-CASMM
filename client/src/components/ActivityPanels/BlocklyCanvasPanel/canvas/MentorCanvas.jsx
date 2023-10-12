@@ -308,8 +308,8 @@ export default function MentorCanvas({ activity, isSandbox, setActivity,  isMent
           >
             <Row id='icon-control-panel'>
               <Col flex='none' id='section-header'>
-                {activity.learning_standard_name
-                  ? `${activity.learning_standard_name} - Activity ${activity.number}`
+                {activity.lesson_module_name
+                  ? `${activity.lesson_module_name} - Activity ${activity.number}`
                   : activity.name
                   ? `Workspace: ${activity.name}`
                   : 'New Workspace!'}

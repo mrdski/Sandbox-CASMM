@@ -89,10 +89,10 @@ export const getActivityToolboxAll = async () =>
 //     path: `${server}/activities/`
 //   })
 
-// export const getLearningStandardActivities = async (lsId) =>
+// export const getLessonModuleActivities = async (lsId) =>
 //   makeRequest({
 //     method: GET,
-//     path: `${server}/activities?learning_standard.id=${lsId}`,
+//     path: `${server}/activities?lesson_module.id=${lsId}`,
 //     auth: true,
 //     error: 'Activity cannot be retrived',
 //   });
@@ -161,7 +161,7 @@ export const createActivity = async (activity, learningStandard) =>
     method: POST,
     path: `${server}/activities`,
     data: {
-      learning_standard: learningStandard,
+      lesson_module: learningStandard,
       number: activity,
       template: '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>)',
     },
@@ -197,10 +197,10 @@ export const getUnits = async (id) =>
     error: 'Failed to retrieve units.',
   });
 
-export const getLearningStandard = async (id) =>
+export const getLessonModule = async (id) =>
   makeRequest({
     method: GET,
-    path: `${server}/learning-standards/${id}`,
+    path: `${server}/lesson-modules/${id}`,
     auth: true,
     error: 'Failed to retrieve learning standard.',
   });
@@ -221,18 +221,18 @@ export const getAllUnits = async () =>
     error: 'Failed to retrieve learning standard.',
   });
 
-export const getLearningStandardcount = async () =>
+export const getLessonModulecount = async () =>
   makeRequest({
     method: GET,
-    path: `${server}/learning-standards/count`,
+    path: `${server}/lesson-modules/count`,
     auth: true,
     error: 'Failed to retrieve learning standard.',
   });
 
-export const getLearningStandardAll = async () =>
+export const getLessonModuleAll = async () =>
   makeRequest({
     method: GET,
-    path: `${server}/learning-standards?_sort=unit.name:ASC,name:ASC`,
+    path: `${server}/lesson-modules?_sort=unit.name:ASC,name:ASC`,
     auth: true,
     error: 'Failed to retrieve learning standard.',
   });
@@ -243,7 +243,7 @@ export const setSelection = async (classroom, learningStandard) =>
     path: `${server}/selections/`,
     data: {
       classroom: classroom,
-      learning_standard: learningStandard,
+      lesson_module: learningStandard,
     },
     auth: true,
     error: 'Failed to set active learning standard.',
@@ -362,15 +362,15 @@ export const deleteActivity = async (id) =>
     error: 'Failed to delete activity.',
   });
 
-export const deleteLearningStandard = async (id) =>
+export const deleteLessonModule = async (id) =>
   makeRequest({
     method: DELETE,
-    path: `${server}/learning-standards/${id}`,
+    path: `${server}/lesson-modules/${id}`,
     auth: true,
     error: 'Failed to delete student.',
   });
 
-export const createLearningStandard = async (
+export const createLessonModule = async (
   description,
   name,
   number,
@@ -380,7 +380,7 @@ export const createLearningStandard = async (
 ) =>
   makeRequest({
     method: POST,
-    path: `${server}/learning-standards`,
+    path: `${server}/lesson-modules`,
     data: {
       expectations: description,
       name,
@@ -446,7 +446,7 @@ export const getGrade = async (grade) =>
     error: 'Grade could not be retrieved',
   });
 
-export const updateLearningStandard = async (
+export const updateLessonModule = async (
   id,
   name,
   expectations,
@@ -455,7 +455,7 @@ export const updateLearningStandard = async (
 ) =>
   makeRequest({
     method: PUT,
-    path: `${server}/learning-standards/${id}`,
+    path: `${server}/lesson-modules/${id}`,
     data: {
       name,
       teks,
@@ -496,10 +496,10 @@ export const updateActivityDetails = async (
     error: 'Failed to update unit',
   });
 
-export const getLearningStandardActivities = async (lsId) =>
+export const getLessonModuleActivities = async (lsId) =>
   makeRequest({
     method: GET,
-    path: `${server}/activities?learning_standard.id=${lsId}`,
+    path: `${server}/activities?lesson_module.id=${lsId}`,
     auth: true,
     error: 'Activity cannot be retrived',
   });

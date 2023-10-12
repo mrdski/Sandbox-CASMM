@@ -99,7 +99,7 @@ test('content creator can edit units', async () => {
 });
 
 test('content creator can create and delete learning standard', async () => {
-  const response = await contentcreatorRequest.post('/learning-standards', {
+  const response = await contentcreatorRequest.post('/lesson-modules', {
     name: 'myLS',
     unit: 1,
     number: 133,
@@ -110,15 +110,15 @@ test('content creator can create and delete learning standard', async () => {
   expect(response.status).toBe(200);
 
   const deleteResponse = await contentcreatorRequest.delete(
-    `/learning-standards/${response.data.id}`
+    `/lesson-modules/${response.data.id}`
   );
   expect(deleteResponse.status).toBe(200);
 });
 
-test('content creator can edit learning Standards', async () => {
-  const response = await contentcreatorRequest.put(`/learning-standards/1`, {
+test('content creator can edit lesson Modules', async () => {
+  const response = await contentcreatorRequest.put(`/lesson-modules/1`, {
     //changed learned standard to be what is alread preloaded
-    name: 'NewLearningStandard',
+    name: 'NewLessonModule',
     unit: 1,
     number: 0,
     teks: '2B',
@@ -128,7 +128,7 @@ test('content creator can edit learning Standards', async () => {
 
   //reverting it back to what it was - for async tests
   const responseRevert = await contentcreatorRequest.put(
-    `/learning-standards/1`,
+    `/lesson-modules/1`,
     {
       name: 'Mixtures and Solutions',
       unit: 1,
@@ -141,11 +141,11 @@ test('content creator can edit learning Standards', async () => {
   expect(responseRevert.status).toBe(200);
 });
 
-//just modified the learning_standard to be hardcoded to the data that is preloaded into the database
+//just modified the lesson_module to be hardcoded to the data that is preloaded into the database
 test('content creator can create days', async () => {
   const response = await contentcreatorRequest.post('/days', {
     number: 123,
-    learning_standard: 1,
+    lesson_module: 1,
     template:
       '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="io_digitalwrite" id="j#m#H23NIQH5Wz^I2c^G" x="70" y="224"><field name="PIN">0</field><value name="STATE"><block type="io_highlow" id="7.^n|ek_3R;_Q`K9M!;/"><field name="STATE">HIGH</field></block></value></block></xml>',
   });

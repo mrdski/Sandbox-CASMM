@@ -27,9 +27,9 @@
       "type": "integer",
       "required": true
     },
-    "learning_standards": {
+    "lesson_modules": {
       "via": "unit",
-      "collection": "learning-standard"
+      "collection": "lesson-module"
     }
   }
 }

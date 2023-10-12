@@ -758,7 +758,7 @@
           "id": {
             "type": "string"
           },
-          "learning_standard": {
+          "lesson_module": {
             "required": [
               "id",
               "number",
@@ -895,7 +895,7 @@
           "template"
         ],
         "properties": {
-          "learning_standard": {
+          "lesson_module": {
             "type": "string"
           },
           "number": {

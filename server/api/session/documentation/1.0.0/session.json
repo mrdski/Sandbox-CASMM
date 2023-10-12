@@ -742,7 +742,7 @@
               "number": {
                 "type": "integer"
               },
-              "learning_standards": {
+              "lesson_modules": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -788,7 +788,7 @@
               }
             }
           },
-          "learning_standard": {
+          "lesson_module": {
             "required": [
               "id",
               "number",
@@ -861,7 +861,7 @@
           "grade": {
             "type": "string"
           },
-          "learning_standard": {
+          "lesson_module": {
             "type": "string"
           },
           "created_by": {

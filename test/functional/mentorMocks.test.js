@@ -75,7 +75,7 @@ test('Mentor dashboard information is populated correctly', async () => {
 });
 
 test('Mentor dashboard contains correct learning standards', async () => {
-  const response = await mentorRequest.get('/learning-standards/1');
+  const response = await mentorRequest.get('/lesson-modules/1');
   expect(response).toEqual(
     expect.objectContaining({
       data: expect.objectContaining({

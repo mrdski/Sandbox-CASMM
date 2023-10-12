@@ -24,7 +24,7 @@ module.exports = {
         error: 'ValidationError',
       });
 
-    return await strapi.services['learning-standard'].update(
+    return await strapi.services['lesson-module'].update(
       { id },
       ctx.request.body
     );

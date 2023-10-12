@@ -5,7 +5,7 @@ import {
   getActivity,
   getActivityToolbox,
   getActivityToolboxAll,
-  getLearningStandardActivities,
+  getLessonModuleActivities,
   updateActivityDetails,
 } from "../../../../Utils/requests"
 import "../ActivityEditor.less"
@@ -88,7 +88,7 @@ const ActivityDetailModal = ({
     activity.selectedToolbox = selectedToolBoxRes.data.toolbox
     activity.toolbox = allToolBoxRes.data.toolbox
 
-    activity.learning_standard_name = learningStandard.name
+    activity.lesson_module_name = learningStandard.name
     localStorage.setItem("my-activity", JSON.stringify(activity))
     navigate("/activity")
   }
@@ -98,7 +98,7 @@ const ActivityDetailModal = ({
     delete activity.selectedToolbox
     activity.toolbox = allToolBoxRes.data.toolbox
 
-    activity.learning_standard_name = learningStandard.name
+    activity.lesson_module_name = learningStandard.name
     localStorage.setItem("my-activity", JSON.stringify(activity))
     navigate("/activity")
   }
@@ -130,7 +130,7 @@ const ActivityDetailModal = ({
       message.success("Successfully saved activity")
       // just save the form
       if (submitButton === 0) {
-        const getActivityAll = await getLearningStandardActivities(viewing)
+        const getActivityAll = await getLessonModuleActivities(viewing)
         const myActivities = getActivityAll.data
         myActivities.sort((a, b) => (a.number > b.number ? 1 : -1))
         setActivities([...myActivities])

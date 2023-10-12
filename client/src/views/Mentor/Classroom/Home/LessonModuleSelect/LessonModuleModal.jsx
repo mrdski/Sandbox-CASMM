@@ -1,15 +1,15 @@
 import { Modal, Button, message } from 'antd';
 import React, { useEffect, useState } from 'react';
-import LearningStandardSelect from './LearningStandardSelect';
+import LessonModuleSelect from './LessonModuleSelect';
 import {
-  getLearningStandard,
+  getLessonModule,
   setSelection,
-  getLearningStandardActivities,
+  getLessonModuleActivities,
 } from '../../../../../Utils/requests';
 import { useSearchParams } from 'react-router-dom';
 
-export default function LearningStandardModal({
-  setActiveLearningStandard,
+export default function LessonModuleModal({
+  setActiveLessonModule,
   gradeId,
   classroomId,
   viewing,
@@ -25,10 +25,10 @@ export default function LearningStandardModal({
   useEffect(() => {
     const fetchData = async () => {
       if (viewing) {
-        const res = await getLearningStandard(viewing);
+        const res = await getLessonModule(viewing);
         if (res.data) {
           setSelected(res.data);
-          const activitiesRes = await getLearningStandardActivities(res.data.id);
+          const activitiesRes = await getLessonModuleActivities(res.data.id);
           if (activitiesRes) setSelectedActivities(activitiesRes.data);
           else {
             message.error(activitiesRes.err);
@@ -58,7 +58,7 @@ export default function LearningStandardModal({
     if (res.err) {
       message.error(res.err);
     } else {
-      setActiveLearningStandard(selected);
+      setActiveLessonModule(selected);
       setActivities(selectedActivities);
       message.success('Successfully updated active learning standard.');
       setSearchParams({ tab: 'home' });
@@ -72,7 +72,7 @@ export default function LearningStandardModal({
   };
 
   return (
-    <div id='learning-standard-modal'>
+    <div id='lesson-module-modal'>
       <button id='change-lesson-btn' onClick={showModal}>
         <p id='test'>Change</p>
       </button>
@@ -98,7 +98,7 @@ export default function LearningStandardModal({
           </Button>,
         ]}
       >
-        <LearningStandardSelect
+        <LessonModuleSelect
           activePanel={activePanel}
           setActivePanel={setActivePanel}
           selected={selected}

@@ -601,7 +601,7 @@
               "id": {
                 "type": "string"
               },
-              "learning_standard": {
+              "lesson_module": {
                 "type": "string"
               },
               "number": {
@@ -724,7 +724,7 @@
               "grade": {
                 "type": "string"
               },
-              "learning_standard": {
+              "lesson_module": {
                 "type": "string"
               },
               "created_by": {

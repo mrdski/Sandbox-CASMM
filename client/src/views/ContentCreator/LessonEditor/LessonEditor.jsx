@@ -2,8 +2,8 @@ import { Button, Form, Input, message, Modal } from "antd"
 import React, { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import {
-  getLearningStandard,
-  updateLearningStandard,
+  getLessonModule,
+  updateLessonModule,
 } from "../../../Utils/requests"
 import ActivityEditor from "../ActivityEditor/ActivityEditor"
 
@@ -26,7 +26,7 @@ export default function LessonEditor({
 
   const showModal = async () => {
     setVisible(true)
-    const res = await getLearningStandard(learningStandard.id)
+    const res = await getLessonModule(learningStandard.id)
     setName(res.data.name)
     setDescription(res.data.expectations)
     setTeks(res.data.teks)
@@ -51,7 +51,7 @@ export default function LessonEditor({
         return
       }
     }
-    const response = await updateLearningStandard(
+    const response = await updateLessonModule(
       learningStandard.id,
       name,
       description,

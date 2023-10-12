@@ -582,7 +582,7 @@
               }
             }
           },
-          "learning_standard": {
+          "lesson_module": {
             "required": [
               "id",
               "number",
@@ -638,7 +638,7 @@
           "classroom": {
             "type": "string"
           },
-          "learning_standard": {
+          "lesson_module": {
             "type": "string"
           },
           "current": {

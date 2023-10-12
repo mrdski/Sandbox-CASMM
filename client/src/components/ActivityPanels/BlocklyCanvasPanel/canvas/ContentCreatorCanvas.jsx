@@ -318,8 +318,8 @@ export default function ContentCreatorCanvas({
           >
             <Row id='icon-control-panel'>
               <Col flex='none' id='section-header'>
-                {activity.learning_standard_name
-                  ? `${activity.learning_standard_name} - Activity ${activity.number} - ${
+                {activity.lesson_module_name
+                  ? `${activity.lesson_module_name} - Activity ${activity.number} - ${
                       isMentorActivity ? 'Activity' : 'Activity Level'
                     } Template`
                   : activity.name

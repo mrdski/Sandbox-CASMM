@@ -765,7 +765,7 @@
                 "grade": {
                   "type": "string"
                 },
-                "learning_standard": {
+                "lesson_module": {
                   "type": "string"
                 },
                 "created_by": {

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import {Modal, Button} from 'antd';
 import { AutoComplete, Divider, message, Tag } from 'antd';
-import './LearningStandardSelect.less';
+import './LessonModuleSelect.less';
 import {
-  getLearningStandard,
+  getLessonModule,
   getUnits,
-  getLearningStandardActivities,
+  getLessonModuleActivities,
 } from '../../../../../Utils/requests';
 import CheckUnits from './CheckUnits';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-export default function LearningStandardSelect({
+export default function LessonModuleSelect({
   selected,
   setSelected,
   activePanel,
@@ -51,14 +51,14 @@ export default function LearningStandardSelect({
     if (gradeId) fetchData();
   }, [setVisibleStandardsByUnit, gradeId]);
 
-  const getSelectedLearningStandard = async (standard) => {
-    const res = await getLearningStandard(standard.id);
+  const getSelectedLessonModule = async (standard) => {
+    const res = await getLessonModule(standard.id);
     if (res.data) {
       setSelected(res.data);
     } else {
       message.error(res.err);
     }
-    const activitiresRes = await getLearningStandardActivities(res.data.id);
+    const activitiresRes = await getLessonModuleActivities(res.data.id);
     if (activitiresRes) setActivities(activitiresRes.data);
     else {
       message.error(activitiresRes.err);
@@ -69,7 +69,7 @@ export default function LearningStandardSelect({
     let words = [];
     units.forEach((unit) => {
       if (checkedList.find((checked) => checked.id === unit.id)) {
-        unit.learning_standards.forEach((ls) => {
+        unit.lesson_modules.forEach((ls) => {
           if (ls.name.toLowerCase().startsWith(word.toLowerCase())) {
             words.push({ value: ls.name });
           }
@@ -89,10 +89,10 @@ export default function LearningStandardSelect({
     let visible = [];
     units.forEach((unit) => {
       let u = { ...unit };
-      u.learning_standards = unit.learning_standards.filter((ls) => {
+      u.lesson_modules = unit.lesson_modules.filter((ls) => {
         return values.includes(ls.name);
       });
-      if (u.learning_standards.length > 0) {
+      if (u.lesson_modules.length > 0) {
         visible.push(u);
       }
     });
@@ -111,7 +111,7 @@ export default function LearningStandardSelect({
   };
 
   const handleViewActivity = (activity) => {
-    activity.learning_standard_name = selected.name;
+    activity.lesson_module_name = selected.name;
     localStorage.setItem('my-activity', JSON.stringify(activity));
     navigator('/activity');
   };
@@ -167,15 +167,15 @@ export default function LearningStandardSelect({
             return checkedList.find((checked) => checked.id === unit.id) ? (
               <div key={unit.id}>
                 <Divider orientation='left'>{`Unit ${unit.number}- ${unit.name}`}</Divider>
-                {unit.learning_standards.map((ls) => (
+                {unit.lesson_modules.map((ls) => (
                   <div
                     key={ls.id}
                     id={
                       selected.id !== ls.id
                         ? 'list-item-wrapper'
-                        : 'selected-learning-standard'
+                        : 'selected-lesson-module'
                     }
-                    onClick={() => getSelectedLearningStandard(ls)}
+                    onClick={() => getSelectedLessonModule(ls)}
                   >
                     <li>{ls.name}</li>
                   </div>
@@ -193,8 +193,8 @@ export default function LearningStandardSelect({
           <i className='fa fa-arrow-left' aria-hidden='true' />
         </button>
         <div id='ls-info'>
-          <p id='learning-standard-expectations-title'>Description:</p>
-          <p id='learning-standard-expectations'>{selected.expectations}</p>
+          <p id='lesson-module-expectations-title'>Description:</p>
+          <p id='lesson-module-expectations'>{selected.expectations}</p>
           {selected.link ? (
             <p>
               Link to addtional resources:{' '}

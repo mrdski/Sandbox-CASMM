@@ -17,8 +17,8 @@ export function useSearchParam() {
         ? parseInt(searchParams.get('pageSize'))
         : 10,
       grade: searchParams.has('grade') ? searchParams.get('grade') : null,
-      learning_standard: searchParams.has('learning_standard')
-        ? searchParams.get('learning_standard')
+      lesson_module: searchParams.has('lesson_module')
+        ? searchParams.get('lesson_module')
         : null,
       unit: searchParams.has('unit') ? searchParams.get('unit') : null,
       classroom: searchParams.has('classroom')
@@ -41,7 +41,7 @@ export function useSearchParam() {
     _sort,
     pageSize,
     grade,
-    learning_standard,
+    lesson_module,
     unit,
     classroom,
     student,
@@ -54,7 +54,7 @@ export function useSearchParam() {
         _sort: 'created_at:DESC',
         pageSize: 10,
         grade,
-        learning_standard,
+        lesson_module,
         unit,
         classroom,
         students_in: student,
@@ -65,7 +65,7 @@ export function useSearchParam() {
       if (_sort) obj['_sort'] = _sort;
       if (pageSize !== null) obj['pageSize'] = pageSize;
       if (grade) obj['grade'] = grade;
-      if (learning_standard) obj['learning_standard'] = learning_standard;
+      if (lesson_module) obj['lesson_module'] = lesson_module;
       if (unit) obj['unit'] = unit;
       if (classroom) obj['classroom'] = classroom;
       if (student) obj['students_in'] = student;

@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "learning_standards",
+  "collectionName": "lesson_modules",
   "info": {
-    "name": "learning Standard",
+    "name": "lesson Module",
     "description": ""
   },
   "options": {
@@ -23,12 +23,12 @@
       "type": "text"
     },
     "activities": {
-      "via": "learning_standard",
+      "via": "lesson_module",
       "collection": "activity"
     },
     "unit": {
       "model": "unit",
-      "via": "learning_standards"
+      "via": "lesson_modules"
     },
     "teks": {
       "type": "string",

@@ -3,15 +3,15 @@ import React, { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import {
   createActivity,
-  createLearningStandard,
+  createLessonModule,
   getAllUnits,
-  getLearningStandardAll,
+  getLessonModuleAll,
 } from "../../../Utils/requests"
 import ActivityEditor from "../ActivityEditor/ActivityEditor"
-import "./LearningStandardCreator.less"
+import "./LessonModuleCreator.less"
 
-export default function LearningStandardCreator({
-  setLearningStandardList,
+export default function LessonModuleCreator({
+  setLessonModuleList,
   viewing,
   setViewing,
 }) {
@@ -24,7 +24,7 @@ export default function LearningStandardCreator({
   const [teks, setTeks] = useState("")
   const [link, setLink] = useState("")
   const [linkError, setLinkError] = useState(false)
-  const [learningStandardObj, setLearningStandardObj] = useState("")
+  const [learningStandardObj, setLessonModuleObj] = useState("")
   // eslint-disable-next-line
   const [_, setSearchParams] = useSearchParams()
 
@@ -64,7 +64,7 @@ export default function LearningStandardCreator({
       }
     }
     setLinkError(false)
-    const res = await createLearningStandard(
+    const res = await createLessonModule(
       description,
       name,
       0,
@@ -82,9 +82,9 @@ export default function LearningStandardCreator({
         }
       }
       message.success("Successfully created lesson")
-      const lsRes = await getLearningStandardAll()
-      setLearningStandardList(lsRes.data)
-      setLearningStandardObj(res.data)
+      const lsRes = await getLessonModuleAll()
+      setLessonModuleList(lsRes.data)
+      setLessonModuleObj(res.data)
 
       // find the position of the newly created ls
       found = lsRes.data.findIndex(ls => ls.id === res.data.id)
@@ -109,7 +109,7 @@ export default function LearningStandardCreator({
 
   return (
     <div>
-      <button onClick={showModal} id="add-learning-standard-btn">
+      <button onClick={showModal} id="add-lesson-module-btn">
         + Add a Lesson
       </button>
 
@@ -121,7 +121,7 @@ export default function LearningStandardCreator({
         footer={null}
       >
         <Form
-          id="add-learning-standard"
+          id="add-lesson-module"
           labelCol={{
             span: 6,
           }}

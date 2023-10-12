@@ -568,7 +568,7 @@
           "number": {
             "type": "integer"
           },
-          "learning_standards": {
+          "lesson_modules": {
             "type": "array",
             "items": {
               "required": [
@@ -636,7 +636,7 @@
           "number": {
             "type": "integer"
           },
-          "learning_standards": {
+          "lesson_modules": {
             "type": "array",
             "items": {
               "type": "string"

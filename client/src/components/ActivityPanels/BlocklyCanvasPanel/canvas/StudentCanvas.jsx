@@ -364,7 +364,7 @@ export default function StudentCanvas({ activity }) {
           >
             <Row id='icon-control-panel'>
               <Col flex='none' id='section-header'>
-                {activity.learning_standard_name}
+                {activity.lesson_module_name}
               </Col>
               <Col flex='auto'>
                 <Row align='middle' justify='end' id='description-container'>
