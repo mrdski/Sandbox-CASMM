@@ -248,10 +248,10 @@ const ActivityDetailModal = ({
             <br />
             Activity Template
           </button>
-          <button id="save-set-activity-btn" onClick={() => setSubmitButton(2)}>
+          <button id="save--set-demo-btn" onClick={() => setSubmitButton(2)}>
             Save and Set
             <br />
-            Activity Template
+            Demo Template
           </button>
         </Form.Item>
         <Form.Item

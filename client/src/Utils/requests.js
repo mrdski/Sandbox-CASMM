@@ -507,11 +507,7 @@ export const getLearningStandardActivities = async (lsId) =>
   export const getActivityLevels = async (lsId) =>
   makeRequest({
     method: GET,
-<<<<<<< HEAD
-    path: `${server}/cc-workspaces?activities.id=${lsId}`,
-=======
     path: `${server}/authorized-workspaces?activities.id=${lsId}`,
->>>>>>> workspaceChanges2
     auth: true,
     error: 'Activities cannot be retrieved',
   });

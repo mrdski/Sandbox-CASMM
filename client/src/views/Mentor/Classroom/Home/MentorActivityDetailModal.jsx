@@ -271,8 +271,8 @@ const MentorActivityDetailModal = ({
           <button id="save--set-activity-btn" onClick={() => setSubmitButton(1)}>
             Edit Student Template
           </button>
-          <button id="save-set-activity-btn" onClick={() => setSubmitButton(2)}>
-            Edit Mentor Template
+          <button id="save--set-demo-btn" onClick={() => setSubmitButton(2)}>
+            Edit Demo Template
             <br />
             
           </button>
