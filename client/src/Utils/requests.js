@@ -89,10 +89,10 @@ export const getActivityToolboxAll = async () =>
 //     path: `${server}/activities/`
 //   })
 
-// export const getLearningStandardActivities = async (lsId) =>
+// export const getLessonModuleActivities = async (lsId) =>
 //   makeRequest({
 //     method: GET,
-//     path: `${server}/activities?learning_standard.id=${lsId}`,
+//     path: `${server}/activities?lesson_module.id=${lsId}`,
 //     auth: true,
 //     error: 'Activity cannot be retrived',
 //   });
@@ -161,7 +161,7 @@ export const createActivity = async (activity, learningStandard) =>
     method: POST,
     path: `${server}/activities`,
     data: {
-      learning_standard: learningStandard,
+      lesson_module: learningStandard,
       number: activity,
       template: '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>)',
     },
@@ -197,10 +197,10 @@ export const getUnits = async (id) =>
     error: 'Failed to retrieve units.',
   });
 
-export const getLearningStandard = async (id) =>
+export const getLessonModule = async (id) =>
   makeRequest({
     method: GET,
-    path: `${server}/learning-standards/${id}`,
+    path: `${server}/lesson-modules/${id}`,
     auth: true,
     error: 'Failed to retrieve learning standard.',
   });
@@ -221,18 +221,18 @@ export const getAllUnits = async () =>
     error: 'Failed to retrieve learning standard.',
   });
 
-export const getLearningStandardcount = async () =>
+export const getLessonModulecount = async () =>
   makeRequest({
     method: GET,
-    path: `${server}/learning-standards/count`,
+    path: `${server}/lesson-modules/count`,
     auth: true,
     error: 'Failed to retrieve learning standard.',
   });
 
-export const getLearningStandardAll = async () =>
+export const getLessonModuleAll = async () =>
   makeRequest({
     method: GET,
-    path: `${server}/learning-standards?_sort=unit.name:ASC,name:ASC`,
+    path: `${server}/lesson-modules?_sort=unit.name:ASC,name:ASC`,
     auth: true,
     error: 'Failed to retrieve learning standard.',
   });
@@ -243,7 +243,7 @@ export const setSelection = async (classroom, learningStandard) =>
     path: `${server}/selections/`,
     data: {
       classroom: classroom,
-      learning_standard: learningStandard,
+      lesson_module: learningStandard,
     },
     auth: true,
     error: 'Failed to set active learning standard.',
@@ -362,38 +362,38 @@ export const deleteActivity = async (id) =>
     error: 'Failed to delete activity.',
   });
 
-export const deleteLearningStandard = async (id) =>
+export const deleteLessonModule = async (id) =>
   makeRequest({
     method: DELETE,
-    path: `${server}/learning-standards/${id}`,
+    path: `${server}/lesson-modules/${id}`,
     auth: true,
     error: 'Failed to delete student.',
   });
 
-export const createLearningStandard = async (
+export const createLessonModule = async (
   description,
   name,
   number,
   unit,
-  teks,
+  standards,
   link
 ) =>
   makeRequest({
     method: POST,
-    path: `${server}/learning-standards`,
+    path: `${server}/lesson-modules`,
     data: {
       expectations: description,
       name,
       number,
       unit,
-      teks,
+      standards,
       link,
     },
     auth: true,
     error: 'Login failed.',
   });
 
-export const createUnit = async (number, name, teksID, teksDescrip, grade) =>
+export const createUnit = async (number, name, standardsID, standardsDescrip, grade) =>
   makeRequest({
     method: POST,
     path: `${server}/units`,
@@ -401,8 +401,8 @@ export const createUnit = async (number, name, teksID, teksDescrip, grade) =>
       number: parseInt(number, 10),
       name: name,
       grade: parseInt(grade, 10),
-      teks_id: teksID,
-      teks_description: teksDescrip,
+      standards_id: standardsID,
+      standards_description: standardsDescrip,
     },
     auth: true,
     error: 'Fail to create new unit.',
@@ -412,8 +412,8 @@ export const updateUnit = async (
   id,
   number,
   name,
-  teksID,
-  teksDescrip,
+  standardsID,
+  standardsDescrip,
   grade
 ) =>
   makeRequest({
@@ -423,8 +423,8 @@ export const updateUnit = async (
       number: parseInt(number, 10),
       name: name,
       grade: parseInt(grade, 10),
-      teks_id: teksID,
-      teks_description: teksDescrip,
+      standards_id: standardsID,
+      standards_description: standardsDescrip,
     },
     auth: true,
     error: 'Failed to update unit',
@@ -446,19 +446,19 @@ export const getGrade = async (grade) =>
     error: 'Grade could not be retrieved',
   });
 
-export const updateLearningStandard = async (
+export const updateLessonModule = async (
   id,
   name,
   expectations,
-  teks,
+  standards,
   link
 ) =>
   makeRequest({
     method: PUT,
-    path: `${server}/learning-standards/${id}`,
+    path: `${server}/lesson-modules/${id}`,
     data: {
       name,
-      teks,
+      standards,
       expectations,
       link,
     },
@@ -471,7 +471,7 @@ export const updateActivityDetails = async (
   description,
   // template,
   // activity_template,
-  TekS,
+  StandardS,
   images,
   link,
   scienceComponents,
@@ -485,7 +485,7 @@ export const updateActivityDetails = async (
       description,
       // template,
       // activity_template,
-      TekS,
+      StandardS,
       images,
       link,
       scienceComponents,
@@ -496,10 +496,10 @@ export const updateActivityDetails = async (
     error: 'Failed to update unit',
   });
 
-export const getLearningStandardActivities = async (lsId) =>
+export const getLessonModuleActivities = async (lsId) =>
   makeRequest({
     method: GET,
-    path: `${server}/activities?learning_standard.id=${lsId}`,
+    path: `${server}/activities?lesson_module.id=${lsId}`,
     auth: true,
     error: 'Activity cannot be retrived',
   });
@@ -507,7 +507,7 @@ export const getLearningStandardActivities = async (lsId) =>
   export const getActivityLevels = async (lsId) =>
   makeRequest({
     method: GET,
-    path: `${server}/cc-workspaces?activities.id=${lsId}`,
+    path: `${server}/authorized-workspaces?activities.id=${lsId}`,
     auth: true,
     error: 'Activities cannot be retrieved',
   });
@@ -602,23 +602,23 @@ export const submitBugReport = async (
     error: 'Unable to submit bug-report',
   });
 
-export const getCCWorkspaces = async () =>
+export const getAuthorizedWorkspaces = async () =>
   makeRequest({
     method: GET,
-    path: `${server}/cc-workspaces`,
+    path: `${server}/authorized-workspaces`,
     auth: true,
     error: 'Unable to retrive cc worksapces',
   });
 
-export const getCCWorkspace = async (id) =>
+export const getAuthorizedWorkspace = async (id) =>
   makeRequest({
     method: GET,
-    path: `${server}/cc-workspaces/${id}`,
+    path: `${server}/authorized-workspaces/${id}`,
     auth: true,
     error: 'Unable to retrive cc workspace',
   });
 
-export const createCCWorkspace = async (
+export const createAuthorizedWorkspace = async (
   name,
   description,
   template,
@@ -627,7 +627,7 @@ export const createCCWorkspace = async (
 ) =>
   makeRequest({
     method: POST,
-    path: `${server}/cc-workspaces`,
+    path: `${server}/authorized-workspaces`,
     auth: true,
     data: {
       name,
@@ -638,18 +638,18 @@ export const createCCWorkspace = async (
     },
     error: 'Unable to create cc workspace',
   });
-export const getCCWorkspaceToolbox = async (id) =>
+export const getAuthorizedWorkspaceToolbox = async (id) =>
   makeRequest({
     method: GET,
-    path: `${server}/cc-workspaces/toolbox/${id}`,
+    path: `${server}/authorized-workspaces/toolbox/${id}`,
     auth: true,
     error: 'Toolbox could not be retrieved.',
   });
 
-export const updateCCWorkspace = async (id, template, blocks) =>
+export const updateAuthorizedWorkspace = async (id, template, blocks) =>
   makeRequest({
     method: PUT,
-    path: `${server}/cc-workspaces/${id}`,
+    path: `${server}/authorized-workspaces/${id}`,
     auth: true,
     data: {
       template,
@@ -657,10 +657,10 @@ export const updateCCWorkspace = async (id, template, blocks) =>
     },
     error: 'Unable to create cc workspace',
   });
-export const deleteCCWorkspace = async (id) =>
+export const deleteAuthorizedWorkspace = async (id) =>
   makeRequest({
     method: DELETE,
-    path: `${server}/cc-workspaces/${id}`,
+    path: `${server}/authorized-workspaces/${id}`,
     auth: true,
     error: 'Unable to delete cc workspace',
   });

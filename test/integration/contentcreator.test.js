@@ -61,8 +61,8 @@ test('content creator can create units', async () => {
   const response = await contentcreatorRequest.post('/units', {
     name: 'UnitName',
     number: 123,
-    teks_id: 'abc',
-    teks_description: 'my description',
+    standards_id: 'abc',
+    standards_description: 'my description',
     grade: 5,
   });
   expect(response.status).toBe(200);
@@ -79,8 +79,8 @@ test('content creator can edit units', async () => {
     //changed the unitID to be what is preloaded already
     grade: 1,
     number: 234,
-    teks_id: 'afagageyge',
-    teks_description: 'New description',
+    standards_id: 'afagageyge',
+    standards_description: 'New description',
     name: 'NewUnitName',
   });
   expect(response.status).toBe(200);
@@ -90,8 +90,8 @@ test('content creator can edit units', async () => {
     //changed the unitID to be what is preloaded already
     name: 'Matter and Energy',
     number: 1,
-    teks_id: '5.5A',
-    teks_description:
+    standards_id: '5.5A',
+    standards_description:
       'Students will be able to classify matter based on physical properties, including mass, magnetism, physical state (solid, liquid, and gas), relative density (sinking and floating), solubility in water, and the ability to conduct or insulate thermal energy or electrical energy.',
     grade: 4,
   });
@@ -99,41 +99,41 @@ test('content creator can edit units', async () => {
 });
 
 test('content creator can create and delete learning standard', async () => {
-  const response = await contentcreatorRequest.post('/learning-standards', {
+  const response = await contentcreatorRequest.post('/lesson-modules', {
     name: 'myLS',
     unit: 1,
     number: 133,
-    teks: '2bsbdA',
+    standards: '2bsbdA',
     expectations:
       'Test expecation description so defaultcontentcreator doesnt error out',
   });
   expect(response.status).toBe(200);
 
   const deleteResponse = await contentcreatorRequest.delete(
-    `/learning-standards/${response.data.id}`
+    `/lesson-modules/${response.data.id}`
   );
   expect(deleteResponse.status).toBe(200);
 });
 
-test('content creator can edit learning Standards', async () => {
-  const response = await contentcreatorRequest.put(`/learning-standards/1`, {
+test('content creator can edit lesson Modules', async () => {
+  const response = await contentcreatorRequest.put(`/lesson-modules/1`, {
     //changed learned standard to be what is alread preloaded
-    name: 'NewLearningStandard',
+    name: 'NewLessonModule',
     unit: 1,
     number: 0,
-    teks: '2B',
+    standards: '2B',
     expectations: 'cc can edit ls',
   });
   expect(response.status).toBe(200);
 
   //reverting it back to what it was - for async tests
   const responseRevert = await contentcreatorRequest.put(
-    `/learning-standards/1`,
+    `/lesson-modules/1`,
     {
       name: 'Mixtures and Solutions',
       unit: 1,
       number: 1.3,
-      teks: 'gaekgoiu',
+      standards: 'gaekgoiu',
       expectations:
         'Demonstrate that some mixtures maintain physical properties of their ingredients such as iron fillings and sand and sand and water.Identify changes that can occur in the physical properties of the ingredients or solutions such as dissolving salt in water or adding lemon juice to water.',
     }
@@ -141,11 +141,11 @@ test('content creator can edit learning Standards', async () => {
   expect(responseRevert.status).toBe(200);
 });
 
-//just modified the learning_standard to be hardcoded to the data that is preloaded into the database
+//just modified the lesson_module to be hardcoded to the data that is preloaded into the database
 test('content creator can create days', async () => {
   const response = await contentcreatorRequest.post('/days', {
     number: 123,
-    learning_standard: 1,
+    lesson_module: 1,
     template:
       '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="io_digitalwrite" id="j#m#H23NIQH5Wz^I2c^G" x="70" y="224"><field name="PIN">0</field><value name="STATE"><block type="io_highlow" id="7.^n|ek_3R;_Q`K9M!;/"><field name="STATE">HIGH</field></block></value></block></xml>',
   });

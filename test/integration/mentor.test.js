@@ -125,7 +125,7 @@ test('an authenticated user can access a classroom by id', async () => {
 });
 
 test('an authenticated user can access a learning standards', async () => {
-  const response = await mentorRequest.get(`/learning-standards/1`, {});
+  const response = await mentorRequest.get(`/lesson-modules/1`, {});
 
   expect(response.status).toBe(200);
   expect(response.data).toHaveProperty('name');
@@ -135,7 +135,7 @@ test('an authenticated user can access a learning standards', async () => {
 test('an authenticated user can access a classroom by id', async () => {
   const response = await mentorRequest.post(`/selections`, {
     classroom: 1,
-    learning_standard: 1,
+    lesson_module: 1,
   });
 
   expect(response.status).toBe(200);

@@ -1,7 +1,7 @@
 import { Modal, Button, Input, Form, message, Menu } from 'antd';
 import { handleSaveAsWorkspace } from '../../Utils/helpers';
 import React, { useState } from 'react';
-import { getCCWorkspaceToolbox } from '../../../../Utils/requests';
+import { getAuthorizedWorkspaceToolbox } from '../../../../Utils/requests';
 import { useGlobalState } from '../../../../Utils/userState';
 
 export default function SaveAsModal({
@@ -43,7 +43,7 @@ export default function SaveAsModal({
       // if we are on sandbox mode, set the current workspace to the saved worksapce
       if (isSandbox) {
         if (value.role === 'ContentCreator') {
-          const toolboxRes = await getCCWorkspaceToolbox(res.data.id);
+          const toolboxRes = await getAuthorizedWorkspaceToolbox(res.data.id);
           if (toolboxRes.data) {
             message.success('Workspace saved successfully');
             localActivity = {

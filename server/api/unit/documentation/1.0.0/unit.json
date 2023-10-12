@@ -559,16 +559,16 @@
           "name": {
             "type": "string"
           },
-          "teks_id": {
+          "standards_id": {
             "type": "string"
           },
-          "teks_description": {
+          "standards_description": {
             "type": "string"
           },
           "number": {
             "type": "integer"
           },
-          "learning_standards": {
+          "lesson_modules": {
             "type": "array",
             "items": {
               "required": [
@@ -598,7 +598,7 @@
                 "unit": {
                   "type": "string"
                 },
-                "teks": {
+                "standards": {
                   "type": "string"
                 },
                 "link": {
@@ -627,16 +627,16 @@
           "name": {
             "type": "string"
           },
-          "teks_id": {
+          "standards_id": {
             "type": "string"
           },
-          "teks_description": {
+          "standards_description": {
             "type": "string"
           },
           "number": {
             "type": "integer"
           },
-          "learning_standards": {
+          "lesson_modules": {
             "type": "array",
             "items": {
               "type": "string"

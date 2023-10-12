@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import './Home.less';
 import {
   getClassroom,
-  getLearningStandard,
-  getLearningStandardActivities,
+  getLessonModule,
+  getLessonModuleActivities,
 } from '../../../../Utils/requests';
 import MentorSubHeader from '../../../../components/MentorSubHeader/MentorSubHeader';
 import DisplayCodeModal from './DisplayCodeModal';
 import MentorActivityDetailModal from './MentorActivityDetailModal';
-import LearningStandardModal from './LearningStandardSelect/LearningStandardModal';
+import LessonModuleModal from './LessonModuleSelect/LessonModuleModal';
 import { message, Tag } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ export default function Home({ classroomId, viewing }) {
   const [classroom, setClassroom] = useState({});
   const [activities, setActivities] = useState([]);
   const [gradeId, setGradeId] = useState(null);
-  const [activeLearningStandard, setActiveLearningStandard] = useState(null);
+  const [activeLessonModule, setActiveLessonModule] = useState(null);
   const [activityDetailsVisible, setActivityDetailsVisible] = useState(false)
   const navigate = useNavigate();
 
@@ -33,14 +33,14 @@ export default function Home({ classroomId, viewing }) {
         setGradeId(classroom.grade.id);
         classroom.selections.forEach(async (selection) => {
           if (selection.current) {
-            const lsRes = await getLearningStandard(
-              selection.learning_standard
+            const lsRes = await getLessonModule(
+              selection.lesson_module
             );
-            if (lsRes.data) setActiveLearningStandard(lsRes.data);
+            if (lsRes.data) setActiveLessonModule(lsRes.data);
             else {
               message.error(lsRes.err);
             }
-            const activityRes = await getLearningStandardActivities(lsRes.data.id);
+            const activityRes = await getLessonModuleActivities(lsRes.data.id);
             if (activityRes) setActivities(activityRes.data);
             else {
               message.error(activityRes.err);
@@ -55,13 +55,13 @@ export default function Home({ classroomId, viewing }) {
   }, [classroomId]);
 
   const handleViewActivity = (activity, name) => {
-    activity.learning_standard_name = name;
+    activity.lesson_module_name = name;
     localStorage.setItem('sandbox-activity', JSON.stringify(activity));
     navigate('/sandbox');
   };
 
   const openActivityInWorkspace = (activity, name) => {
-    activity.learning_standard_name = name;
+    activity.lesson_module_name = name;
     activity.template = activity.activity_template;
     delete activity.id;
     delete activity.activity_template;
@@ -95,29 +95,29 @@ export default function Home({ classroomId, viewing }) {
       <DisplayCodeModal code={classroom.code} />
       <MentorSubHeader title={classroom.name}></MentorSubHeader>
       <div id='home-content-container'>
-        <div id='active-learning-standard'>
-          {activeLearningStandard ? (
+        <div id='active-lesson-module'>
+          {activeLessonModule ? (
             <div>
-              <div id='active-learning-standard-title-container'>
-                <h3>{`Learning Standard - ${activeLearningStandard.name}`}</h3>
-                <LearningStandardModal
-                  setActiveLearningStandard={setActiveLearningStandard}
+              <div id='active-lesson-module-title-container'>
+                <h3>{`Learning Standard - ${activeLessonModule.name}`}</h3>
+                <LessonModuleModal
+                  setActiveLessonModule={setActiveLessonModule}
                   classroomId={classroomId}
                   gradeId={gradeId}
                   viewing={viewing}
                   setActivities={setActivities}
                 />
               </div>
-              <p id='learning-standard-expectations'>{`Expectations: ${activeLearningStandard.expectations}`}</p>
-             {activeLearningStandard.link ? (
+              <p id='lesson-module-expectations'>{`Expectations: ${activeLessonModule.expectations}`}</p>
+             {activeLessonModule.link ? (
                 <p>
                   Addtional resources to the lesson:{' '}
                   <a
-                    href={activeLearningStandard.link}
+                    href={activeLessonModule.link}
                     target='_blank'
                     rel='noreferrer'
                   >
-                    {activeLearningStandard.link}
+                    {activeLessonModule.link}
                   </a>
                 </p>
               ) : null}
@@ -134,7 +134,7 @@ export default function Home({ classroomId, viewing }) {
                           id='view-activity-button'
                           style={{marginRight: "auto"}}
                           onClick={() =>
-                            handleViewActivity(activity, activeLearningStandard.name)
+                            handleViewActivity(activity, activeLessonModule.name)
                           }
                         >
                           Student Template
@@ -146,15 +146,15 @@ export default function Home({ classroomId, viewing }) {
                             onClick={() =>
                               openActivityInWorkspace(
                                 activity,
-                                activeLearningStandard.name
+                                activeLessonModule.name
                               )
                             }
                           >
-                            Mentor Template
+                            Demo Template
                           </button>
                         )}
                         <MentorActivityDetailModal
-                          learningStandard={activeLearningStandard}
+                          learningStandard={activeLessonModule}
                           selectActivity={activity}
                           activityDetailsVisible={false}
                           setActivityDetailsVisible={false}
@@ -164,8 +164,8 @@ export default function Home({ classroomId, viewing }) {
                       </div>
                       <div id='view-activity-info'>
                         <p>
-                          <strong>TEKS: </strong>
-                          {activity.TekS}
+                          <strong>STANDARDS: </strong>
+                          {activity.StandardS}
                         </p>
                         <p>
                           <strong>Description: </strong>
@@ -244,8 +244,8 @@ export default function Home({ classroomId, viewing }) {
             <div>
               <p>There is currently no active lesson set.</p>
               <p>Click the button below to browse available lessons.</p>
-              <LearningStandardModal
-                setActiveLearningStandard={setActiveLearningStandard}
+              <LessonModuleModal
+                setActiveLessonModule={setActiveLessonModule}
                 classroomId={classroomId}
                 gradeId={gradeId}
                 viewing={viewing}

@@ -29,18 +29,18 @@ module.exports = {
       grade: gradeId,
       name,
       number,
-      teks_id,
-      teks_description,
+      standards_id,
+      standards_description,
     } = ctx.request.body;
     if (
       !strapi.services.validator.isPositiveInt(number) ||
       !strapi.services.validator.isPositiveInt(gradeId) ||
-      !teks_id ||
+      !standards_id ||
       !name ||
-      !teks_description
+      !standards_description
     )
       return ctx.badRequest(
-        'A grade, name, teks_description must be provided! Number and Teks_id must be positive interger! ',
+        'A grade, name, standards_description must be provided! Number and Standards_id must be positive interger! ',
         { id: 'Unit.update.body.invalid', error: 'ValidationError' }
       );
 

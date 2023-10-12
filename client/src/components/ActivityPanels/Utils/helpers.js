@@ -3,8 +3,8 @@ import {
   getSubmission,
   saveWorkspace,
   updateActivityLevelTemplate,
-  createCCWorkspace,
-  updateCCWorkspace,
+  createAuthorizedWorkspace,
+  updateAuthorizedWorkspace,
   updateActivityTemplate,
 } from '../../../Utils/requests';
 import { message } from 'antd';
@@ -220,7 +220,7 @@ export const handleSaveAsWorkspace = async (
   let xml = window.Blockly.Xml.workspaceToDom(workspaceRef.current);
   let xml_text = window.Blockly.Xml.domToText(xml);
 
-  return await createCCWorkspace(
+  return await createAuthorizedWorkspace(
     name,
     description,
     xml_text,
@@ -236,5 +236,5 @@ export const handleUpdateWorkspace = async (id, workspaceRef, blocksList) => {
   let xml = window.Blockly.Xml.workspaceToDom(workspaceRef.current);
   let xml_text = window.Blockly.Xml.domToText(xml);
 
-  return await updateCCWorkspace(id, xml_text, blocksList);
+  return await updateAuthorizedWorkspace(id, xml_text, blocksList);
 };

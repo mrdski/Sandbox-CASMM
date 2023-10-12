@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "09/28/2023 7:18:33 PM"
+    "x-generation-date": "10/12/2023 1:28:43 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -776,6 +776,598 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/authorized-workspaces": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Authorized-workspace"
+        ],
+        "parameters": [
+          {
+            "name": "_limit",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of results possible",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "required": false,
+            "description": "Sort according to a specific field.",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "required": false,
+            "description": "Skip a specific number of entries (especially useful for pagination)",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "=",
+            "in": "query",
+            "required": false,
+            "description": "Get entries that matches exactly your input",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_ne",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are not equals to something",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lt",
+            "in": "query",
+            "required": false,
+            "description": "Get record that are lower than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are lower than or equal to a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gt",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than  or equal a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_contains",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_containss",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains (case sensitive) a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_in",
+            "in": "query",
+            "required": false,
+            "description": "Get records that matches any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_nin",
+            "in": "query",
+            "required": false,
+            "description": "Get records that doesn't match any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          }
+        ]
+      },
+      "post": {
+        "deprecated": false,
+        "description": "Create a new record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Authorized-workspace"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewAuthorized-workspace"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/authorized-workspaces/count": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Authorized-workspace"
+        ],
+        "parameters": []
+      }
+    },
+    "/authorized-workspaces/{id}": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Authorized-workspace"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "deprecated": false,
+        "description": "Update a record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Authorized-workspace"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewAuthorized-workspace"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "deprecated": false,
+        "description": "Delete a record",
+        "responses": {
+          "200": {
+            "description": "deletes a single record based on the ID supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Authorized-workspace"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/authorized-workspaces/toolbox/{id}": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Authorized-workspace"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1810,598 +2402,6 @@
         "summary": "",
         "tags": [
           "Blocks-category"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/cc-workspaces": {
-      "get": {
-        "deprecated": false,
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Cc-workspace"
-        ],
-        "parameters": [
-          {
-            "name": "_limit",
-            "in": "query",
-            "required": false,
-            "description": "Maximum number of results possible",
-            "schema": {
-              "type": "integer"
-            },
-            "deprecated": false
-          },
-          {
-            "name": "_sort",
-            "in": "query",
-            "required": false,
-            "description": "Sort according to a specific field.",
-            "schema": {
-              "type": "string"
-            },
-            "deprecated": false
-          },
-          {
-            "name": "_start",
-            "in": "query",
-            "required": false,
-            "description": "Skip a specific number of entries (especially useful for pagination)",
-            "schema": {
-              "type": "integer"
-            },
-            "deprecated": false
-          },
-          {
-            "name": "=",
-            "in": "query",
-            "required": false,
-            "description": "Get entries that matches exactly your input",
-            "schema": {
-              "type": "string"
-            },
-            "deprecated": false
-          },
-          {
-            "name": "_ne",
-            "in": "query",
-            "required": false,
-            "description": "Get records that are not equals to something",
-            "schema": {
-              "type": "string"
-            },
-            "deprecated": false
-          },
-          {
-            "name": "_lt",
-            "in": "query",
-            "required": false,
-            "description": "Get record that are lower than a value",
-            "schema": {
-              "type": "string"
-            },
-            "deprecated": false
-          },
-          {
-            "name": "_lte",
-            "in": "query",
-            "required": false,
-            "description": "Get records that are lower than or equal to a value",
-            "schema": {
-              "type": "string"
-            },
-            "deprecated": false
-          },
-          {
-            "name": "_gt",
-            "in": "query",
-            "required": false,
-            "description": "Get records that are greater than a value",
-            "schema": {
-              "type": "string"
-            },
-            "deprecated": false
-          },
-          {
-            "name": "_gte",
-            "in": "query",
-            "required": false,
-            "description": "Get records that are greater than  or equal a value",
-            "schema": {
-              "type": "string"
-            },
-            "deprecated": false
-          },
-          {
-            "name": "_contains",
-            "in": "query",
-            "required": false,
-            "description": "Get records that contains a value",
-            "schema": {
-              "type": "string"
-            },
-            "deprecated": false
-          },
-          {
-            "name": "_containss",
-            "in": "query",
-            "required": false,
-            "description": "Get records that contains (case sensitive) a value",
-            "schema": {
-              "type": "string"
-            },
-            "deprecated": false
-          },
-          {
-            "name": "_in",
-            "in": "query",
-            "required": false,
-            "description": "Get records that matches any value in the array of values",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "deprecated": false
-          },
-          {
-            "name": "_nin",
-            "in": "query",
-            "required": false,
-            "description": "Get records that doesn't match any value in the array of values",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "deprecated": false
-          }
-        ]
-      },
-      "post": {
-        "deprecated": false,
-        "description": "Create a new record",
-        "responses": {
-          "200": {
-            "description": "response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Cc-workspace"
-        ],
-        "requestBody": {
-          "description": "",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewCc-workspace"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cc-workspaces/count": {
-      "get": {
-        "deprecated": false,
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Cc-workspace"
-        ],
-        "parameters": []
-      }
-    },
-    "/cc-workspaces/{id}": {
-      "get": {
-        "deprecated": false,
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Cc-workspace"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      },
-      "put": {
-        "deprecated": false,
-        "description": "Update a record",
-        "responses": {
-          "200": {
-            "description": "response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Cc-workspace"
-        ],
-        "requestBody": {
-          "description": "",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewCc-workspace"
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      },
-      "delete": {
-        "deprecated": false,
-        "description": "Delete a record",
-        "responses": {
-          "200": {
-            "description": "deletes a single record based on the ID supplied",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int64"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Cc-workspace"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/cc-workspaces/toolbox/{id}": {
-      "get": {
-        "deprecated": false,
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Cc-workspace"
         ],
         "parameters": [
           {
@@ -4877,7 +4877,7 @@
         ]
       }
     },
-    "/learning-standards": {
+    "/lesson-modules": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -4929,7 +4929,7 @@
         },
         "summary": "",
         "tags": [
-          "Learning-standard"
+          "Lesson-module"
         ],
         "parameters": [
           {
@@ -5121,7 +5121,7 @@
         },
         "summary": "",
         "tags": [
-          "Learning-standard"
+          "Lesson-module"
         ],
         "requestBody": {
           "description": "",
@@ -5129,14 +5129,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewLearning-standard"
+                "$ref": "#/components/schemas/NewLesson-module"
               }
             }
           }
         }
       }
     },
-    "/learning-standards/count": {
+    "/lesson-modules/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -5188,12 +5188,12 @@
         },
         "summary": "",
         "tags": [
-          "Learning-standard"
+          "Lesson-module"
         ],
         "parameters": []
       }
     },
-    "/learning-standards/{id}": {
+    "/lesson-modules/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -5245,7 +5245,7 @@
         },
         "summary": "",
         "tags": [
-          "Learning-standard"
+          "Lesson-module"
         ],
         "parameters": [
           {
@@ -5311,7 +5311,7 @@
         },
         "summary": "",
         "tags": [
-          "Learning-standard"
+          "Lesson-module"
         ],
         "requestBody": {
           "description": "",
@@ -5319,7 +5319,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewLearning-standard"
+                "$ref": "#/components/schemas/NewLesson-module"
               }
             }
           }
@@ -5385,7 +5385,7 @@
         },
         "summary": "",
         "tags": [
-          "Learning-standard"
+          "Lesson-module"
         ],
         "parameters": [
           {
@@ -11745,7 +11745,7 @@
           "id": {
             "type": "string"
           },
-          "learning_standard": {
+          "lesson_module": {
             "required": [
               "id",
               "number",
@@ -11773,7 +11773,7 @@
               "unit": {
                 "type": "string"
               },
-              "teks": {
+              "standards": {
                 "type": "string"
               },
               "link": {
@@ -11828,7 +11828,7 @@
           "description": {
             "type": "string"
           },
-          "TekS": {
+          "StandardS": {
             "type": "string"
           },
           "images": {
@@ -11882,7 +11882,7 @@
           "template"
         ],
         "properties": {
-          "learning_standard": {
+          "lesson_module": {
             "type": "string"
           },
           "number": {
@@ -11900,7 +11900,7 @@
           "description": {
             "type": "string"
           },
-          "TekS": {
+          "StandardS": {
             "type": "string"
           },
           "images": {
@@ -11917,6 +11917,67 @@
           },
           "activity_template": {
             "type": "string"
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "updated_by": {
+            "type": "string"
+          }
+        }
+      },
+      "Authorized-workspace": {
+        "required": [
+          "id",
+          "name",
+          "template"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "template": {
+            "type": "string"
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "NewAuthorized-workspace": {
+        "required": [
+          "name",
+          "template"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "template": {
+            "type": "string"
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "classroom": {
+            "type": "string"
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
           },
           "created_by": {
             "type": "string"
@@ -12060,67 +12121,6 @@
           }
         }
       },
-      "Cc-workspace": {
-        "required": [
-          "id",
-          "name",
-          "template"
-        ],
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "template": {
-            "type": "string"
-          },
-          "published_at": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "NewCc-workspace": {
-        "required": [
-          "name",
-          "template"
-        ],
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "template": {
-            "type": "string"
-          },
-          "blocks": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "classroom": {
-            "type": "string"
-          },
-          "published_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "created_by": {
-            "type": "string"
-          },
-          "updated_by": {
-            "type": "string"
-          }
-        }
-      },
       "Classroom": {
         "required": [
           "id",
@@ -12207,7 +12207,7 @@
                 "grade": {
                   "type": "string"
                 },
-                "learning_standard": {
+                "lesson_module": {
                   "type": "string"
                 },
                 "created_by": {
@@ -12346,7 +12346,7 @@
                 "classroom": {
                   "type": "string"
                 },
-                "learning_standard": {
+                "lesson_module": {
                   "type": "string"
                 },
                 "current": {
@@ -12404,7 +12404,7 @@
               "type": "string"
             }
           },
-          "cc_workspaces": {
+          "authorized_workspaces": {
             "type": "array",
             "items": {
               "type": "string"
@@ -12477,7 +12477,7 @@
                     "type": "string"
                   }
                 },
-                "cc_workspaces": {
+                "authorized_workspaces": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -12510,16 +12510,16 @@
                 "name": {
                   "type": "string"
                 },
-                "teks_id": {
+                "standards_id": {
                   "type": "string"
                 },
-                "teks_description": {
+                "standards_description": {
                   "type": "string"
                 },
                 "number": {
                   "type": "integer"
                 },
-                "learning_standards": {
+                "lesson_modules": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -12661,7 +12661,7 @@
                 "id": {
                   "type": "string"
                 },
-                "learning_standard": {
+                "lesson_module": {
                   "type": "string"
                 },
                 "number": {
@@ -12679,7 +12679,7 @@
                 "description": {
                   "type": "string"
                 },
-                "TekS": {
+                "StandardS": {
                   "type": "string"
                 },
                 "images": {
@@ -12766,7 +12766,7 @@
           }
         }
       },
-      "Learning-standard": {
+      "Lesson-module": {
         "required": [
           "id",
           "number",
@@ -12797,7 +12797,7 @@
                 "id": {
                   "type": "string"
                 },
-                "learning_standard": {
+                "lesson_module": {
                   "type": "string"
                 },
                 "number": {
@@ -12815,7 +12815,7 @@
                 "description": {
                   "type": "string"
                 },
-                "TekS": {
+                "StandardS": {
                   "type": "string"
                 },
                 "images": {
@@ -12858,16 +12858,16 @@
               "name": {
                 "type": "string"
               },
-              "teks_id": {
+              "standards_id": {
                 "type": "string"
               },
-              "teks_description": {
+              "standards_description": {
                 "type": "string"
               },
               "number": {
                 "type": "integer"
               },
-              "learning_standards": {
+              "lesson_modules": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -12881,7 +12881,7 @@
               }
             }
           },
-          "teks": {
+          "standards": {
             "type": "string"
           },
           "link": {
@@ -12889,7 +12889,7 @@
           }
         }
       },
-      "NewLearning-standard": {
+      "NewLesson-module": {
         "required": [
           "number",
           "name"
@@ -12913,7 +12913,7 @@
           "unit": {
             "type": "string"
           },
-          "teks": {
+          "standards": {
             "type": "string"
           },
           "link": {
@@ -13025,7 +13025,7 @@
                     "type": "string"
                   }
                 },
-                "cc_workspaces": {
+                "authorized_workspaces": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -13134,7 +13134,7 @@
               "id": {
                 "type": "string"
               },
-              "learning_standard": {
+              "lesson_module": {
                 "type": "string"
               },
               "number": {
@@ -13152,7 +13152,7 @@
               "description": {
                 "type": "string"
               },
-              "TekS": {
+              "StandardS": {
                 "type": "string"
               },
               "images": {
@@ -13257,7 +13257,7 @@
               "grade": {
                 "type": "string"
               },
-              "learning_standard": {
+              "lesson_module": {
                 "type": "string"
               },
               "created_by": {
@@ -13362,7 +13362,7 @@
                     "type": "string"
                   }
                 },
-                "cc_workspaces": {
+                "authorized_workspaces": {
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -13501,7 +13501,7 @@
                   "type": "string"
                 }
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -13515,7 +13515,7 @@
               }
             }
           },
-          "learning_standard": {
+          "lesson_module": {
             "required": [
               "id",
               "number",
@@ -13543,7 +13543,7 @@
               "unit": {
                 "type": "string"
               },
-              "teks": {
+              "standards": {
                 "type": "string"
               },
               "link": {
@@ -13571,7 +13571,7 @@
           "classroom": {
             "type": "string"
           },
-          "learning_standard": {
+          "lesson_module": {
             "type": "string"
           },
           "current": {
@@ -13639,7 +13639,7 @@
                   "type": "string"
                 }
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -13805,16 +13805,16 @@
               "name": {
                 "type": "string"
               },
-              "teks_id": {
+              "standards_id": {
                 "type": "string"
               },
-              "teks_description": {
+              "standards_description": {
                 "type": "string"
               },
               "number": {
                 "type": "integer"
               },
-              "learning_standards": {
+              "lesson_modules": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -13860,7 +13860,7 @@
               }
             }
           },
-          "learning_standard": {
+          "lesson_module": {
             "required": [
               "id",
               "number",
@@ -13888,7 +13888,7 @@
               "unit": {
                 "type": "string"
               },
-              "teks": {
+              "standards": {
                 "type": "string"
               },
               "link": {
@@ -13933,7 +13933,7 @@
           "grade": {
             "type": "string"
           },
-          "learning_standard": {
+          "lesson_module": {
             "type": "string"
           },
           "created_by": {
@@ -14004,7 +14004,7 @@
                   "type": "string"
                 }
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -14055,7 +14055,7 @@
                 "grade": {
                   "type": "string"
                 },
-                "learning_standard": {
+                "lesson_module": {
                   "type": "string"
                 },
                 "created_by": {
@@ -14190,7 +14190,7 @@
               "grade": {
                 "type": "string"
               },
-              "learning_standard": {
+              "lesson_module": {
                 "type": "string"
               },
               "created_by": {
@@ -14211,7 +14211,7 @@
               "id": {
                 "type": "string"
               },
-              "learning_standard": {
+              "lesson_module": {
                 "type": "string"
               },
               "number": {
@@ -14229,7 +14229,7 @@
               "description": {
                 "type": "string"
               },
-              "TekS": {
+              "StandardS": {
                 "type": "string"
               },
               "images": {
@@ -14360,16 +14360,16 @@
           "name": {
             "type": "string"
           },
-          "teks_id": {
+          "standards_id": {
             "type": "string"
           },
-          "teks_description": {
+          "standards_description": {
             "type": "string"
           },
           "number": {
             "type": "integer"
           },
-          "learning_standards": {
+          "lesson_modules": {
             "type": "array",
             "items": {
               "required": [
@@ -14399,7 +14399,7 @@
                 "unit": {
                   "type": "string"
                 },
-                "teks": {
+                "standards": {
                   "type": "string"
                 },
                 "link": {
@@ -14428,16 +14428,16 @@
           "name": {
             "type": "string"
           },
-          "teks_id": {
+          "standards_id": {
             "type": "string"
           },
-          "teks_description": {
+          "standards_description": {
             "type": "string"
           },
           "number": {
             "type": "integer"
           },
-          "learning_standards": {
+          "lesson_modules": {
             "type": "array",
             "items": {
               "type": "string"

@@ -21,13 +21,13 @@ module.exports = {
     // get the current learning standard
     const selection = await strapi.services.selection.findOne(
       { classroom: ids, current: true },
-      ['learning_standard.activities', 'classroom.grade']
+      ['lesson_module.activities', 'classroom.grade']
     );
     // return the classroom and learning standard or 404 if there is no current
     return selection
       ? {
           classroom: selection.classroom,
-          learning_standard: selection.learning_standard,
+          lesson_module: selection.lesson_module,
         }
       : selection;
   },
@@ -127,7 +127,7 @@ module.exports = {
     // check if the classroom exists
     let response;
     if (classroom) {
-      response = classroom.cc_workspaces;
+      response = classroom.authorized_workspaces;
     }
 
     return response;
@@ -194,7 +194,7 @@ module.exports = {
     }
 
     // get the selected unit and lesson for the session
-    const { learning_standard } =
+    const { lesson_module } =
       await strapi.services.selection.findCurrSelection(classroom.id);
 
     // create a new session for the students
@@ -202,8 +202,8 @@ module.exports = {
       classroom: classroom.id,
       students,
       grade: classroom.grade,
-      learning_standard: learning_standard.id,
-      unit: learning_standard.unit,
+      lesson_module: lesson_module.id,
+      unit: lesson_module.unit,
     });
 
     // update last_logged_in for each student

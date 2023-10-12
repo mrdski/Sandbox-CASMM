@@ -1,7 +1,7 @@
 import { Button, Modal, Menu } from 'antd';
 import React, { useState } from 'react';
 import {
-  getCCWorkspaces,
+  getAuthorizedWorkspaces,
   getClassroomWorkspace,
 } from '../../../../Utils/requests';
 
@@ -14,7 +14,7 @@ const LoadWorkspaceModal = ({ loadSave, classroomId }) => {
     if (classroomId) {
       res = await getClassroomWorkspace(classroomId);
     } else {
-      res = await getCCWorkspaces();
+      res = await getAuthorizedWorkspaces();
     }
     if (res.data) {
       setWorkspaces(res.data);

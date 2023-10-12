@@ -17,19 +17,19 @@
       "type": "string",
       "required": true
     },
-    "teks_id": {
+    "standards_id": {
       "type": "string"
     },
-    "teks_description": {
+    "standards_description": {
       "type": "text"
     },
     "number": {
       "type": "integer",
       "required": true
     },
-    "learning_standards": {
+    "lesson_modules": {
       "via": "unit",
-      "collection": "learning-standard"
+      "collection": "lesson-module"
     }
   }
 }

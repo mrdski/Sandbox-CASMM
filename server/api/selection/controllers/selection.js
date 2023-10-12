@@ -25,10 +25,10 @@ module.exports = {
       });
 
     // validate the request
-    const { classroom, learning_standard } = ctx.request.body;
+    const { classroom, lesson_module } = ctx.request.body;
     if (
       !strapi.services.validator.isInt(classroom) ||
-      !strapi.services.validator.isInt(learning_standard)
+      !strapi.services.validator.isInt(lesson_module)
     )
       return ctx.badRequest(
         'A classroom and learning standard must be provided!',
@@ -36,12 +36,12 @@ module.exports = {
       );
 
     // ensure the learning standard is valid
-    const validStandard = await strapi.services['learning-standard'].findOne({
-      id: learning_standard,
+    const validStandard = await strapi.services['lesson-module'].findOne({
+      id: lesson_module,
     });
     if (validStandard === null)
       return ctx.notFound('The learning standard provided is invalid!', {
-        id: 'Selection.create.learning_standard.invalid',
+        id: 'Selection.create.lesson_module.invalid',
         error: 'ValidationError',
       });
 
@@ -58,7 +58,7 @@ module.exports = {
     // remove private fields and return the new selection
     const selection = await strapi.services.selection.create({
       classroom,
-      learning_standard,
+      lesson_module,
     });
     return sanitizeEntity(selection, { model: strapi.models.selection });
   },

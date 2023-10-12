@@ -41,7 +41,7 @@ export default function Workspace({ handleLogout }) {
       <NavBar isStudent={true} />
       <BlocklyCanvasPanel
         activity={activity}
-        lessonName={`${activity.learning_standard_name}, Activity ${activity.number}`}
+        lessonName={`${activity.lesson_module_name}, Activity ${activity.number}`}
         handleGoBack={handleGoBack}
         handleLogout={handleLogout}
         isStudent={true}

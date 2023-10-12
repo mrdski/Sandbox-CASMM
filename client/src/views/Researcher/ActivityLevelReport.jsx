@@ -61,7 +61,7 @@ const ActivityLevelReport = () => {
       setTbClassroomFilter(makeFilter(sessionRes.data, 'classroom'));
       setTbGradeFilter(makeFilter(sessionRes.data, 'grade'));
       setTbUnitFilter(makeFilter(sessionRes.data, 'unit'));
-      setTbLessonFilter(makeFilter(sessionRes.data, 'learning_standard'));
+      setTbLessonFilter(makeFilter(sessionRes.data, 'lesson_module'));
     };
     if (paramObj['_sort']) fetchData();
   }, [paramObj]);
@@ -149,13 +149,13 @@ const ActivityLevelReport = () => {
     },
     {
       title: 'Lesson',
-      dataIndex: ['learning_standard', 'name'],
-      key: 'learning_standard',
+      dataIndex: ['lesson_module', 'name'],
+      key: 'lesson_module',
       width: '3%',
       align: 'left',
       filters: tbLessonFilter,
       onFilter: (value, key) =>
-        key.learning_standard?.name.indexOf(value) === 0,
+        key.lesson_module?.name.indexOf(value) === 0,
     },
     {
       title: 'Session Started',
@@ -292,7 +292,7 @@ const Filter = ({ setSearchParam, paramObj }) => {
     const fetchData = async () => {
       const gradesRes = await getGrades();
       if (gradesRes.error) {
-        console.error('Fail to retrive grades');
+        console.error('Fail to retrieve grades');
       }
       setGrades(gradesRes.data);
     };
@@ -326,7 +326,7 @@ const Filter = ({ setSearchParam, paramObj }) => {
     if (unit) {
       setselectedUnit(unit);
       const unitRes = await getUnit(unit);
-      setLs(unitRes.data.learning_standards);
+      setLs(unitRes.data.lesson_modules);
     } else {
       setselectedUnit('');
       setLs([]);
@@ -350,7 +350,7 @@ const Filter = ({ setSearchParam, paramObj }) => {
     let obj = {};
     if (selectedGrade !== '') obj.grade = selectedGrade;
     if (selectedUnit !== '') obj.unit = selectedUnit;
-    if (selectedLs !== '') obj.learning_standard = selectedLs;
+    if (selectedLs !== '') obj.lesson_module = selectedLs;
     if (selectedClassroom !== '') obj.classroom = selectedClassroom;
     if (selectedStudent !== '') obj.student = selectedStudent;
     setSearchParam(obj);
@@ -456,7 +456,7 @@ const Filter = ({ setSearchParam, paramObj }) => {
           key === '_start' ? null : key === '_sort' ? null : key ===
             'pageSize' ? null : (
             <Tag>
-              {key === 'learning_standard' ? `lesson(id)` : `${key}(id)`}:{' '}
+              {key === 'lesson_module' ? `lesson(id)` : `${key}(id)`}:{' '}
               {paramObj[key]}
             </Tag>
           )

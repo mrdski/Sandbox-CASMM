@@ -5,10 +5,10 @@ import Navbar from '../../components/NavBar/NavBar';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import SavedWorkSpaceTab from '../../components/Tabs/SavedWorkspaceTab';
 import UnitCreator from './UnitCreator/UnitCreator';
-import LearningStandardActivityCreator from './LearningStandardCreator/LearningStandardCreator';
+import LessonModuleActivityCreator from './LessonModuleCreator/LessonModuleCreator';
 import {
-  getLearningStandardAll,
-  deleteLearningStandard,
+  getLessonModuleAll,
+  deleteLessonModule,
   getGrades,
 } from '../../Utils/requests';
 import UnitEditor from './UnitEditor/UnitEditor';
@@ -21,7 +21,7 @@ const { TabPane } = Tabs;
 
 export default function ContentCreator() {
   const [gradeList, setGradeList] = useState([]);
-  const [learningStandardList, setLearningStandardList] = useState([]);
+  const [learningStandardList, setLessonModuleList] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [tab, setTab] = useState(
@@ -35,10 +35,10 @@ export default function ContentCreator() {
   useEffect(() => {
     const fetchData = async () => {
       const [lsResponse, gradeResponse] = await Promise.all([
-        getLearningStandardAll(),
+        getLessonModuleAll(),
         getGrades(),
       ]);
-      setLearningStandardList(lsResponse.data);
+      setLessonModuleList(lsResponse.data);
 
       const grades = gradeResponse.data;
       grades.sort((a, b) => (a.id > b.id ? 1 : -1));
@@ -97,11 +97,11 @@ export default function ContentCreator() {
           title={'Are you sure you want to delete this learning standard?'}
           icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
           onConfirm={async () => {
-            const res = await deleteLearningStandard(key.id);
+            const res = await deleteLessonModule(key.id);
             if (res.err) {
               message.error(res.err);
             } else {
-              setLearningStandardList(
+              setLessonModuleList(
                 learningStandardList.filter((ls) => {
                   return ls.id !== key.id;
                 })
@@ -131,7 +131,7 @@ export default function ContentCreator() {
         <div id='content-creator-table-container'>
           <div id='content-creator-btn-container'>
             <UnitCreator gradeList={gradeList} />
-            <LearningStandardActivityCreator />
+            <LessonModuleActivityCreator />
           </div>
           <Table
             columns={columns}
@@ -171,8 +171,8 @@ export default function ContentCreator() {
           <div id='content-creator-table-container'>
             <div id='content-creator-btn-container'>
               <UnitCreator gradeList={gradeList} />
-              <LearningStandardActivityCreator
-                setLearningStandardList={setLearningStandardList}
+              <LessonModuleActivityCreator
+                setLessonModuleList={setLessonModuleList}
                 viewing={viewing}
                 setViewing={setViewing}
                 tab={tab}

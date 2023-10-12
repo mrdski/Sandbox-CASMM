@@ -13,8 +13,8 @@
       "via": "selections",
       "model": "classroom"
     },
-    "learning_standard": {
-      "model": "learning-standard"
+    "lesson_module": {
+      "model": "lesson-module"
     },
     "current": {
       "type": "boolean",

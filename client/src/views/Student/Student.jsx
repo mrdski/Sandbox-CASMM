@@ -6,7 +6,7 @@ import { getStudentClassroom } from '../../Utils/requests';
 import './Student.less';
 
 function Student() {
-  const [learningStandard, setLearningStandard] = useState({});
+  const [learningStandard, setLessonModule] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,8 +14,8 @@ function Student() {
       try {
         const res = await getStudentClassroom();
         if (res.data) {
-          if (res.data.learning_standard) {
-            setLearningStandard(res.data.learning_standard);
+          if (res.data.lesson_module) {
+            setLessonModule(res.data.lesson_module);
           }
         } else {
           message.error(res.err);
@@ -26,7 +26,7 @@ function Student() {
   }, []);
 
   const handleSelection = (activity) => {
-    activity.learning_standard_name = learningStandard.name;
+    activity.lesson_module_name = learningStandard.name;
     localStorage.setItem('my-activity', JSON.stringify(activity));
 
     navigate('/workspace');

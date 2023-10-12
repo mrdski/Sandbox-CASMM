@@ -52,7 +52,7 @@ beforeAll(async () => {
   console.log('This is classroom id', classroomId);
 
   const { data: learningStandard } = await adminRequest.post(
-    '/learning-standards',
+    '/lesson-modules',
     {
       number: 1.1,
       name: learningStandardName,

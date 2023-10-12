@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lesson_modules",
+  "info": {
+    "name": "lesson Module",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "number": {
+      "type": "decimal",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "expectations": {
+      "type": "text"
+    },
+    "activities": {
+      "via": "lesson_module",
+      "collection": "activity"
+    },
+    "unit": {
+      "model": "unit",
+      "via": "lesson_modules"
+    },
+    "standards": {
+      "type": "string",
+      "unique": true
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}

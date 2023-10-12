@@ -9,13 +9,13 @@ export default function UnitCreator({ gradeList }) {
   const [name, setName] = useState("")
   const [number, setNumber] = useState("")
   const [description, setDescription] = useState("")
-  const [tek, setTek] = useState("")
+  const [standard, setStandard] = useState("")
 
   const showModal = () => {
     setNumber("")
     setName("")
     setDescription("")
-    setTek("")
+    setStandard("")
     setVisible(true)
   }
 
@@ -24,7 +24,7 @@ export default function UnitCreator({ gradeList }) {
   }
 
   const handleSubmit = async e => {
-    const res = await createUnit(number, name, tek, description, grade)
+    const res = await createUnit(number, name, standard, description, grade)
     if (res.err) {
       message.error("Fail to create a new unit")
     } else {
@@ -103,11 +103,11 @@ export default function UnitCreator({ gradeList }) {
               required
             />
           </Form.Item>
-          <Form.Item id="form-label" label="TekS">
+          <Form.Item id="form-label" label="StandardS">
             <Input
-              onChange={e => setTek(e.target.value)}
-              value={tek}
-              placeholder="Enter unit Teks"
+              onChange={e => setStandard(e.target.value)}
+              value={standard}
+              placeholder="Enter unit Standards"
               required
             />
           </Form.Item>

@@ -1,0 +1,60 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/authorized-workspaces",
+      "handler": "authorized-workspace.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/authorized-workspaces/count",
+      "handler": "authorized-workspace.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/authorized-workspaces/:id",
+      "handler": "authorized-workspace.findOne",
+      "config": {
+        "policies": ["isContentCreatorOrHasClassroom"]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/authorized-workspaces/toolbox/:id",
+      "handler": "authorized-workspace.toolbox",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/authorized-workspaces",
+      "handler": "authorized-workspace.create",
+      "config": {
+        "policies": ["isContentCreatorOrHasClassroom"]
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/authorized-workspaces/:id",
+      "handler": "authorized-workspace.update",
+      "config": {
+        "policies": ["isContentCreatorOrHasClassroom"]
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/authorized-workspaces/:id",
+      "handler": "authorized-workspace.delete",
+      "config": {
+        "policies": ["isContentCreatorOrHasClassroom"]
+      }
+    }
+  ]
+}

@@ -11,7 +11,7 @@ export default function UnitCreator({ id, unitName }) {
   const [name, setName] = useState(unitName);
   const [number, setNumber] = useState('');
   const [description, setDescription] = useState('');
-  const [tek, setTek] = useState('');
+  const [standard, setStandard] = useState('');
 
   const [displayName, setDisplayName] = useState(unitName);
 
@@ -22,8 +22,8 @@ export default function UnitCreator({ id, unitName }) {
     setGradeId(res.data.grade.id);
     setName(res.data.name);
     setNumber(res.data.number);
-    setDescription(res.data.teks_description);
-    setTek(res.data.teks_id);
+    setDescription(res.data.standards_description);
+    setStandard(res.data.standards_id);
   };
 
   useEffect(() => {
@@ -37,8 +37,8 @@ export default function UnitCreator({ id, unitName }) {
       setGradeId(res.data.grade.id);
       setName(res.data.name);
       setNumber(res.data.number);
-      setDescription(res.data.teks_description);
-      setTek(res.data.teks_id);
+      setDescription(res.data.standards_description);
+      setStandard(res.data.standards_id);
     };
     fetchUnit();
   }, [id]);
@@ -53,7 +53,7 @@ export default function UnitCreator({ id, unitName }) {
       id,
       number,
       name,
-      tek,
+      standard,
       description,
       gradeId
     );
@@ -121,11 +121,11 @@ export default function UnitCreator({ id, unitName }) {
               placeholder='Enter unit description'
             />
           </Form.Item>
-          <Form.Item id='form-label' label='TekS'>
+          <Form.Item id='form-label' label='StandardS'>
             <Input
-              onChange={(e) => setTek(e.target.value)}
-              value={tek}
-              placeholder='Enter unit Teks'
+              onChange={(e) => setStandard(e.target.value)}
+              value={standard}
+              placeholder='Enter unit Standards'
             />
           </Form.Item>
         </Form>

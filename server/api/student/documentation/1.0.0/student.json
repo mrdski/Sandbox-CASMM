@@ -714,7 +714,7 @@
                   "type": "string"
                 }
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -765,7 +765,7 @@
                 "grade": {
                   "type": "string"
                 },
-                "learning_standard": {
+                "lesson_module": {
                   "type": "string"
                 },
                 "created_by": {

@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "authorized_workspaces",
+  "info": {
+    "name": "AuthorizedWorkspace",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "template": {
+      "type": "text",
+      "required": true
+    },
+    "blocks": {
+      "private": true,
+      "collection": "block"
+    },
+    "classroom": {
+      "private": true,
+      "via": "authorized_workspaces",
+      "model": "classroom"
+    }
+  }
+}

@@ -5,7 +5,7 @@ import {
   getActivity,
   getActivityToolbox,
   getActivityToolboxAll,
-  getLearningStandardActivities,
+  getLessonModuleActivities,
   updateActivityDetails,
 } from "../../../../Utils/requests"
 import "../../../ContentCreator/ActivityEditor/ActivityEditor.less"
@@ -24,7 +24,7 @@ const MentorActivityDetailModal = ({
   const [description, setDescription] = useState("")
   const [template, setTemplate] = useState("")
   const [activity_template, setActivityTemplate] = useState("")
-  const [TekS, setTekS] = useState("")
+  const [StandardS, setStandardS] = useState("")
   const [images, setImages] = useState("")
   const [link, setLink] = useState("")
   const [visible, setVisible] = useState(false);
@@ -46,7 +46,7 @@ const MentorActivityDetailModal = ({
       setDescription(response.data.description)
       setTemplate(response.data.template)
       setActivityTemplate(response.data.activity_template)
-      setTekS(response.data.TekS)
+      setStandardS(response.data.StandardS)
       setImages(response.data.images)
       setLink(response.data.link)
       setLinkError(false)
@@ -89,7 +89,7 @@ const MentorActivityDetailModal = ({
     activity.selectedToolbox = selectedToolBoxRes.data.toolbox
     activity.toolbox = allToolBoxRes.data.toolbox
 
-    activity.learning_standard_name = learningStandard.name
+    activity.lesson_module_name = learningStandard.name
     localStorage.setItem("my-activity", JSON.stringify(activity))
     navigate("/activity")
   }
@@ -99,7 +99,7 @@ const MentorActivityDetailModal = ({
     delete activity.selectedToolbox
     activity.toolbox = allToolBoxRes.data.toolbox
 
-    activity.learning_standard_name = learningStandard.name
+    activity.lesson_module_name = learningStandard.name
     localStorage.setItem("my-activity", JSON.stringify(activity))
     navigate("/activity")
   }
@@ -117,7 +117,7 @@ const MentorActivityDetailModal = ({
       selectActivity.id,
       description,
       //template,
-      TekS,
+      StandardS,
       images,
       link,
       scienceComponents,
@@ -130,7 +130,7 @@ const MentorActivityDetailModal = ({
       message.success("Successfully saved activity")
       // just save the form
       if (submitButton === 0) {
-        const getActivityAll = await getLearningStandardActivities(viewing)
+        const getActivityAll = await getLessonModuleActivities(viewing)
         const myActivities = getActivityAll.data
         myActivities.sort((a, b) => (a.number > b.number ? 1 : -1))
         setActivities([...myActivities])
@@ -190,13 +190,13 @@ const MentorActivityDetailModal = ({
           ></Input.TextArea>
         </Form.Item>
 
-        <Form.Item id="form-label" label="TekS">
+        <Form.Item id="form-label" label="StandardS">
           <Input
-            onChange={e => setTekS(e.target.value)}
-            value={TekS}
+            onChange={e => setStandardS(e.target.value)}
+            value={StandardS}
             className="input"
             required
-            placeholder="Enter tekS"
+            placeholder="Enter standardS"
           ></Input>
         </Form.Item>
         <Form.Item id="form-label" label="Table Chart">
@@ -271,8 +271,8 @@ const MentorActivityDetailModal = ({
           <button id="save--set-activity-btn" onClick={() => setSubmitButton(1)}>
             Edit Student Template
           </button>
-          <button id="save-set-activity-btn" onClick={() => setSubmitButton(2)}>
-            Edit Mentor Template
+          <button id="save--set-demo-btn" onClick={() => setSubmitButton(2)}>
+            Edit Demo Template
             <br />
             
           </button>

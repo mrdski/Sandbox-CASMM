@@ -567,7 +567,7 @@
                   "type": "string"
                 }
               },
-              "cc_workspaces": {
+              "authorized_workspaces": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -733,16 +733,16 @@
               "name": {
                 "type": "string"
               },
-              "teks_id": {
+              "standards_id": {
                 "type": "string"
               },
-              "teks_description": {
+              "standards_description": {
                 "type": "string"
               },
               "number": {
                 "type": "integer"
               },
-              "learning_standards": {
+              "lesson_modules": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -788,7 +788,7 @@
               }
             }
           },
-          "learning_standard": {
+          "lesson_module": {
             "required": [
               "id",
               "number",
@@ -816,7 +816,7 @@
               "unit": {
                 "type": "string"
               },
-              "teks": {
+              "standards": {
                 "type": "string"
               },
               "link": {
@@ -861,7 +861,7 @@
           "grade": {
             "type": "string"
           },
-          "learning_standard": {
+          "lesson_module": {
             "type": "string"
           },
           "created_by": {

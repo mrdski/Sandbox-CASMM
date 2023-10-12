@@ -550,7 +550,7 @@
                 "id": {
                   "type": "string"
                 },
-                "learning_standard": {
+                "lesson_module": {
                   "type": "string"
                 },
                 "number": {
@@ -568,7 +568,7 @@
                 "description": {
                   "type": "string"
                 },
-                "TekS": {
+                "StandardS": {
                   "type": "string"
                 },
                 "images": {
