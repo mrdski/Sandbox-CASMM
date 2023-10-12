@@ -33,7 +33,7 @@ export default function BlocklyPage({ isSandbox }) {
             message.error(AllToolboxRes.err)
           }
         } else if (value.role === "ContentCreator") {
-          const res = await getAuthorizedWorkspaceToolbox(sandboxDay.id)
+          const res = await getAuthorizedWorkspaceToolbox(sandboxActivity.id)
           if (res.data) {
             let loadedActivity = { ...sandboxActivity, selectedToolbox: res.data.toolbox }
             loadedActivity = { ...loadedActivity, toolbox: AllToolboxRes.data.toolbox }
