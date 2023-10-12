@@ -150,7 +150,7 @@ export default function Home({ classroomId, viewing }) {
                               )
                             }
                           >
-                            Mentor Template
+                            Demo Template
                           </button>
                         )}
                         <MentorActivityDetailModal
