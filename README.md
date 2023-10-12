@@ -56,7 +56,7 @@ The development environment is composed of five servers. The first one is run wi
 
 1. Install [docker](https://docs.docker.com/get-docker/)
 
-2. Run `docker-compose up` from `/`
+2. Run `docker compose up` from `/`
 
    > Grant permission to the **scripts** and **server** directories if you are prompted
    
