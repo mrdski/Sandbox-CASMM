@@ -217,7 +217,7 @@ export default function LessonModuleSelect({
                         className='view-activity-component-label'
                         style={{ marginTop: '0px' }}
                       >
-                        <strong>TEKS:</strong> {activity.TekS}
+                        <strong>STANDARDS:</strong> {activity.StandardS}
                       </p>
                       <p className='view-activity-component-label'>
                         <strong>Description:</strong> {activity.description}

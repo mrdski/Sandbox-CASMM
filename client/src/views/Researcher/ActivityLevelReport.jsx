@@ -292,7 +292,7 @@ const Filter = ({ setSearchParam, paramObj }) => {
     const fetchData = async () => {
       const gradesRes = await getGrades();
       if (gradesRes.error) {
-        console.error('Fail to retrive grades');
+        console.error('Fail to retrieve grades');
       }
       setGrades(gradesRes.data);
     };

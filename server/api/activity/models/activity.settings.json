@@ -29,7 +29,7 @@
     "description": {
       "type": "text"
     },
-    "TekS": {
+    "StandardS": {
       "type": "string"
     },
     "images": {

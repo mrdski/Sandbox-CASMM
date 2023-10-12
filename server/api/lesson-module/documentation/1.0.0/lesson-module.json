@@ -576,7 +576,7 @@
                 "description": {
                   "type": "string"
                 },
-                "TekS": {
+                "StandardS": {
                   "type": "string"
                 },
                 "images": {
@@ -619,10 +619,10 @@
               "name": {
                 "type": "string"
               },
-              "teks_id": {
+              "standards_id": {
                 "type": "string"
               },
-              "teks_description": {
+              "standards_description": {
                 "type": "string"
               },
               "number": {
@@ -642,7 +642,7 @@
               }
             }
           },
-          "teks": {
+          "standards": {
             "type": "string"
           },
           "link": {
@@ -674,7 +674,7 @@
           "unit": {
             "type": "string"
           },
-          "teks": {
+          "standards": {
             "type": "string"
           },
           "link": {

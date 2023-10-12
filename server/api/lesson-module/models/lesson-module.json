@@ -30,7 +30,7 @@
       "model": "unit",
       "via": "lesson_modules"
     },
-    "teks": {
+    "standards": {
       "type": "string",
       "unique": true
     },

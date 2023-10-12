@@ -17,7 +17,7 @@ export default function LessonEditor({
   const [visible, setVisible] = useState(false)
   const [name, setName] = useState(learningStandard.name)
   const [description, setDescription] = useState("")
-  const [teks, setTeks] = useState("")
+  const [standards, setStandards] = useState("")
   const [link, setLink] = useState("")
   const [linkError, setLinkError] = useState(false)
   const [displayName, setDisplayName] = useState(learningStandard.name)
@@ -29,7 +29,7 @@ export default function LessonEditor({
     const res = await getLessonModule(learningStandard.id)
     setName(res.data.name)
     setDescription(res.data.expectations)
-    setTeks(res.data.teks)
+    setStandards(res.data.standards)
     setLink(res.data.link)
     setLinkError(false)
   }
@@ -55,7 +55,7 @@ export default function LessonEditor({
       learningStandard.id,
       name,
       description,
-      teks,
+      standards,
       link
     )
     if (response.err) {
@@ -119,12 +119,12 @@ export default function LessonEditor({
               placeholder="Enter lesson description"
             />
           </Form.Item>
-          <Form.Item id="form-label" label="Teks">
+          <Form.Item id="form-label" label="Standards">
             <Input
-              onChange={e => setTeks(e.target.value)}
-              value={teks}
+              onChange={e => setStandards(e.target.value)}
+              value={standards}
               required
-              placeholder="Enter lesson teks"
+              placeholder="Enter lesson standards"
             />
           </Form.Item>
           <Form.Item label="Link to Additional Resources (Optional)">

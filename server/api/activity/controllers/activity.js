@@ -22,14 +22,14 @@ module.exports = {
     const {
       description,
       images,
-      TekS,
+      StandardS,
       link,
       scienceComponents,
       makingComponents,
       computationComponents,
     } = ctx.request.body;
-    if (!TekS || !description)
-      return ctx.badRequest('A description, Teks must be provided!', {
+    if (!StandardS || !description)
+      return ctx.badRequest('A description, Standards must be provided!', {
         id: 'activity.update.body.invalid',
         error: 'ValidationError',
       });
@@ -105,7 +105,7 @@ module.exports = {
 
     const updatedActivity = await strapi.services.activity.update(
       { id },
-      { description, images, TekS, link, learning_components: activityComponents }
+      { description, images, StandardS, link, learning_components: activityComponents }
     );
     return sanitizeEntity(updatedActivity, { model: strapi.models.activity });
   },

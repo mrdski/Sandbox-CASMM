@@ -606,10 +606,10 @@
                 "name": {
                   "type": "string"
                 },
-                "teks_id": {
+                "standards_id": {
                   "type": "string"
                 },
-                "teks_description": {
+                "standards_description": {
                   "type": "string"
                 },
                 "number": {

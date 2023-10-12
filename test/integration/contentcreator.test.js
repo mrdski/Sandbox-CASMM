@@ -61,8 +61,8 @@ test('content creator can create units', async () => {
   const response = await contentcreatorRequest.post('/units', {
     name: 'UnitName',
     number: 123,
-    teks_id: 'abc',
-    teks_description: 'my description',
+    standards_id: 'abc',
+    standards_description: 'my description',
     grade: 5,
   });
   expect(response.status).toBe(200);
@@ -79,8 +79,8 @@ test('content creator can edit units', async () => {
     //changed the unitID to be what is preloaded already
     grade: 1,
     number: 234,
-    teks_id: 'afagageyge',
-    teks_description: 'New description',
+    standards_id: 'afagageyge',
+    standards_description: 'New description',
     name: 'NewUnitName',
   });
   expect(response.status).toBe(200);
@@ -90,8 +90,8 @@ test('content creator can edit units', async () => {
     //changed the unitID to be what is preloaded already
     name: 'Matter and Energy',
     number: 1,
-    teks_id: '5.5A',
-    teks_description:
+    standards_id: '5.5A',
+    standards_description:
       'Students will be able to classify matter based on physical properties, including mass, magnetism, physical state (solid, liquid, and gas), relative density (sinking and floating), solubility in water, and the ability to conduct or insulate thermal energy or electrical energy.',
     grade: 4,
   });
@@ -103,7 +103,7 @@ test('content creator can create and delete learning standard', async () => {
     name: 'myLS',
     unit: 1,
     number: 133,
-    teks: '2bsbdA',
+    standards: '2bsbdA',
     expectations:
       'Test expecation description so defaultcontentcreator doesnt error out',
   });
@@ -121,7 +121,7 @@ test('content creator can edit lesson Modules', async () => {
     name: 'NewLessonModule',
     unit: 1,
     number: 0,
-    teks: '2B',
+    standards: '2B',
     expectations: 'cc can edit ls',
   });
   expect(response.status).toBe(200);
@@ -133,7 +133,7 @@ test('content creator can edit lesson Modules', async () => {
       name: 'Mixtures and Solutions',
       unit: 1,
       number: 1.3,
-      teks: 'gaekgoiu',
+      standards: 'gaekgoiu',
       expectations:
         'Demonstrate that some mixtures maintain physical properties of their ingredients such as iron fillings and sand and sand and water.Identify changes that can occur in the physical properties of the ingredients or solutions such as dissolving salt in water or adding lemon juice to water.',
     }

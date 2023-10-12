@@ -17,10 +17,10 @@
       "type": "string",
       "required": true
     },
-    "teks_id": {
+    "standards_id": {
       "type": "string"
     },
-    "teks_description": {
+    "standards_description": {
       "type": "text"
     },
     "number": {

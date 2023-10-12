@@ -786,7 +786,7 @@
               "unit": {
                 "type": "string"
               },
-              "teks": {
+              "standards": {
                 "type": "string"
               },
               "link": {
@@ -841,7 +841,7 @@
           "description": {
             "type": "string"
           },
-          "TekS": {
+          "StandardS": {
             "type": "string"
           },
           "images": {
@@ -913,7 +913,7 @@
           "description": {
             "type": "string"
           },
-          "TekS": {
+          "StandardS": {
             "type": "string"
           },
           "images": {

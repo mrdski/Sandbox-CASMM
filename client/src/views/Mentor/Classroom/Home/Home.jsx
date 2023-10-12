@@ -164,8 +164,8 @@ export default function Home({ classroomId, viewing }) {
                       </div>
                       <div id='view-activity-info'>
                         <p>
-                          <strong>TEKS: </strong>
-                          {activity.TekS}
+                          <strong>STANDARDS: </strong>
+                          {activity.StandardS}
                         </p>
                         <p>
                           <strong>Description: </strong>

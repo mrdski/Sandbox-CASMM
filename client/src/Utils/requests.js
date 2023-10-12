@@ -375,7 +375,7 @@ export const createLessonModule = async (
   name,
   number,
   unit,
-  teks,
+  standards,
   link
 ) =>
   makeRequest({
@@ -386,14 +386,14 @@ export const createLessonModule = async (
       name,
       number,
       unit,
-      teks,
+      standards,
       link,
     },
     auth: true,
     error: 'Login failed.',
   });
 
-export const createUnit = async (number, name, teksID, teksDescrip, grade) =>
+export const createUnit = async (number, name, standardsID, standardsDescrip, grade) =>
   makeRequest({
     method: POST,
     path: `${server}/units`,
@@ -401,8 +401,8 @@ export const createUnit = async (number, name, teksID, teksDescrip, grade) =>
       number: parseInt(number, 10),
       name: name,
       grade: parseInt(grade, 10),
-      teks_id: teksID,
-      teks_description: teksDescrip,
+      standards_id: standardsID,
+      standards_description: standardsDescrip,
     },
     auth: true,
     error: 'Fail to create new unit.',
@@ -412,8 +412,8 @@ export const updateUnit = async (
   id,
   number,
   name,
-  teksID,
-  teksDescrip,
+  standardsID,
+  standardsDescrip,
   grade
 ) =>
   makeRequest({
@@ -423,8 +423,8 @@ export const updateUnit = async (
       number: parseInt(number, 10),
       name: name,
       grade: parseInt(grade, 10),
-      teks_id: teksID,
-      teks_description: teksDescrip,
+      standards_id: standardsID,
+      standards_description: standardsDescrip,
     },
     auth: true,
     error: 'Failed to update unit',
@@ -450,7 +450,7 @@ export const updateLessonModule = async (
   id,
   name,
   expectations,
-  teks,
+  standards,
   link
 ) =>
   makeRequest({
@@ -458,7 +458,7 @@ export const updateLessonModule = async (
     path: `${server}/lesson-modules/${id}`,
     data: {
       name,
-      teks,
+      standards,
       expectations,
       link,
     },
@@ -471,7 +471,7 @@ export const updateActivityDetails = async (
   description,
   // template,
   // activity_template,
-  TekS,
+  StandardS,
   images,
   link,
   scienceComponents,
@@ -485,7 +485,7 @@ export const updateActivityDetails = async (
       description,
       // template,
       // activity_template,
-      TekS,
+      StandardS,
       images,
       link,
       scienceComponents,

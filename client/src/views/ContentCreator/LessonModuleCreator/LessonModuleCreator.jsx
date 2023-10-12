@@ -21,7 +21,7 @@ export default function LessonModuleCreator({
   const [description, setDescription] = useState("")
   const [unit, setUnit] = useState("")
   const [numOfActivityLevels, setNumOfActivityLevels] = useState("")
-  const [teks, setTeks] = useState("")
+  const [standards, setStandards] = useState("")
   const [link, setLink] = useState("")
   const [linkError, setLinkError] = useState(false)
   const [learningStandardObj, setLessonModuleObj] = useState("")
@@ -43,7 +43,7 @@ export default function LessonModuleCreator({
     setUnitList(res.data)
     setDescription("")
     setName("")
-    setTeks("")
+    setStandards("")
     setLink("")
     setLinkError(false)
     setNumOfActivityLevels("")
@@ -69,7 +69,7 @@ export default function LessonModuleCreator({
       name,
       0,
       unit,
-      teks,
+      standards,
       link
     )
     if (res.err) {
@@ -182,14 +182,14 @@ export default function LessonModuleCreator({
               placeholder="Enter lesson description"
             />
           </Form.Item>
-          <Form.Item label="Teks">
+          <Form.Item label="Standards">
             <Input
               onChange={e => {
-                setTeks(e.target.value)
+                setStandards(e.target.value)
               }}
               required
-              value={teks}
-              placeholder="Enter lesson Teks"
+              value={standards}
+              placeholder="Enter lesson Standards"
             />
           </Form.Item>
           <Form.Item label="Link to Additional Resource (Optional)">

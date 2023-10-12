@@ -630,7 +630,7 @@
               "description": {
                 "type": "string"
               },
-              "TekS": {
+              "StandardS": {
                 "type": "string"
               },
               "images": {

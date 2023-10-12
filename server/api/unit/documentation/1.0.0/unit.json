@@ -559,10 +559,10 @@
           "name": {
             "type": "string"
           },
-          "teks_id": {
+          "standards_id": {
             "type": "string"
           },
-          "teks_description": {
+          "standards_description": {
             "type": "string"
           },
           "number": {
@@ -598,7 +598,7 @@
                 "unit": {
                   "type": "string"
                 },
-                "teks": {
+                "standards": {
                   "type": "string"
                 },
                 "link": {
@@ -627,10 +627,10 @@
           "name": {
             "type": "string"
           },
-          "teks_id": {
+          "standards_id": {
             "type": "string"
           },
-          "teks_description": {
+          "standards_description": {
             "type": "string"
           },
           "number": {

@@ -24,7 +24,7 @@ const ActivityDetailModal = ({
 }) => {
   const [description, setDescription] = useState("")
   //const [template, setTemplate] = useState("")
-  const [TekS, setTekS] = useState("")
+  const [StandardS, setStandardS] = useState("")
   const [images, setImages] = useState("")
   const [link, setLink] = useState("")
 
@@ -45,7 +45,7 @@ const ActivityDetailModal = ({
       }
       setDescription(response.data.description)
       //setTemplate(response.data.template)
-      setTekS(response.data.TekS)
+      setStandardS(response.data.StandardS)
       setImages(response.data.images)
       setLink(response.data.link)
       setLinkError(false)
@@ -117,7 +117,7 @@ const ActivityDetailModal = ({
       selectActivity.id,
       description,
       //template,
-      TekS,
+      StandardS,
       images,
       link,
       scienceComponents,
@@ -181,13 +181,13 @@ const ActivityDetailModal = ({
             placeholder="Enter code template"
           ></Input>
         </Form.Item> */}
-        <Form.Item id="form-label" label="TekS">
+        <Form.Item id="form-label" label="Standards">
           <Input
-            onChange={e => setTekS(e.target.value)}
-            value={TekS}
+            onChange={e => setStandardS(e.target.value)}
+            value={StandardS}
             className="input"
             required
-            placeholder="Enter tekS"
+            placeholder="Enter standards"
           ></Input>
         </Form.Item>
         <Form.Item id="form-label" label="Images">

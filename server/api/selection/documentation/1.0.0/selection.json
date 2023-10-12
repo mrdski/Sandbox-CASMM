@@ -610,7 +610,7 @@
               "unit": {
                 "type": "string"
               },
-              "teks": {
+              "standards": {
                 "type": "string"
               },
               "link": {

@@ -24,7 +24,7 @@ const MentorActivityDetailModal = ({
   const [description, setDescription] = useState("")
   const [template, setTemplate] = useState("")
   const [activity_template, setActivityTemplate] = useState("")
-  const [TekS, setTekS] = useState("")
+  const [StandardS, setStandardS] = useState("")
   const [images, setImages] = useState("")
   const [link, setLink] = useState("")
   const [visible, setVisible] = useState(false);
@@ -46,7 +46,7 @@ const MentorActivityDetailModal = ({
       setDescription(response.data.description)
       setTemplate(response.data.template)
       setActivityTemplate(response.data.activity_template)
-      setTekS(response.data.TekS)
+      setStandardS(response.data.StandardS)
       setImages(response.data.images)
       setLink(response.data.link)
       setLinkError(false)
@@ -117,7 +117,7 @@ const MentorActivityDetailModal = ({
       selectActivity.id,
       description,
       //template,
-      TekS,
+      StandardS,
       images,
       link,
       scienceComponents,
@@ -190,13 +190,13 @@ const MentorActivityDetailModal = ({
           ></Input.TextArea>
         </Form.Item>
 
-        <Form.Item id="form-label" label="TekS">
+        <Form.Item id="form-label" label="StandardS">
           <Input
-            onChange={e => setTekS(e.target.value)}
-            value={TekS}
+            onChange={e => setStandardS(e.target.value)}
+            value={StandardS}
             className="input"
             required
-            placeholder="Enter tekS"
+            placeholder="Enter standardS"
           ></Input>
         </Form.Item>
         <Form.Item id="form-label" label="Table Chart">
