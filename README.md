@@ -35,7 +35,7 @@ The development environment is composed of five servers. The first one is run wi
 
 * `casmm-client-dev` - localhost:3000
 
-* `casmm-server-dev` - localhost:1337
+* `casmm-server-dev` - localhost:1337/admin
 
 * `casmm-compile-dev` 
 
