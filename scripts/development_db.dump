@@ -3029,7 +3029,7 @@ COPY public.sessions_students__students_sessions (id, student_id, session_id) FR
 --
 
 COPY public.strapi_administrator (id, username, email, password, "resetPasswordToken", blocked, firstname, lastname, "registrationToken", "isActive", "preferedLanguage") FROM stdin;
-1	development	dev@mail.com	$2a$10$gpq9IWTLQNk1m3kwILn19OtMvxpmCaFr.EXbLOH050rzQlm7ISPHm	\N	\N	Devlop	Account	\N	t	\N
+1	development	dev@mail.com	$2a$10$gpq9IWTLQNk1m3kwILn19OtMvxpmCaFr.EXbLOH050rzQlm7ISPHm	\N	\N	Develop	Account	\N	t	\N
 \.
 
 
