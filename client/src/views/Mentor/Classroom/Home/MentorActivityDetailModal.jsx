@@ -196,7 +196,7 @@ const MentorActivityDetailModal = ({
             value={StandardS}
             className="input"
             required
-            placeholder="Enter standardS"
+            placeholder="Enter standards"
           ></Input>
         </Form.Item>
         <Form.Item id="form-label" label="Table Chart">

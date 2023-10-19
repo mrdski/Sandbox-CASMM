@@ -103,7 +103,7 @@ export default function UnitCreator({ gradeList }) {
               required
             />
           </Form.Item>
-          <Form.Item id="form-label" label="StandardS">
+          <Form.Item id="form-label" label="Standards">
             <Input
               onChange={e => setStandard(e.target.value)}
               value={standard}
