@@ -18,3 +18,6 @@ You can then right-click and save the file to your desired directory.
 ![image](https://github.com/DavidMagda/CaSMM_fork_2023/assets/31215899/c7d413f5-f197-48a4-b1ec-8c7eb9a803a8)
 
 Replacing the old dump with this new one will allow you to load your strapi into whatever state it was in when the dump was made.
+
+# Issues
+If this does not work, you can alternatively try using the command ```pg_dump all -U postgres -f dumpall.dump```. This will dump all of the databases and you can then manually remove the ones that you didn't mean to grab.
