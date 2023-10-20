@@ -20,4 +20,4 @@ You can then right-click and save the file to your desired directory.
 Replacing the old dump with this new one will allow you to load your strapi into whatever state it was in when the dump was made.
 
 # Issues
-If this does not work, you can alternatively try using the command ```pg_dump all -U postgres -f dumpall.dump```. This will dump all of the databases and you can then manually remove the ones that you didn't mean to grab.
+If this does not work, you can alternatively try using the command ```pg_dumpall -U postgres -f dumpall.dump```. This will dump all of the databases and you can then manually remove the ones that you didn't mean to grab.
