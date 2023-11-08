@@ -17,7 +17,7 @@ import CustomBlock from './CustomBlock'
 
 let plotId = 1;
 
-export default function PublicCanvas({ activity, isSandbox }) {
+export default function PublicCanvas({ activity, isSandbox}) {
   const [hoverUndo, setHoverUndo] = useState(false);
   const [hoverRedo, setHoverRedo] = useState(false);
   const [hoverCompile, setHoverCompile] = useState(false);
@@ -161,7 +161,6 @@ export default function PublicCanvas({ activity, isSandbox }) {
 
     //Program you Arduino... / Custom Blocks | switch
     const featureList = (buttonText, newFeature) => (
-
         <button
         // fix to switch to CustomBlock canvas
         onClick={() => {setNotSelectedFeature(selectedFeature);setSelectedFeature(newFeature)}}
@@ -181,7 +180,9 @@ export default function PublicCanvas({ activity, isSandbox }) {
         </button>
       );
     
-
+  if(selectedFeature === 'Custom Blocks'){
+    return <CustomBlock activity={activity} isSandbox={isSandbox} workspaceRef={workspaceRef.current}/>;
+  }
   return (
     <div id='horizontal-container' className='flex flex-column'>
       <div className='flex flex-row'>
