@@ -74,6 +74,7 @@ p {
   top: 100%;
 }
 
+
 #icon-control-panel {
   display: flex;
   align-items: center;
@@ -134,7 +135,7 @@ p {
   align-items: center;
   flex: 1;
   max-height: 8vh;
-  width: 100%;
+  width: 1s00%;
 
   #logo {
     max-width: 145px;
@@ -189,9 +190,85 @@ p {
 }
 
 #blockly-canvas {
-  margin: auto;
-  width: 95%;
+  margin: fixed;
+  width: 55%;
   height: 72vh;
+  left: 0;
+}
+
+#newblockly-canvas {
+  margin: fixed;
+  width: 55%;
+  height: 72vh;
+  left: 0;
+}
+
+.canvas-container {
+  // display: flex;
+  // justify-content: space-between;
+  width: 95%;
+  margin: auto;
+  height: 72vh;
+}
+
+#topRight-containter{
+  position: absolute;
+  width: 40%;
+  height: 30vh;
+  right: 40px;
+  top: 60px;
+}
+
+#bottomRight-container{
+  position: absolute;
+  width: 40%;
+  height: 30vh;
+  right: 40px;
+  top: 345px;
+}
+
+#block-bs{
+  position: absolute;
+  width: 40%;
+  height: 0vh;
+  right: 40px;
+  top: 60px;
+}
+
+#def-text{
+  position: absolute;
+  width: 40%;
+  height: 0vh;
+  right: 40px;
+  top: 115px;
+}
+
+#gen-text{
+  position: absolute;
+  width: 40%;
+  height: 0vh;
+  right: 40px;
+  top: 345px;
+}
+
+#blocklyCanvasTop {
+  position: absolute;
+  width: 40%;
+  height: 28vh;
+  right: 40px;
+  top: 135px;
+  border: 1px solid #000; /* Add a border, adjust the color and size as needed */
+  z-index:1;
+}
+
+#blocklyCanvasBottom {
+  position: absolute;
+  width: 40%;
+  height: 28vh;
+  right: 40px;
+  top: 365px;
+  border: 1px solid #000; /* Add a border, adjust the color and size as needed */
+  z-index:1;
 }
 
 #console-container {
@@ -259,6 +336,61 @@ p {
   left: -10px;
   line-height: 20px;
   text-align: center;
+}
+
+#toolbox-background {
+  // background-color: grey;
+  // width: 300px;
+  // border: 15px solid green;
+  // padding: 50px;
+  // margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  background-color: grey;
+  //border-radius: 100px;
+  width: 5%;
+  //min-height: 200px;
+  color: #colors[text-secondary];
+  font-size: 1.2em;
+  font-weight: bold;
+  position: absolute;
+  top: 80px;
+  left: 0px;
+  text-align: center;
+  overflow: auto;
+  scroll-behavior: smooth;//might work dunno
+}
+
+//!!!!!!!!!!!
+#tb-feature-bg {
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  //background-color: #colors[secondary];
+  //border-radius: 100px;
+  width: 515%;
+  //min-height: 200px;
+  color: #colors[text-secondary];
+  position: absolute;
+  font-weight: bold;
+  left: 175%;
+  top: -5px;
+  text-align: center;
+}
+
+#button-visual {
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  background-color: grey;
+  border-radius: 100px;
+  width: 5%;
+  min-height: 450px;
+  color: #colors[text-secondary];
+  font-size: 1.2em;
+  font-weight: bold;
+  position: absolute;
 }
 
 #section-text {
