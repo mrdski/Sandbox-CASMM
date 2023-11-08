@@ -1,5 +1,6 @@
 import React from 'react';
 import PublicCanvas from './canvas/PublicCanvas';
+import CustomBlock from './canvas/CustomBlock';
 import StudentCanvas from './canvas/StudentCanvas';
 import MentorCanvas from './canvas/MentorCanvas';
 import ContentCreatorCanvas from './canvas/ContentCreatorCanvas';
@@ -12,7 +13,7 @@ const BlocklyCanvasPanel = ({ activity, isSandbox, setActivity }) => {
 
   switch (userRole) {
     case 'DefaultUser':
-      return <PublicCanvas activity={activity} isSandbox={isSandbox} />;
+      return <CustomBlock activity={activity} isSandbox={isSandbox} />;
     case 'Student':
       return <StudentCanvas activity={activity} />;
     case 'Mentor':
