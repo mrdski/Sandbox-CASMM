@@ -14,10 +14,11 @@ import {
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
 import { getActivityToolbox } from '../../../../Utils/requests';
+import PublicCanvas from './PublicCanvas';
 
 let plotId = 1;
 
-export default function PublicCanvas({ activity, isSandbox }) {
+export default function CustomBlock({ activity, isSandbox, workspace}) {
   const [hoverUndo, setHoverUndo] = useState(false);
   const [hoverRedo, setHoverRedo] = useState(false);
   const [hoverCompile, setHoverCompile] = useState(false);
@@ -30,18 +31,18 @@ export default function PublicCanvas({ activity, isSandbox }) {
   const [compileError, setCompileError] = useState('');
 
   //  useStates for Program your Arduino... / Custom Blocks
-  const [selectedFeature, setSelectedFeature] = useState('Program your Arduino...');
-  const [notSelectedFeature, setNotSelectedFeature] = useState('Custom Blocks')
+  const [selectedFeature, setSelectedFeature] = useState('Custom Blocks');
+  const [notSelectedFeature, setNotSelectedFeature] = useState('Program your Arduino...')
   const [blockCode, setBlockCode] = useState('');
   const [generatorCode, setGeneratorCode] = useState('');
 
 
   const [forceUpdate] = useReducer((x) => x + 1, 0);
-  const workspaceRef = useRef(null);
+  const workspaceRef = useRef(workspace);
   const activityRef = useRef(null);
 
   const setWorkspace = () => {
-    workspaceRef.current = window.Blockly.inject('blockly-canvas', {
+    workspaceRef.current = window.Blockly.inject('newblockly-canvas', {
       toolbox: document.getElementById('toolbox'),
     });
   
@@ -55,7 +56,31 @@ export default function PublicCanvas({ activity, isSandbox }) {
       setGeneratorCode(generatorCode);
     });
   };
+
+    // // Define the setInitialWorkspace function using the passed workspace prop
+    // const setInitialWorkspace = () => {
+    //   if (workspace) {
+    //     // Initialize the workspace if the workspace prop is provided
+    //     workspaceRef.current = workspace;
   
+    //     // Add a change listener for when the workspace changes
+    //     workspaceRef.current.addChangeListener(() => {
+    //       const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
+    //       const xmlText = Blockly.Xml.domToText(xml);
+    //       setBlockCode(xmlText);
+  
+    //       const generatorCode = Blockly.JavaScript.workspaceToCode(workspaceRef.current);
+    //       setGeneratorCode(generatorCode);
+    //     });
+    //   }
+    // };
+  
+    // useEffect(() => {
+    //   // Call the setInitialWorkspace function when the component mounts or when workspace changes
+    //   setInitialWorkspace();
+    // }, [workspace]);
+
+
   useEffect(() => {
     const setUp = async () => {
       activityRef.current = activity;
@@ -213,6 +238,10 @@ export default function PublicCanvas({ activity, isSandbox }) {
     </button>
   );
 
+  if(selectedFeature === 'Program your Arduino...'){
+    return <PublicCanvas activity={activity} isSandbox={isSandbox}/>;
+  }
+
   return (
     <div id='horizontal-container' className='flex flex-column'>
       <div className='flex flex-row'>
@@ -333,7 +362,7 @@ export default function PublicCanvas({ activity, isSandbox }) {
                 </Row>
               </Col>
             </Row>
-            <div id='blockly-canvas'/>
+            <div id='newblockly-canvas'/>
             <Row id='block-bs'>{saveBlock('Save Block')}</Row>
             <Row id='def-text'>Block Definition</Row>
             <Row id='blocklyCanvasTop'>
