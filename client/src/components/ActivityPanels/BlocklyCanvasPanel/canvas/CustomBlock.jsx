@@ -13,11 +13,12 @@ import {
 } from '../../Utils/consoleHelpers';
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
-import CustomBlock from './CustomBlock'
+import { getActivityToolbox } from '../../../../Utils/requests';
+import PublicCanvas from './PublicCanvas';
 
 let plotId = 1;
 
-export default function PublicCanvas({ activity, isSandbox}) {
+export default function CustomBlock({ activity, isSandbox, workspace}) {
   const [hoverUndo, setHoverUndo] = useState(false);
   const [hoverRedo, setHoverRedo] = useState(false);
   const [hoverCompile, setHoverCompile] = useState(false);
@@ -29,22 +30,58 @@ export default function PublicCanvas({ activity, isSandbox}) {
   const [selectedCompile, setSelectedCompile] = useState(false);
   const [compileError, setCompileError] = useState('');
 
+  //  useStates for Program your Arduino... / Custom Blocks
+  const [selectedFeature, setSelectedFeature] = useState('Custom Blocks');
+  const [notSelectedFeature, setNotSelectedFeature] = useState('Program your Arduino...')
+  const [blockCode, setBlockCode] = useState('');
+  const [generatorCode, setGeneratorCode] = useState('');
+
+
   const [forceUpdate] = useReducer((x) => x + 1, 0);
-  const workspaceRef = useRef(null);
+  const workspaceRef = useRef(workspace);
   const activityRef = useRef(null);
 
-    //  useStates for Program your Arduino... / Custom Blocks
-    const [selectedFeature, setSelectedFeature] = useState('Program your Arduino...');
-    const [notSelectedFeature, setNotSelectedFeature] = useState('Custom Blocks')
-
   const setWorkspace = () => {
-    workspaceRef.current = window.Blockly.inject('blockly-canvas', {
+    workspaceRef.current = window.Blockly.inject('newblockly-canvas', {
       toolbox: document.getElementById('toolbox'),
+    });
+  
+    // Added a change listener for when the workspace changes
+    workspaceRef.current.addChangeListener(() => {
+      const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
+      const xmlText = Blockly.Xml.domToText(xml);
+      setBlockCode(xmlText);
+
+      const generatorCode = Blockly.JavaScript.workspaceToCode(workspaceRef.current);
+      setGeneratorCode(generatorCode);
     });
   };
 
+    // // Define the setInitialWorkspace function using the passed workspace prop
+    // const setInitialWorkspace = () => {
+    //   if (workspace) {
+    //     // Initialize the workspace if the workspace prop is provided
+    //     workspaceRef.current = workspace;
+  
+    //     // Add a change listener for when the workspace changes
+    //     workspaceRef.current.addChangeListener(() => {
+    //       const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
+    //       const xmlText = Blockly.Xml.domToText(xml);
+    //       setBlockCode(xmlText);
+  
+    //       const generatorCode = Blockly.JavaScript.workspaceToCode(workspaceRef.current);
+    //       setGeneratorCode(generatorCode);
+    //     });
+    //   }
+    // };
+  
+    // useEffect(() => {
+    //   // Call the setInitialWorkspace function when the component mounts or when workspace changes
+    //   setInitialWorkspace();
+    // }, [workspace]);
+
+
   useEffect(() => {
-    // once the activity state is set, set the workspace and save
     const setUp = async () => {
       activityRef.current = activity;
       if (!workspaceRef.current && activity && Object.keys(activity).length !== 0) {
@@ -53,7 +90,7 @@ export default function PublicCanvas({ activity, isSandbox}) {
     };
     setUp();
   }, [activity]);
-
+  
   const handleUndo = () => {
     if (workspaceRef.current.undoStack_.length > 0)
       workspaceRef.current.undo(false);
@@ -159,30 +196,52 @@ export default function PublicCanvas({ activity, isSandbox}) {
     </Menu>
   );
 
-    //Program you Arduino... / Custom Blocks | switch
-    const featureList = (buttonText, newFeature) => (
-        <button
-        // fix to switch to CustomBlock canvas
-        onClick={() => {setNotSelectedFeature(selectedFeature);setSelectedFeature(newFeature)}}
-          style={{
-            backgroundColor: 'teal',
-            color: 'white',
-            transition: 'background-color 0.3s',
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.backgroundColor = 'lightblue';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.backgroundColor = 'teal';
-          }}
-        >
-          {buttonText}
-        </button>
-      );
-    
-  if(selectedFeature === 'Custom Blocks'){
-    return <CustomBlock activity={activity} isSandbox={isSandbox} workspaceRef={workspaceRef.current}/>;
+  //Program you Arduino... / Custom Blocks | switch
+  const featureList = (buttonText, newFeature) => (
+    <button
+    // fix to switch back to PublicCanvas
+      onClick={() => {setNotSelectedFeature(selectedFeature);setSelectedFeature(newFeature)}}
+      style={{
+        backgroundColor: 'teal',
+        color: 'white',
+        transition: 'background-color 0.3s',
+      }}
+      onMouseEnter={(e) => {
+        e.target.style.backgroundColor = 'lightblue';
+      }}
+      onMouseLeave={(e) => {
+        e.target.style.backgroundColor = 'teal';
+      }}
+    >
+      {buttonText}
+    </button>
+  );
+
+  const saveBlock = (buttonText) => (
+
+    <button
+    // Where does the save block go?
+      //onClick={() => {}}
+      style={{
+        backgroundColor: 'teal',
+        color: 'white',
+        transition: 'background-color 0.3s',
+      }}
+      onMouseEnter={(e) => {
+        e.target.style.backgroundColor = 'lightblue';
+      }}
+      onMouseLeave={(e) => {
+        e.target.style.backgroundColor = 'teal';
+      }}
+    >
+      {buttonText}
+    </button>
+  );
+
+  if(selectedFeature === 'Program your Arduino...'){
+    return <PublicCanvas activity={activity} isSandbox={isSandbox}/>;
   }
+
   return (
     <div id='horizontal-container' className='flex flex-column'>
       <div className='flex flex-row'>
@@ -198,6 +257,7 @@ export default function PublicCanvas({ activity, isSandbox}) {
           >
             <Row id='icon-control-panel'>
               <Col flex='none' id='section-header'>
+                {/* Program your Arduino... / Custom Blocks */}
                 {selectedFeature}
               </Col>
               <Col flex='auto'>
@@ -208,6 +268,7 @@ export default function PublicCanvas({ activity, isSandbox}) {
                         <Link id='link' to={'/'} className='flex flex-column'>
                           <i className='fa fa-home fa-lg' />
                         </Link>
+                        {/* Custom Blocks / Program your Arduino... */}
                         <Row flex='auto' id='tb-feature-bg'>
                           {featureList(notSelectedFeature, notSelectedFeature)}
                         </Row>
@@ -301,7 +362,18 @@ export default function PublicCanvas({ activity, isSandbox}) {
                 </Row>
               </Col>
             </Row>
-            <div id='blockly-canvas' />
+            <div id='newblockly-canvas'/>
+            <Row id='block-bs'>{saveBlock('Save Block')}</Row>
+            <Row id='def-text'>Block Definition</Row>
+            <Row id='blocklyCanvasTop'>
+              {/* {Block Definition} */}
+              {blockCode}
+            </Row>
+            <Row id='gen-text'>Generator Stub</Row>
+            <Row id='blocklyCanvasBottom'>
+              {/* {Generator Stub} */}
+              {generatorCode}
+            </Row>
           </Spin>
         </div>
         <ConsoleModal
@@ -318,7 +390,7 @@ export default function PublicCanvas({ activity, isSandbox}) {
           plotId={plotId}
         />
       </div>
-
+      
       {/* This xml is for the blocks' menu we will provide. Here are examples on how to include categories and subcategories */}
       <xml id='toolbox' is='Blockly workspace'>
         {
