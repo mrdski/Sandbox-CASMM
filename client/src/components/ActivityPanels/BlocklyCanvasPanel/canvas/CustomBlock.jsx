@@ -46,7 +46,8 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
       toolbox: document.getElementById('toolbox'),
     });
   
-    // Added a change listener for when the workspace changes
+    // For when the workspace changes and new blocks are added to the workspace
+    //This will display the block definition and generator code
     workspaceRef.current.addChangeListener(() => {
       const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
       const xmlText = Blockly.Xml.domToText(xml);
@@ -56,30 +57,6 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
       setGeneratorCode(generatorCode);
     });
   };
-
-    // // Define the setInitialWorkspace function using the passed workspace prop
-    // const setInitialWorkspace = () => {
-    //   if (workspace) {
-    //     // Initialize the workspace if the workspace prop is provided
-    //     workspaceRef.current = workspace;
-  
-    //     // Add a change listener for when the workspace changes
-    //     workspaceRef.current.addChangeListener(() => {
-    //       const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
-    //       const xmlText = Blockly.Xml.domToText(xml);
-    //       setBlockCode(xmlText);
-  
-    //       const generatorCode = Blockly.JavaScript.workspaceToCode(workspaceRef.current);
-    //       setGeneratorCode(generatorCode);
-    //     });
-    //   }
-    // };
-  
-    // useEffect(() => {
-    //   // Call the setInitialWorkspace function when the component mounts or when workspace changes
-    //   setInitialWorkspace();
-    // }, [workspace]);
-
 
   useEffect(() => {
     const setUp = async () => {
@@ -199,7 +176,7 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
   //Program you Arduino... / Custom Blocks | switch
   const featureList = (buttonText, newFeature) => (
     <button
-    // fix to switch back to PublicCanvas
+    // changes the current cavnas
       onClick={() => {setNotSelectedFeature(selectedFeature);setSelectedFeature(newFeature)}}
       style={{
         backgroundColor: 'teal',
@@ -220,7 +197,7 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
   const saveBlock = (buttonText) => (
 
     <button
-    // Where does the save block go?
+    // Where will the save block go? Gallaries?
       //onClick={() => {}}
       style={{
         backgroundColor: 'teal',
@@ -238,6 +215,7 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
     </button>
   );
 
+  //Functional, however, needs to be changed to where it returns to the previous canvas, whichever that may be
   if(selectedFeature === 'Program your Arduino...'){
     return <PublicCanvas activity={activity} isSandbox={isSandbox}/>;
   }
@@ -362,6 +340,7 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
                 </Row>
               </Col>
             </Row>
+            {/* Code to fix the workspace to half and provide space for the block def and gen code, will need to add a block preview */}
             <div id='newblockly-canvas'/>
             <Row id='block-bs'>{saveBlock('Save Block')}</Row>
             <Row id='def-text'>Block Definition</Row>
