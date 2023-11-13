@@ -1,20 +1,21 @@
 import React, { useEffect, useRef, useState, useReducer } from 'react';
 import { Link } from 'react-router-dom';
-import '../../ActivityLevels.less';
-import { compileArduinoCode } from '../../Utils/helpers';
+import '../../../ActivityLevels.less';
+import { compileArduinoCode } from '../../../Utils/helpers';
 import { message, Spin, Row, Col, Alert, Menu, Dropdown } from 'antd';
-import CodeModal from '../modals/CodeModal';
-import ConsoleModal from '../modals/ConsoleModal';
-import PlotterModal from '../modals/PlotterModal';
+import CodeModal from '../../modals/CodeModal';
+import ConsoleModal from '../../modals/ConsoleModal';
+import PlotterModal from '../../modals/PlotterModal';
 import {
   connectToPort,
   handleCloseConnection,
   handleOpenConnection,
-} from '../../Utils/consoleHelpers';
-import ArduinoLogo from '../Icons/ArduinoLogo';
-import PlotterLogo from '../Icons/PlotterLogo';
-import { getActivityToolbox } from '../../../../Utils/requests';
-import PublicCanvas from './PublicCanvas';
+} from '../../../Utils/consoleHelpers';
+import ArduinoLogo from '../../Icons/ArduinoLogo';
+import PlotterLogo from '../../Icons/PlotterLogo';
+import { getActivityToolbox } from '../../../../../Utils/requests';
+import PublicCanvas from '../PublicCanvas';
+import './blocks';
 
 let plotId = 1;
 
@@ -244,6 +245,7 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
 
   return (
     <div id='horizontal-container' className='flex flex-column'>
+      <script src="blocks.js"></script>
       <div className='flex flex-row'>
         <div
           id='bottom-container'
@@ -390,32 +392,53 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
           plotId={plotId}
         />
       </div>
-      
       {/* This xml is for the blocks' menu we will provide. Here are examples on how to include categories and subcategories */}
-      <xml id='toolbox' is='Blockly workspace'>
-        {
-          // Maps out block categories
-          activity &&
-            activity.toolbox &&
-            activity.toolbox.map(([category, blocks]) => (
-              <category name={category} is='Blockly category' key={category}>
-                {
-                  // maps out blocks in category
-                  // eslint-disable-next-line
-                  blocks.map((block) => {
-                    return (
-                      <block
-                        type={block.name}
-                        is='Blockly block'
-                        key={block.name}
-                      />
-                    );
-                  })
-                }
-              </category>
-            ))
-        }
-      </xml>
+      
+      <xml id="toolbox">
+    <category name="Input">
+      <block type="input_value">
+        <value name="TYPE">
+          <shadow type="type_null"></shadow>
+        </value>
+      </block>
+      <block type="input_statement">
+        <value name="TYPE">
+          <shadow type="type_null"></shadow>
+        </value>
+      </block>
+      <block type="input_dummy"></block>
+    </category>
+    <category name="Field">
+      <block type="field_static"></block>
+      <block type="field_input"></block>
+      <block type="field_angle"></block>
+      <block type="field_dropdown"></block>
+      <block type="field_checkbox"></block>
+      <block type="field_colour"></block>
+      <block type="field_variable"></block>
+      <block type="field_image"></block>
+    </category>
+    <category name="Type">
+      <block type="type_group"></block>
+      <block type="type_null"></block>
+      <block type="type_boolean"></block>
+      <block type="type_number"></block>
+      <block type="type_string"></block>
+      <block type="type_list"></block>
+      <block type="type_other"></block>
+    </category>
+    <category name="Colour" id="colourCategory">
+      <block type="colour_hue"><mutation colour="20"></mutation><field name="HUE">20</field></block>
+      <block type="colour_hue"><mutation colour="65"></mutation><field name="HUE">65</field></block>
+      <block type="colour_hue"><mutation colour="120"></mutation><field name="HUE">120</field></block>
+      <block type="colour_hue"><mutation colour="160"></mutation><field name="HUE">160</field></block>
+      <block type="colour_hue"><mutation colour="210"></mutation><field name="HUE">210</field></block>
+      <block type="colour_hue"><mutation colour="230"></mutation><field name="HUE">230</field></block>
+      <block type="colour_hue"><mutation colour="260"></mutation><field name="HUE">260</field></block>
+      <block type="colour_hue"><mutation colour="290"></mutation><field name="HUE">290</field></block>
+      <block type="colour_hue"><mutation colour="330"></mutation><field name="HUE">330</field></block>
+    </category>
+  </xml>
 
       {compileError && (
         <Alert
