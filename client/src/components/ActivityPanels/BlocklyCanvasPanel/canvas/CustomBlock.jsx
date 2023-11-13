@@ -59,13 +59,9 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
   };
 
   //Code for the switch from the initial canvas to the custom block canvas, not quite functional
-    // // Define the setInitialWorkspace function using the passed workspace prop
     // const setInitialWorkspace = () => {
     //   if (workspace) {
-    //     // Initialize the workspace if the workspace prop is provided
     //     workspaceRef.current = workspace;
-  
-    //     // Add a change listener for when the workspace changes
     //     workspaceRef.current.addChangeListener(() => {
     //       const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
     //       const xmlText = Blockly.Xml.domToText(xml);
@@ -78,7 +74,6 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
     // };
   
     // useEffect(() => {
-    //   // Call the setInitialWorkspace function when the component mounts or when workspace changes
     //   setInitialWorkspace();
     // }, [workspace]);
 
