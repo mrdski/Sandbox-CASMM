@@ -13,7 +13,7 @@ import {
 } from '../../Utils/consoleHelpers';
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
-import CustomBlock from './CustomBlock'
+import CustomBlock from './blockFactory/CustomBlock'
 
 let plotId = 1;
 
