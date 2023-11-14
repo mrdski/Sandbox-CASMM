@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState, useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import '../../ActivityLevels.less';
-import { compileArduinoCode } from '../../Utils/helpers';
+import { compileArduinoCode } from '../../../Utils/helpers';
 import { message, Spin, Row, Col, Alert, Menu, Dropdown } from 'antd';
-import CodeModal from '../modals/CodeModal';
-import ConsoleModal from '../modals/ConsoleModal';
-import PlotterModal from '../modals/PlotterModal';
+import CodeModal from '../../modals/CodeModal';
+import ConsoleModal from '../../modals/ConsoleModal';
+import PlotterModal from '../../modals/PlotterModal';
 import {
   connectToPort,
   handleCloseConnection,
   handleOpenConnection,
-} from '../../Utils/consoleHelpers';
-import ArduinoLogo from '../Icons/ArduinoLogo';
-import PlotterLogo from '../Icons/PlotterLogo';
-import { getActivityToolbox } from '../../../../Utils/requests';
-import PublicCanvas from './PublicCanvas';
+} from '../../../Utils/consoleHelpers';
+import ArduinoLogo from '../../Icons/ArduinoLogo';
+import PlotterLogo from '../../Icons/PlotterLogo';
+import { getActivityToolbox } from '../../../../../Utils/requests';
+import PublicCanvas from '../PublicCanvas';
 
 let plotId = 1;
 
