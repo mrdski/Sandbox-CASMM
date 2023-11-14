@@ -38,9 +38,16 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
 
 
   const [forceUpdate] = useReducer((x) => x + 1, 0);
-  const workspaceRef = useRef(workspace);
+  const workspaceRef = useRef(null);
   const activityRef = useRef(null);
 
+
+  // const xmlToBlockDefinition = (xmlText) => {
+
+  // };
+  
+  
+  
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('newblockly-canvas', {
       toolbox: document.getElementById('toolbox'),
@@ -57,6 +64,26 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
       setGeneratorCode(generatorCode);
     });
   };
+
+  //Code for the switch from the initial canvas to the custom block canvas, not quite functional
+    // const setInitialWorkspace = () => {
+    //   if (workspace) {
+    //     workspaceRef.current = workspace;
+    //     workspaceRef.current.addChangeListener(() => {
+    //       const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
+    //       const xmlText = Blockly.Xml.domToText(xml);
+    //       setBlockCode(xmlText);
+  
+    //       const generatorCode = Blockly.JavaScript.workspaceToCode(workspaceRef.current);
+    //       setGeneratorCode(generatorCode);
+    //     });
+    //   }
+    // };
+  
+    // useEffect(() => {
+    //   setInitialWorkspace();
+    // }, [workspace]);
+
 
   useEffect(() => {
     const setUp = async () => {
@@ -343,8 +370,12 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
             {/* Code to fix the workspace to half and provide space for the block def and gen code, will need to add a block preview */}
             <div id='newblockly-canvas'/>
             <Row id='block-bs'>{saveBlock('Save Block')}</Row>
-            <Row id='def-text'>Block Definition</Row>
+            <Row id='pre-text'>Block Preview</Row>
             <Row id='blocklyCanvasTop'>
+              {/* Block Preview */}
+            </Row>
+            <Row id='def-text'>Block Definition</Row>
+            <Row id='blocklyCanvasMid'>
               {/* {Block Definition} */}
               {blockCode}
             </Row>
