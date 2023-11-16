@@ -56,13 +56,22 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
     workspaceRef.current = window.Blockly.inject('newblockly-canvas', {
       toolbox: document.getElementById('toolbox'),
     });
+    // Define the XML for the root block
+    const rootBlockXml = '<xml>' +
+      '<block type="factory_base" deletable="false" movable="false"></block>' +
+      '</xml>';
   
-
+    // Convert the XML string to a DOM element
+    const xmlDom = Blockly.Xml.textToDom(rootBlockXml);
+  
+    // Initialize the workspace with the root block
+    Blockly.Xml.domToWorkspace(xmlDom, workspaceRef.current);
+  
     workspaceRef.current.addChangeListener(() => {
       const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
       const xmlText = Blockly.Xml.domToText(xml);
       setBlockCode(xmlText);
-
+  
       const generatorCode = Blockly.JavaScript.workspaceToCode(workspaceRef.current);
       setGeneratorCode(generatorCode);
     });
