@@ -196,10 +196,9 @@ p {
 }
 
 #newblockly-canvas {
-  margin: fixed;
+  margin: absolute;
   width: 55%;
   height: 72vh;
-  left: 0;
 }
 
 .canvas-container {
@@ -231,6 +230,14 @@ p {
   width: 40%;
   height: 0vh;
   right: 40px;
+  top: 13px;
+}
+
+#pre-text{
+  position: absolute;
+  width: 40%;
+  height: 0vh;
+  right: 40px;
   top: 60px;
 }
 
@@ -239,7 +246,7 @@ p {
   width: 40%;
   height: 0vh;
   right: 40px;
-  top: 115px;
+  top: 230px;
 }
 
 #gen-text{
@@ -247,15 +254,25 @@ p {
   width: 40%;
   height: 0vh;
   right: 40px;
-  top: 345px;
+  top: 400px;
 }
 
 #blocklyCanvasTop {
   position: absolute;
   width: 40%;
-  height: 28vh;
+  height: 20vh;
   right: 40px;
-  top: 135px;
+  top: 80px;
+  border: 1px solid #000; /* Add a border, adjust the color and size as needed */
+  z-index:1;
+}
+
+#blocklyCanvasMid {
+  position: absolute;
+  width: 40%;
+  height: 20vh;
+  right: 40px;
+  top: 250px;
   border: 1px solid #000; /* Add a border, adjust the color and size as needed */
   z-index:1;
 }
@@ -263,9 +280,9 @@ p {
 #blocklyCanvasBottom {
   position: absolute;
   width: 40%;
-  height: 28vh;
+  height: 20vh;
   right: 40px;
-  top: 365px;
+  top: 420px;
   border: 1px solid #000; /* Add a border, adjust the color and size as needed */
   z-index:1;
 }

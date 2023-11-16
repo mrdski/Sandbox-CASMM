@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useReducer } from 'react';
 import { Link } from 'react-router-dom';
+
 import '../../../ActivityLevels.less';
 import { compileArduinoCode } from '../../../Utils/helpers';
 import { message, Spin, Row, Col, Alert, Menu, Dropdown } from 'antd';
@@ -16,6 +17,7 @@ import PlotterLogo from '../../Icons/PlotterLogo';
 import { getActivityToolbox } from '../../../../../Utils/requests';
 import PublicCanvas from '../PublicCanvas';
 import './blocks';
+
 
 let plotId = 1;
 
@@ -39,45 +41,46 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
 
 
   const [forceUpdate] = useReducer((x) => x + 1, 0);
-  const workspaceRef = useRef(workspace);
+
+  const workspaceRef = useRef(null);
   const activityRef = useRef(null);
+
+
+  // const xmlToBlockDefinition = (xmlText) => {
+
+  // };
+  
+  
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('newblockly-canvas', {
       toolbox: document.getElementById('toolbox'),
     });
   
-    // Added a change listener for when the workspace changes
+    // Define the XML for the root block
+    const rootBlockXml = '<xml>' +
+      '<block type="factory_base" deletable="false" movable="false"></block>' +
+      '</xml>';
+  
+    // Convert the XML string to a DOM element
+    const xmlDom = Blockly.Xml.textToDom(rootBlockXml);
+  
+    // Initialize the workspace with the root block
+    Blockly.Xml.domToWorkspace(xmlDom, workspaceRef.current);
+  
     workspaceRef.current.addChangeListener(() => {
       const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
       const xmlText = Blockly.Xml.domToText(xml);
       setBlockCode(xmlText);
-
+  
       const generatorCode = Blockly.JavaScript.workspaceToCode(workspaceRef.current);
       setGeneratorCode(generatorCode);
     });
   };
 
-    // // Define the setInitialWorkspace function using the passed workspace prop
-    // const setInitialWorkspace = () => {
-    //   if (workspace) {
-    //     // Initialize the workspace if the workspace prop is provided
-    //     workspaceRef.current = workspace;
-  
-    //     // Add a change listener for when the workspace changes
-    //     workspaceRef.current.addChangeListener(() => {
-    //       const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
-    //       const xmlText = Blockly.Xml.domToText(xml);
-    //       setBlockCode(xmlText);
-  
-    //       const generatorCode = Blockly.JavaScript.workspaceToCode(workspaceRef.current);
-    //       setGeneratorCode(generatorCode);
-    //     });
-    //   }
-    // };
+
   
     // useEffect(() => {
-    //   // Call the setInitialWorkspace function when the component mounts or when workspace changes
     //   setInitialWorkspace();
     // }, [workspace]);
 
@@ -200,7 +203,6 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
   //Program you Arduino... / Custom Blocks | switch
   const featureList = (buttonText, newFeature) => (
     <button
-    // fix to switch back to PublicCanvas
       onClick={() => {setNotSelectedFeature(selectedFeature);setSelectedFeature(newFeature)}}
       style={{
         backgroundColor: 'teal',
@@ -221,7 +223,6 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
   const saveBlock = (buttonText) => (
 
     <button
-    // Where does the save block go?
       //onClick={() => {}}
       style={{
         backgroundColor: 'teal',
@@ -364,10 +365,15 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
                 </Row>
               </Col>
             </Row>
+            {/* Code to fix the workspace to half and provide space for the block def and gen code, will need to add a block preview */}
             <div id='newblockly-canvas'/>
             <Row id='block-bs'>{saveBlock('Save Block')}</Row>
-            <Row id='def-text'>Block Definition</Row>
+            <Row id='pre-text'>Block Preview</Row>
             <Row id='blocklyCanvasTop'>
+              {/* Block Preview */}
+            </Row>
+            <Row id='def-text'>Block Definition</Row>
+            <Row id='blocklyCanvasMid'>
               {/* {Block Definition} */}
               {blockCode}
             </Row>
@@ -392,6 +398,7 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
           plotId={plotId}
         />
       </div>
+
       {/* This xml is for the blocks' menu we will provide. Here are examples on how to include categories and subcategories */}
       
       <xml id="toolbox">
@@ -439,6 +446,7 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
       <block type="colour_hue"><mutation colour="330"></mutation><field name="HUE">330</field></block>
     </category>
   </xml>
+
 
       {compileError && (
         <Alert
