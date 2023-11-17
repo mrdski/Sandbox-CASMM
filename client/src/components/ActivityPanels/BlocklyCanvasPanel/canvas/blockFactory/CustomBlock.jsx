@@ -17,6 +17,7 @@ import PlotterLogo from '../../Icons/PlotterLogo';
 import { getActivityToolbox } from '../../../../../Utils/requests';
 import PublicCanvas from '../PublicCanvas';
 import './blocks';
+import './factory';
 
 
 let plotId = 1;
@@ -46,16 +47,38 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
   const activityRef = useRef(null);
 
 
-  // const xmlToBlockDefinition = (xmlText) => {
+  
 
+  // const setWorkspace = () => {
+  //   workspaceRef.current = window.Blockly.inject('newblockly-canvas', {
+  //     toolbox: document.getElementById('toolbox'),
+  //   });
+  //   // Define the XML for the root block
+  //   const rootBlockXml = '<xml>' +
+  //     '<block type="factory_base" deletable="false" movable="false"></block>' +
+  //     '</xml>';
+  
+  //   // Convert the XML string to a DOM element
+  //   const xmlDom = Blockly.Xml.textToDom(rootBlockXml);
+  
+  //   // Initialize the workspace with the root block
+  //   Blockly.Xml.domToWorkspace(xmlDom, workspaceRef.current);
+  
+  //   workspaceRef.current.addChangeListener(() => {
+  //     const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
+  //     const xmlText = Blockly.Xml.domToText(xml);
+  //     setBlockCode(xmlText);
+  
+  //     const generatorCode = Blockly.JavaScript.workspaceToCode(workspaceRef.current);
+  //     setGeneratorCode(generatorCode);
+  //   });
   // };
-  
-  
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('newblockly-canvas', {
       toolbox: document.getElementById('toolbox'),
     });
+  
     // Define the XML for the root block
     const rootBlockXml = '<xml>' +
       '<block type="factory_base" deletable="false" movable="false"></block>' +
@@ -67,18 +90,23 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
     // Initialize the workspace with the root block
     Blockly.Xml.domToWorkspace(xmlDom, workspaceRef.current);
   
-    workspaceRef.current.addChangeListener(() => {
-      const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
-      const xmlText = Blockly.Xml.domToText(xml);
-      setBlockCode(xmlText);
+    // Event listener for block creation
+    workspaceRef.current.addChangeListener((event) => {
+      if (event.type === 'create') {
+        // A new block is created
+        const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
+        const xmlText = Blockly.Xml.domToText(xml);
+        setBlockCode(xmlText);
   
-      const generatorCode = Blockly.JavaScript.workspaceToCode(workspaceRef.current);
-      setGeneratorCode(generatorCode);
+        const generatorCode = Blockly.JavaScript.workspaceToCode(workspaceRef.current);
+        setGeneratorCode(generatorCode);
+      }
     });
   };
-
-
   
+
+
+  //Testing
     // useEffect(() => {
     //   setInitialWorkspace();
     // }, [workspace]);
@@ -239,6 +267,65 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
     </button>
   );
 
+/**
+ * Convert XML code to Blockly JavaScript code.
+ * @param {string} xmlCode - The input XML code.
+ * @returns {string} - The generated Blockly JavaScript code.
+ */
+function xmlToBlocklyJs(xmlCode) {
+  // Parse the XML code into a DOM structure.
+  var xmlDoc = new DOMParser().parseFromString(xmlCode, 'text/xml');
+
+  // Helper function to process a block and its children.
+  function parseBlock(block) {
+
+    var blockType = block.getAttribute('type') || 'unnamed';
+    var jsCode = "Blockly.Blocks['" + blockType + "'] = {\n";
+    jsCode += "  init: function() {\n";
+
+    // Process fields.
+    var fields = block.querySelectorAll('field');
+    if (fields.length > 0) {
+      fields.forEach(function (field) {
+        jsCode += "    this.appendField('" + field.textContent + "');\n";
+      });
+    }
+
+    // Process inputs.
+    var inputs = block.querySelectorAll('value, statement, shadow');
+    if (inputs.length > 0) {
+      inputs.forEach(function (input) {
+        var inputName = input.getAttribute('name');
+        jsCode += "    this.append" + input.tagName + "('" + inputName + "', " +
+          parseBlock(input.firstElementChild) + ");\n";
+      });
+    }
+
+    // Process mutations.
+    var mutation = block.querySelector('mutation');
+    if (mutation) {
+      for (var i = 0; i < mutation.attributes.length; i++) {
+        var attribute = mutation.attributes[i];
+        jsCode += "    this.setMutatorAttribute('" + attribute.name + "', '" +
+          attribute.value + "');\n";
+      }
+    }
+
+    jsCode += "  }\n";
+    jsCode += "};\n\n";
+
+    return jsCode;
+  }
+
+  // Get the root block and start parsing.
+  var rootBlock = xmlDoc.querySelector('block');
+  if (rootBlock) {
+    return parseBlock(rootBlock);
+  } else {
+    return ''; // Return an empty string if no block is found.
+  }
+}
+
   if(selectedFeature === 'Program your Arduino...'){
     return <PublicCanvas activity={activity} isSandbox={isSandbox}/>;
   }
@@ -246,6 +333,7 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
   return (
     <div id='horizontal-container' className='flex flex-column'>
       <script src="blocks.js"></script>
+      <script src="factory.js"></script>
       <div className='flex flex-row'>
         <div
           id='bottom-container'
@@ -368,18 +456,19 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
             <div id='newblockly-canvas'/>
             <Row id='block-bs'>{saveBlock('Save Block')}</Row>
             <Row id='pre-text'>Block Preview</Row>
-            <Row id='blocklyCanvasTop'>
+            <Row id='blocklyCanvasTop'  style={{ textAlign: 'left' }}>
               {/* Block Preview */}
+              {/* {preview} */}
             </Row>
             <Row id='def-text'>Block Definition</Row>
-            <Row id='blocklyCanvasMid'>
+            <Row id='blocklyCanvasMid'  style={{ textAlign: 'left' }}>
               {/* {Block Definition} */}
-              {blockCode}
+              {xmlToBlocklyJs(blockCode)}
             </Row>
             <Row id='gen-text'>Generator Stub</Row>
-            <Row id='blocklyCanvasBottom'>
+            <Row id='blocklyCanvasBottom'  style={{ textAlign: 'left' }}>
               {/* {Generator Stub} */}
-              {generatorCode}
+              {blockCode}
             </Row>
           </Spin>
         </div>
