@@ -56,7 +56,6 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
     workspaceRef.current = window.Blockly.inject('newblockly-canvas', {
       toolbox: document.getElementById('toolbox'),
     });
-  
     // Define the XML for the root block
     const rootBlockXml = '<xml>' +
       '<block type="factory_base" deletable="false" movable="false"></block>' +
