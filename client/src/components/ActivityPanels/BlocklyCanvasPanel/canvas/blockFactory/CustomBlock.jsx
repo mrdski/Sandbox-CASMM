@@ -78,7 +78,7 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
   };
 
 
-  //testing PR
+  //Testing
     // useEffect(() => {
     //   setInitialWorkspace();
     // }, [workspace]);
