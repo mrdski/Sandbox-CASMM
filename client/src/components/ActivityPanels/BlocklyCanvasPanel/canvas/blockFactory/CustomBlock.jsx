@@ -322,9 +322,10 @@ function updateLanguage(xmlCode, varToChange) {
   varToChange = formatJson_(blockType, rootBlock);
   //var code = blockType;
   temporaryWorkspace.clear();  
-  //injectCode(code, 'blocklyCanvasMid');
+  //injectCode(code, 'blocklyCanvasMid')
+  return varToChange;
   
-  //updatePreview();
+  updatePreview();
 }
 
 
