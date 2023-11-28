@@ -19,6 +19,8 @@ import StudentLogin from './views/StudentLogin/StudentLogin';
 import ForgetPassword from './views/TeacherLogin/ForgetPassword';
 import ResetPassword from './views/TeacherLogin/ResetPassword';
 import TeacherLogin from './views/TeacherLogin/TeacherLogin';
+import BlockList from './components/ActivityPanels/BlocklyCanvasPanel/canvas/BlockList';
+import CustomBlock from './components/ActivityPanels/BlocklyCanvasPanel/canvas/blockFactory/CustomBlock';
 
 const App = () => {
   return (
@@ -31,7 +33,9 @@ const App = () => {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/login' element={<StudentLogin />} />
         <Route path='/replay/:saveID' element={<Replay />} />
-        <Route path='/sandbox' element={<BlocklyPage isSandbox={true} />} />
+        <Route path='/sandbox' element={<BlocklyPage isSandbox={true} feature={'sandbox'} />} />
+        <Route path='/blocklist' element={<BlocklyPage isSandbox={true} feature={'blocklist'}/>} />
+        <Route path='/customblock' element={<BlocklyPage isSandbox={true} feature={'customblock'}/>} />
         <Route
           path='/report'
           element={

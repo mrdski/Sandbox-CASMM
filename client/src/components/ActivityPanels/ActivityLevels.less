@@ -9,6 +9,36 @@ p {
   margin: 0;
 }
 
+#preview {
+  position: absolute;
+  width: 40%;
+  height: 20vh;
+  right: 40px;
+  top: 80px;
+  border: 1px solid #000; /* Add a border, adjust the color and size as needed */
+  z-index:1;
+  overflow: scroll;
+}
+pre,
+#languageTA {
+  border: #ddd 1px solid;
+  margin-top: 0;
+  position: absolute;
+  overflow: scroll;
+}
+#languageTA {
+  position: absolute;
+  width: 40%;
+  height: 20vh;
+  right: 40px;
+  top: 80px;
+  border: 1px solid #000; /* Add a border, adjust the color and size as needed */
+  z-index:1;
+  overflow: scroll;
+}
+
+
+
 #horizontal-container {
   height: 100%;
   width: 100%;
@@ -265,6 +295,11 @@ p {
   top: 80px;
   border: 1px solid #000; /* Add a border, adjust the color and size as needed */
   z-index:1;
+  overflow: scroll;
+}
+
+#preview {
+  position: absolute;
 }
 
 #blocklyCanvasMid {
@@ -275,6 +310,7 @@ p {
   top: 250px;
   border: 1px solid #000; /* Add a border, adjust the color and size as needed */
   z-index:1;
+  overflow: scroll;
 }
 
 #blocklyCanvasBottom {
@@ -285,7 +321,53 @@ p {
   top: 420px;
   border: 1px solid #000; /* Add a border, adjust the color and size as needed */
   z-index:1;
+  overflow: scroll;
 }
+
+#list-left{
+  position: absolute;
+  width: 25%;
+  height: 70vh;
+  left: 35px;
+  top: 50px;
+  border: 1px solid #000; /* Add a border, adjust the color and size as needed */
+  z-index:1;
+  overflow: scroll;
+}
+
+#list-right{
+  position: absolute;
+  width: 25%;
+  height: 70vh;
+  right: 35px;
+  top: 50px;
+  border: 1px solid #000; /* Add a border, adjust the color and size as needed */
+  z-index:1;
+  overflow: scroll;
+}
+
+#list-midtop{
+  position: absolute;
+  width: 42.7%;
+  height: 30vh;
+  left: 400px;
+  top: 55px;
+  border: 1px solid #000; /* Add a border, adjust the color and size as needed */
+  z-index:1;
+  overflow: scroll;
+}
+
+#list-midbottom{
+  position: absolute;
+  width: 42.7%;
+  height: 35vh;
+  left: 400px;
+  top: 300px;
+  border: 1px solid #000; /* Add a border, adjust the color and size as needed */
+  z-index:1;
+  overflow: scroll;
+}
+
 
 #console-container {
   background-color: white;
@@ -391,6 +473,22 @@ p {
   position: absolute;
   font-weight: bold;
   left: 175%;
+  top: -5px;
+  text-align: center;
+}
+
+#block-list {
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  //background-color: #colors[secondary];
+  //border-radius: 100px;
+  width: 515%;
+  //min-height: 200px;
+  color: #colors[text-secondary];
+  position: absolute;
+  font-weight: bold;
+  left: 600%;
   top: -5px;
   text-align: center;
 }

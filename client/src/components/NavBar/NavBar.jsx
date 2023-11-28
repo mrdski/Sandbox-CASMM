@@ -99,6 +99,18 @@ export default function NavBar() {
           &nbsp; Sign Out
         </Menu.Item>
       ) : null}
+            {shouldShowRoute('CustomBlock') ? (
+        <Menu.Item key='9' onClick={() => handleRouteChange(routes.CustomBlock)}>
+          {/* <i className='fa fa-info-circle' /> */}
+          &nbsp; Custom Block
+        </Menu.Item>
+      ) : null}
+            {shouldShowRoute('BlockList') ? (
+        <Menu.Item key='10' onClick={() => handleRouteChange(routes.BlockList)}>
+          {/* <i className='fa fa-info-circle' /> */}
+          &nbsp; Block List
+        </Menu.Item>
+      ) : null}
     </Menu>
   );
 
