@@ -18,11 +18,12 @@ import { getActivityToolbox } from '../../../../../Utils/requests';
 import PublicCanvas from '../PublicCanvas';
 import './blocks';
 import './factory';
+import NavBar from '../../../../NavBar/NavBar';
 
 
 let plotId = 1;
 
-export default function CustomBlock({ activity, isSandbox, workspace}) {
+export default function CustomBlock({activity}) {
   const [hoverUndo, setHoverUndo] = useState(false);
   const [hoverRedo, setHoverRedo] = useState(false);
   const [hoverCompile, setHoverCompile] = useState(false);
@@ -44,7 +45,9 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
   const [forceUpdate] = useReducer((x) => x + 1, 0);
 
   const workspaceRef = useRef(null);
+  // const activity = null;
   const activityRef = useRef(null);
+
 
 
   
@@ -325,10 +328,6 @@ function xmlToBlocklyJs(xmlCode) {
     return ''; // Return an empty string if no block is found.
   }
 }
-
-  if(selectedFeature === 'Program your Arduino...'){
-    return <PublicCanvas activity={activity} isSandbox={isSandbox}/>;
-  }
 
   return (
     <div id='horizontal-container' className='flex flex-column'>

@@ -9,8 +9,10 @@ import {
   getActivityToolboxAll,
 } from "../../Utils/requests"
 import { useGlobalState } from "../../Utils/userState"
+import CustomBlock from "../../components/ActivityPanels/BlocklyCanvasPanel/canvas/blockFactory/CustomBlock"
+import BlockList from "../../components/ActivityPanels/BlocklyCanvasPanel/canvas/BlockList"
 
-export default function BlocklyPage({ isSandbox }) {
+export default function BlocklyPage({ isSandbox, feature }) {
   const [value] = useGlobalState("currUser")
   const [activity, setActivity] = useState({})
   const navigate = useNavigate()
@@ -72,12 +74,35 @@ export default function BlocklyPage({ isSandbox }) {
     setup()
   }, [isSandbox, navigate, value.role])
 
-  return (
-    <div className="container nav-padding">
-      <NavBar />
-      <div className="flex flex-row">
-        <BlocklyCanvasPanel activity={activity} setActivity={setActivity} isSandbox={isSandbox} />
+  if(feature === 'sandbox'){
+    return (
+      <div className="container nav-padding">
+        <NavBar />
+        <div className="flex flex-row">
+          <BlocklyCanvasPanel activity={activity} setActivity={setActivity} isSandbox={isSandbox} />
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
+  if(feature ==='customblock'){
+    return (
+      <div className="container nav-padding">
+        <NavBar />
+        <div className="flex flex-row">
+          <CustomBlock activity={activity} />
+        </div>
+      </div>
+    )
+  }
+  if(feature ==='blocklist'){
+    return (
+      <div className="container nav-padding">
+        <NavBar />
+        <div className="flex flex-row">
+          <BlockList/>
+        </div>
+      </div>
+    )
+  }
+  <div></div>
 }
