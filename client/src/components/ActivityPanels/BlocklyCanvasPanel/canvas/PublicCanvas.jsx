@@ -14,6 +14,7 @@ import {
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
 import CustomBlock from './blockFactory/CustomBlock'
+import BlockList from './BlockList';
 
 let plotId = 1;
 
@@ -36,6 +37,7 @@ export default function PublicCanvas({ activity, isSandbox}) {
     //  useStates for Program your Arduino... / Custom Blocks
     const [selectedFeature, setSelectedFeature] = useState('Program your Arduino...');
     const [notSelectedFeature, setNotSelectedFeature] = useState('Custom Blocks')
+    const [blockList, setBlockList] = useState(false);
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
@@ -179,10 +181,27 @@ export default function PublicCanvas({ activity, isSandbox}) {
           {buttonText}
         </button>
       );
-    
-  if(selectedFeature === 'Custom Blocks'){
-    return <CustomBlock activity={activity} isSandbox={isSandbox} workspaceRef={workspaceRef.current}/>;
-  }
+
+      const BlockListButton = (buttonText) => (
+        <button
+        // fix to switch to CustomBlock canvas
+        onClick={() => {setBlockList(true)}}
+          style={{
+            backgroundColor: 'teal',
+            color: 'white',
+            transition: 'background-color 0.3s',
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = 'lightblue';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = 'teal';
+          }}
+        >
+          {buttonText}
+        </button>
+      );
+
   return (
     <div id='horizontal-container' className='flex flex-column'>
       <div className='flex flex-row'>
@@ -210,6 +229,9 @@ export default function PublicCanvas({ activity, isSandbox}) {
                         </Link>
                         <Row flex='auto' id='tb-feature-bg'>
                           {featureList(notSelectedFeature, notSelectedFeature)}
+                        </Row>
+                        <Row flex='auto' id='block-list'>
+                          {BlockListButton('Block List')}
                         </Row>
                       </Col>
                     </Row>
