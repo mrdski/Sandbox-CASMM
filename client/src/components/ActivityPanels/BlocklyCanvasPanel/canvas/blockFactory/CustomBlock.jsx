@@ -17,12 +17,14 @@ import PlotterLogo from '../../Icons/PlotterLogo';
 import { getActivityToolbox } from '../../../../../Utils/requests';
 import PublicCanvas from '../PublicCanvas';
 import './blocks';
+import './factory';
+import NavBar from '../../../../NavBar/NavBar';
 
 
 
 let plotId = 1;
 
-export default function CustomBlock({ activity, isSandbox, workspace}) {
+export default function CustomBlock({activity}) {
   const [hoverUndo, setHoverUndo] = useState(false);
   const [hoverRedo, setHoverRedo] = useState(false);
   const [hoverCompile, setHoverCompile] = useState(false);
@@ -44,8 +46,37 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
   const [forceUpdate] = useReducer((x) => x + 1, 0);
 
   const workspaceRef = useRef(null);
+  // const activity = null;
   const activityRef = useRef(null);
 
+
+
+  
+
+  // const setWorkspace = () => {
+  //   workspaceRef.current = window.Blockly.inject('newblockly-canvas', {
+  //     toolbox: document.getElementById('toolbox'),
+  //   });
+  //   // Define the XML for the root block
+  //   const rootBlockXml = '<xml>' +
+  //     '<block type="factory_base" deletable="false" movable="false"></block>' +
+  //     '</xml>';
+  
+  //   // Convert the XML string to a DOM element
+  //   const xmlDom = Blockly.Xml.textToDom(rootBlockXml);
+  
+  //   // Initialize the workspace with the root block
+  //   Blockly.Xml.domToWorkspace(xmlDom, workspaceRef.current);
+  
+  //   workspaceRef.current.addChangeListener(() => {
+  //     const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
+  //     const xmlText = Blockly.Xml.domToText(xml);
+  //     setBlockCode(xmlText);
+  
+  //     const generatorCode = Blockly.JavaScript.workspaceToCode(workspaceRef.current);
+  //     setGeneratorCode(generatorCode);
+  //   });
+  // };
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('newblockly-canvas', {
@@ -643,13 +674,17 @@ function createWorkspaceInPreview() {
 }
 
 
-  if(selectedFeature === 'Program your Arduino...'){
-    return <PublicCanvas activity={activity} isSandbox={isSandbox}/>;
-  }
+  //if(selectedFeature === 'Program your Arduino...'){
+    //return <PublicCanvas activity={activity} isSandbox={isSandbox}/>;
+  //}
+
+  // Get the root block and start parsing.
+  
 
   return (
     <div id='horizontal-container' className='flex flex-column'>
       <script src="blocks.js"></script>
+      <script src="factory.js"></script>
       <div className='flex flex-row'>
         <div
           id='bottom-container'
