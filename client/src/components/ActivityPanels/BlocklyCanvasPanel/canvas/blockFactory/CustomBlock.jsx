@@ -62,19 +62,26 @@ export default function CustomBlock({ activity, isSandbox, workspace}) {
   
     // Initialize the workspace with the root block
     Blockly.Xml.domToWorkspace(xmlDom, workspaceRef.current);
-  
+    //createWorkspaceInPreview();
+
+
+    const previewDiv = document.getElementById('preview');
+    const previewWorkspace = Blockly.inject(previewDiv, {
+      media: '../../media/',
+      scrollbars: true,
+    });
+    const block = previewWorkspace.newBlock('math_number');
+    block.moveBy(50, 50);
+    block.initSvg();
+    block.render();
     // Event listener for block creation
     workspaceRef.current.addChangeListener((event) => {
-      if (event.type === 'create' || event.type == 'change') {
-        // A new block is created
-        const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
-        const xmlText = Blockly.Xml.domToText(xml);
-        setBlockCode(xmlText);
-        const genCode = updateLanguage(xmlText);
-        //const genCode = updateLanguage();
-        setGeneratorCode(genCode);
-      }
-      
+      const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
+      const xmlText = Blockly.Xml.domToText(xml);
+      setBlockCode(xmlText);
+      const genCode = updateLanguage(xmlText);
+      setGeneratorCode(genCode);
+      updatePreview(genCode, previewWorkspace);
     });
   };
   
@@ -306,6 +313,8 @@ function xmlToBlocklyJs(xmlCode) {
 }
 
 function updateLanguage(xmlCode, varToChange) {
+  //const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
+  //const xmlCode2 = Blockly.Xml.domToText(xml);
   var xmlDoc = new DOMParser().parseFromString(xmlCode, 'text/xml');
   var blockX = xmlDoc.querySelector('block[type="factory_base"]');
   var temporaryWorkspace = new Blockly.Workspace();
@@ -321,11 +330,12 @@ function updateLanguage(xmlCode, varToChange) {
 
   varToChange = formatJson_(blockType, rootBlock);
   //var code = blockType;
-  temporaryWorkspace.clear();  
+  temporaryWorkspace.clear();
+  temporaryWorkspace.dispose();  
   //injectCode(code, 'blocklyCanvasMid')
   return varToChange;
   
-  updatePreview();
+
 }
 
 
@@ -550,24 +560,86 @@ function getTypesFrom_(block, name) {
 }
 
 
-function injectCode(code, id) {
-  var pre = document.getElementById(id);
-  pre.textContent = code;
-  code = pre.innerHTML;
-  code = prettyPrintOne(code, 'js');
-  pre.innerHTML = code;
+
+
+
+function updatePreview(jsonCode, prevWorkspace) {
+  //prevWorkspace.clear();
+  var format = 'JSON';
+  var code = jsonCode;
+  if (!code.trim()) {
+    // Nothing to render.  Happens while cloud storage is loading.
+    return;
+  }
+  var backupBlocks = Blockly.Blocks;
+  try {
+    // Make a shallow copy.
+    Blockly.Blocks = {};
+    for (var prop in backupBlocks) {
+      Blockly.Blocks[prop] = backupBlocks[prop];
+    }
+
+    if (format == 'JSON') {
+      var json = JSON.parse(code);
+      Blockly.Blocks[json.id || UNNAMED] = {
+        init: function() {
+          this.jsonInit(json);
+        }
+      };
+    }  else {
+      throw 'Unknown format: ' + format;
+    }
+
+    // Look for a block on Blockly.Blocks that does not match the backup.
+    var blockType = 'math_number';
+    for (var type in Blockly.Blocks) {
+      if (typeof Blockly.Blocks[type].init == 'function' &&
+          Blockly.Blocks[type] != backupBlocks[type]) {
+        blockType = type;
+        break;
+      }
+    }
+    if (!blockType) {
+      return;
+    }
+
+
+    var previewBlock = prevWorkspace.newBlock(blockType);
+    previewBlock.initSvg();
+    previewBlock.render();
+    previewBlock.setMovable(false);
+    previewBlock.setDeletable(false);
+    previewBlock.moveBy(15, 10);
+    previewWorkspace.clearUndo();
+
+    //updateGenerator(previewBlock);
+  } finally {
+    Blockly.Blocks = backupBlocks;
+  }
 }
 
+function createWorkspaceInPreview() {
+  // Reference to the #preview element
+  const previewDiv = document.getElementById('preview');
 
+  // Create a Blockly workspace in the #preview element
+  const workspace = Blockly.inject(previewDiv, {
+    media: '../../media/', // Path to media files (icons, etc.)
+    scrollbars: true, // Enable scrollbars
+  });
 
-function getRootBlock() {
-  var blocks = workspaceRef.getTopBlocks(false);
-  for (var i = 0, block; block = blocks[i]; i++) {
-    if (block.type == 'factory_base') {
-      return block;
-    }
-  }
-  return null;
+  // Create a new block (you can change the type to your desired block type)
+  const block = workspace.newBlock('math_number');
+
+  // Position the block within the workspace (optional)
+  block.moveBy(50, 50);
+
+  // Render the block in the workspace
+  block.initSvg();
+  block.render();
+
+  // Return the workspace object (optional, for further manipulation)
+  return workspace;
 }
 
 
@@ -700,10 +772,10 @@ function getRootBlock() {
             <div id='newblockly-canvas'/>
             <Row id='block-bs'>{saveBlock('Save Block')}</Row>
             <Row id='pre-text'>Block Preview</Row>
-            <Row id='blocklyCanvasTop'  style={{ textAlign: 'left' }}>
+            <div id='preview'  style={{ textAlign: 'left' }}>
               {/* Block Preview */}
               {/* {preview} */}
-            </Row>
+            </div>
             <Row id='def-text'>Block Definition</Row>
             <Row id='blocklyCanvasMid'  style={{ textAlign: 'left' }}>
               {/* {Block Definition} */}
@@ -733,7 +805,7 @@ function getRootBlock() {
 
       {/* This xml is for the blocks' menu we will provide. Here are examples on how to include categories and subcategories */}
       
-      <xml id="toolbox">
+      <xml id="toolbox" is = "Blockly workspace">
     <category name="Input">
       <block type="input_value">
         <value name="TYPE">
