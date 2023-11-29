@@ -48,6 +48,8 @@ export default function CustomBlock({activity}) {
   // const activity = null;
   const activityRef = useRef(null);
 
+  /* ADDED */ const blockMap = new Map(); // IMPORTANT
+  /* ADDED */ const descriptionMap = new Map(); // IMPORTANT
 
 
   
@@ -100,10 +102,11 @@ export default function CustomBlock({activity}) {
       media: '../../media/',
       scrollbars: true,
     });
-    const block = previewWorkspace.newBlock('math_number');
+    const block = previewWorkspace.newBlock(null);
     block.moveBy(50, 50);
     block.initSvg();
     block.render();
+
     // Event listener for block creation
     workspaceRef.current.addChangeListener((event) => {
       const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
@@ -231,10 +234,57 @@ export default function CustomBlock({activity}) {
     </Menu>
   );
 
-  const saveBlock = (buttonText) => (
+
+    /* ADDED */ const askBlockName = (generatorCode) => {
+      const blockName = window.prompt('Enter a name for your custom block: ');
+      if (blockName) {
+        console.log(`Name: ${blockName}`);
+      }
+      else {
+        return '-1';
+      }
+      return blockName;
+    };
+
+    /* ADDED */ const askBlockDescription = (generatorCode) => {
+    const blockDescription = window.prompt('Enter a description for your custom block: ');
+    if (blockDescription) {
+      console.log(`Description: ${blockDescription}`);
+    }
+    return blockDescription;
+  };
+
+   /* ADDED */   const blockSaveProcess = () => { // saves blocks to maps
+
+    // 1. Ask if Name is Final
+    let blockName = askBlockName();
+    if (blockName != '-1') {
+      /* let blockName = genCode.name;
+      console.log(`Name: ${blockName}`); */
+
+      // 2. Add Name & Block to blockMap
+      while (blockMap.has(blockName)) {
+        blockName = window.prompt('The name "' + blockName + '" already exists in database. Enter a new name for your custom block: ');
+        if (blockName) {
+          console.log(`Name: ${blockName}`);
+        }
+      }
+
+      blockMap.set(blockName, 'block');
+
+      // 3. Ask Description
+      const blockDescription = askBlockDescription();
+
+      // 4. Add Name & Description To descriptionMap
+      descriptionMap.set(blockName, blockDescription);
+  }
+
+  // include method to DELETE blocks in 'Program your arduino'
+  }
+
+  /* ADDED LINE */ const saveBlock = (buttonText) => (
 
     <button
-      //onClick={() => {}}
       style={{
         backgroundColor: 'teal',
         color: 'white',
@@ -246,6 +296,7 @@ export default function CustomBlock({activity}) {
       onMouseLeave={(e) => {
         e.target.style.backgroundColor = 'teal';
       }}
+      onClick={blockSaveProcess} // add block to map
     >
       {buttonText}
     </button>
@@ -561,9 +612,8 @@ function getTypesFrom_(block, name) {
 
 
 
-
 function updatePreview(jsonCode, prevWorkspace) {
-  //prevWorkspace.clear();
+  // prevWorkspace.clear();
   var format = 'JSON';
   var code = jsonCode;
   if (!code.trim()) {
@@ -590,7 +640,7 @@ function updatePreview(jsonCode, prevWorkspace) {
     }
 
     // Look for a block on Blockly.Blocks that does not match the backup.
-    var blockType = 'math_number';
+    var blockType = null;
     for (var type in Blockly.Blocks) {
       if (typeof Blockly.Blocks[type].init == 'function' &&
           Blockly.Blocks[type] != backupBlocks[type]) {
@@ -611,7 +661,7 @@ function updatePreview(jsonCode, prevWorkspace) {
     previewBlock.moveBy(15, 10);
     previewWorkspace.clearUndo();
 
-    //updateGenerator(previewBlock);
+    updateGenerator(previewBlock);
   } finally {
     Blockly.Blocks = backupBlocks;
   }
