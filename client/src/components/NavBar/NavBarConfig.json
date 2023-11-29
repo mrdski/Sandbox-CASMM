@@ -14,7 +14,7 @@
     "BlockList": "/blocklist"
   },
   "users": {
-    "DefaultUser": ["Home", "TeacherLogin", "Sandbox", "About", "BlockList", "CustomBlock"],
+    "DefaultUser": ["Home", "TeacherLogin", "Sandbox", "About"],
     "Mentor": ["Dashboard", "AccountInfo", "SignOut", "Sandbox", "BlockList", "CustomBlock", "BugReport"],
     "Student": ["SignOut"],
     "ContentCreator": [
