@@ -102,11 +102,11 @@ export default function CustomBlock({activity}) {
       media: '../../media/',
       scrollbars: true,
     });
-    const block = previewWorkspace.newBlock(null);
+
+    const block = previewWorkspace.newBlock('math_number');
     block.moveBy(50, 50);
     block.initSvg();
     block.render();
-
     // Event listener for block creation
     workspaceRef.current.addChangeListener((event) => {
       const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
@@ -612,8 +612,9 @@ function getTypesFrom_(block, name) {
 
 
 
+
 function updatePreview(jsonCode, prevWorkspace) {
-  // prevWorkspace.clear();
+  //prevWorkspace.clear();
   var format = 'JSON';
   var code = jsonCode;
   if (!code.trim()) {
@@ -640,7 +641,9 @@ function updatePreview(jsonCode, prevWorkspace) {
     }
 
     // Look for a block on Blockly.Blocks that does not match the backup.
-    var blockType = null;
+
+    var blockType = 'math_number';
+
     for (var type in Blockly.Blocks) {
       if (typeof Blockly.Blocks[type].init == 'function' &&
           Blockly.Blocks[type] != backupBlocks[type]) {
@@ -661,7 +664,8 @@ function updatePreview(jsonCode, prevWorkspace) {
     previewBlock.moveBy(15, 10);
     previewWorkspace.clearUndo();
 
-    updateGenerator(previewBlock);
+
+    //updateGenerator(previewBlock);
   } finally {
     Blockly.Blocks = backupBlocks;
   }
@@ -690,6 +694,7 @@ function createWorkspaceInPreview() {
   // Return the workspace object (optional, for further manipulation)
   return workspace;
 }
+
 
   // Get the root block and start parsing.
   
