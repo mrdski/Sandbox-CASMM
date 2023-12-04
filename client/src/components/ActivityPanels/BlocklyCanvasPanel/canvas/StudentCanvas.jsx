@@ -50,7 +50,6 @@ export default function StudentCanvas({ activity }) {
     });
     window.Blockly.addChangeListener(blocklyEvent);
   };
-
   const loadSave = (selectedSave) => {
     try {
       let toLoad = activity.template;
