@@ -100,7 +100,7 @@ export default function CustomBlock({activity}) {
     const previewDiv = document.getElementById('preview');
     const previewWorkspace = Blockly.inject(previewDiv, {
       media: '../../media/',
-      scrollbars: true,
+      scrollbars: false,
     });
     const block = previewWorkspace.newBlock(null);
     block.moveBy(50, 50);
@@ -612,60 +612,202 @@ function getTypesFrom_(block, name) {
 
 
 
-function updatePreview(jsonCode, prevWorkspace) {
-  // prevWorkspace.clear();
+// function updatePreview(jsonCode, previewWorkspace) {
+//   previewWorkspace.clear();
+
+//   var format = 'JSON';
+//   var code = jsonCode;
+//   if (!code.trim()) {
+//     // Nothing to render.  Happens while cloud storage is loading.
+//     return;
+//   }
+//   var backupBlocks = Blockly.Blocks;
+//   try {
+//     // Make a shallow copy.
+//     Blockly.Blocks = {};
+//     for (var prop in backupBlocks) {
+//       Blockly.Blocks[prop] = backupBlocks[prop];
+//     }
+
+//     if (format === 'JSON') {
+//       var json = JSON.parse(code);
+//       Blockly.Blocks[json.id || UNNAMED] = {
+//         init: function() {
+//           this.jsonInit(json);
+//         }
+//       };
+//     }  else {
+//       throw 'Unknown format: ' + format;
+//     }
+
+//     // Look for a block on Blockly.Blocks that does not match the backup.
+//     var blockType = null;
+//     for (var type in Blockly.Blocks) {
+//       if (typeof Blockly.Blocks[type].init == 'function' &&
+//           Blockly.Blocks[type] != backupBlocks[type]) {
+//         blockType = type;
+//         break;
+//       }
+//     }
+//     if (!blockType) {
+//       return;
+//     }
+
+//     const block = previewWorkspace.newBlock(blockType);
+//     block.moveBy(50, 50);
+//     block.initSvg();
+//     block.render();
+
+//     // var previewBlock = previewWorkspace.newBlock(blockType);
+//     // previewBlock.initSvg();
+//     // previewBlock.render();
+//     // previewBlock.setMovable(false);
+//     // previewBlock.setDeletable(false);
+//     // previewBlock.moveBy(15, 10);
+//     // previewWorkspace.clearUndo();
+
+//     // updateGenerator(previewBlock);
+//   } finally {
+//     Blockly.Blocks = backupBlocks;
+//   }
+// }
+
+function updatePreview(jsonCode, previewWorkspace) {
+  previewWorkspace.clear();
+
   var format = 'JSON';
-  var code = jsonCode;
-  if (!code.trim()) {
-    // Nothing to render.  Happens while cloud storage is loading.
+  var code = jsonCode.trim();
+
+  if (!code) {
+    // Nothing to render. Happens while cloud storage is loading.
     return;
   }
+
   var backupBlocks = Blockly.Blocks;
+
   try {
     // Make a shallow copy.
-    Blockly.Blocks = {};
-    for (var prop in backupBlocks) {
-      Blockly.Blocks[prop] = backupBlocks[prop];
-    }
+    Blockly.Blocks = Object.assign({}, backupBlocks);
 
-    if (format == 'JSON') {
+    if (format === 'JSON') {
       var json = JSON.parse(code);
-      Blockly.Blocks[json.id || UNNAMED] = {
-        init: function() {
+      Blockly.Blocks[json.id || 'UNNAMED'] = {
+        init: function () {
           this.jsonInit(json);
-        }
+        },
       };
-    }  else {
+    } else {
       throw 'Unknown format: ' + format;
     }
 
     // Look for a block on Blockly.Blocks that does not match the backup.
     var blockType = null;
+
     for (var type in Blockly.Blocks) {
-      if (typeof Blockly.Blocks[type].init == 'function' &&
-          Blockly.Blocks[type] != backupBlocks[type]) {
+      if (
+        typeof Blockly.Blocks[type].init === 'function' &&
+        Blockly.Blocks[type] !== backupBlocks[type]
+      ) {
         blockType = type;
         break;
       }
     }
+
     if (!blockType) {
       return;
     }
 
+    const block = previewWorkspace.newBlock(blockType);
+    block.moveBy(50, 50);
+    block.initSvg();
+    block.render();
 
-    var previewBlock = prevWorkspace.newBlock(blockType);
-    previewBlock.initSvg();
-    previewBlock.render();
-    previewBlock.setMovable(false);
-    previewBlock.setDeletable(false);
-    previewBlock.moveBy(15, 10);
-    previewWorkspace.clearUndo();
 
-    updateGenerator(previewBlock);
+
   } finally {
     Blockly.Blocks = backupBlocks;
   }
+
+  function updateGenerator(block) {
+    function makeVar(root, name) {
+      name = name.toLowerCase().replace(/\W/g, '_');
+      return '  var ' + root + '_' + name;
+    }
+    var language = document.getElementById('blocklyCanvasBottom').value;
+    var code = [];
+    code.push("Blockly." + language + "['" + block.type +
+              "'] = function(block) {");
+  
+    // Generate getters for any fields or inputs.
+    for (var i = 0, input; input = block.inputList[i]; i++) {
+      for (var j = 0, field; field = input.fieldRow[j]; j++) {
+        var name = field.name;
+        if (!name) {
+          continue;
+        }
+        if (field instanceof Blockly.FieldVariable) {
+          // Subclass of Blockly.FieldDropdown, must test first.
+          code.push(makeVar('variable', name) +
+                    " = Blockly." + language +
+                    ".variableDB_.getName(block.getFieldValue('" + name +
+                    "'), Blockly.Variables.NAME_TYPE);");
+        } else if (field instanceof Blockly.FieldAngle) {
+          // Subclass of Blockly.FieldTextInput, must test first.
+          code.push(makeVar('angle', name) +
+                    " = block.getFieldValue('" + name + "');");
+        } else if (Blockly.FieldDate && field instanceof Blockly.FieldDate) {
+          // Blockly.FieldDate may not be compiled into Blockly.
+          code.push(makeVar('date', name) +
+                    " = block.getFieldValue('" + name + "');");
+        } else if (field instanceof Blockly.FieldColour) {
+          code.push(makeVar('colour', name) +
+                    " = block.getFieldValue('" + name + "');");
+        } else if (field instanceof Blockly.FieldCheckbox) {
+          code.push(makeVar('checkbox', name) +
+                    " = block.getFieldValue('" + name + "') == 'TRUE';");
+        } else if (field instanceof Blockly.FieldDropdown) {
+          code.push(makeVar('dropdown', name) +
+                    " = block.getFieldValue('" + name + "');");
+        } else if (field instanceof Blockly.FieldTextInput) {
+          code.push(makeVar('text', name) +
+                    " = block.getFieldValue('" + name + "');");
+        }
+      }
+      var name = input.name;
+      if (name) {
+        if (input.type == Blockly.INPUT_VALUE) {
+          code.push(makeVar('value', name) +
+                    " = Blockly." + language + ".valueToCode(block, '" + name +
+                    "', Blockly." + language + ".ORDER_ATOMIC);");
+        } else if (input.type == Blockly.NEXT_STATEMENT) {
+          code.push(makeVar('statements', name) +
+                    " = Blockly." + language + ".statementToCode(block, '" +
+                    name + "');");
+        }
+      }
+    }
+    // Most languages end lines with a semicolon.  Python does not.
+    var lineEnd = {
+      'JavaScript': ';',
+      'Python': '',
+      'PHP': ';',
+      'Dart': ';'
+    };
+    code.push("  // TODO: Assemble " + language + " into code variable.");
+    if (block.outputConnection) {
+      code.push("  var code = '...';");
+      code.push("  // TODO: Change ORDER_NONE to the correct strength.");
+      code.push("  return [code, Blockly." + language + ".ORDER_NONE];");
+    } else {
+      code.push("  var code = '..." + (lineEnd[language] || '') + "\\n';");
+      code.push("  return code;");
+    }
+    code.push("};");
+  
+    injectCode(code.join('\n'), 'generatorPre');
+  }
 }
+
 
 function createWorkspaceInPreview() {
   // Reference to the #preview element
