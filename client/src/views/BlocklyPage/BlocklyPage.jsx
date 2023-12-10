@@ -99,7 +99,7 @@ export default function BlocklyPage({ isSandbox, feature }) {
       <div className="container nav-padding">
         <NavBar />
         <div className="flex flex-row">
-          <BlockList/>
+          <BlockList activity={activity}/>
         </div>
       </div>
     )
