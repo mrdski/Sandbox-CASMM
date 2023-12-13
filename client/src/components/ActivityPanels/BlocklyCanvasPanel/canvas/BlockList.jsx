@@ -10,9 +10,15 @@ export default function BlockList({activity}) {
   const activityRef = useRef(null);
 
   const setWorkspace = () => {
-    workspaceRef.current = window.Blockly.inject('blockly-canvas', {
-      toolbox: document.getElementById('toolbox'),
+    const previewDiv = document.getElementById('list-midtop');
+    const previewWorkspace = Blockly.inject(previewDiv, {
+      media: '../../media/',
+      scrollbars: false,
     });
+    const block = previewWorkspace.newBlock(null);
+    block.moveBy(50, 50);
+    block.initSvg();
+    block.render();
   };
 
   useEffect(() => {
@@ -26,6 +32,7 @@ export default function BlockList({activity}) {
     setUp();
   }, [activity]);
 
+  // block category and block selection
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedBlock, setSelectedBlock] = useState(null);
   const [hoveredItem, setHoveredItem] = useState(null);

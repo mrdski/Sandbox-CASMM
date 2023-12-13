@@ -1,14 +1,10 @@
-import React, { useEffect, useRef, useState, useReducer } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import '../../../ActivityLevels.less';
-import { message, Spin, Row, Col, Alert, Menu, Dropdown } from 'antd';
+import { Spin, Row, Col, Alert } from 'antd';
 import ConsoleModal from '../../modals/ConsoleModal';
 import PlotterModal from '../../modals/PlotterModal';
-import {
-  handleCloseConnection,
-  handleOpenConnection,
-} from '../../../Utils/consoleHelpers';
 import './blocks';
 import './factory';
 
@@ -24,9 +20,6 @@ export default function CustomBlock({activity}) {
 
   const [blockCode, setBlockCode] = useState('');
   const [generatorCode, setGeneratorCode] = useState('');
-
-
-  const [forceUpdate] = useReducer((x) => x + 1, 0);
 
   const workspaceRef = useRef(null);
   const activityRef = useRef(null);
@@ -83,38 +76,6 @@ export default function CustomBlock({activity}) {
       };
       setUp();
     }, [activity]);
-  
-  const handlePlotter = async () => {
-    if (showConsole) {
-      message.warning('Close serial monitor before openning serial plotter');
-      return;
-    }
-
-    if (!showPlotter) {
-      await handleOpenConnection(
-        9600,
-        'plot',
-        plotData,
-        setPlotData,
-        plotId,
-        forceUpdate
-      );
-      if (typeof window['port'] === 'undefined') {
-        message.error('Fail to select serial device');
-        return;
-      }
-      setConnectionOpen(true);
-      setShowPlotter(true);
-    } else {
-      plotId = 1;
-      if (connectionOpen) {
-        await handleCloseConnection();
-        setConnectionOpen(false);
-      }
-      setShowPlotter(false);
-    }
-  };
-
 
     const askBlockName = (generatorCode) => {
       const blockName = window.prompt('Enter a name for your custom block: ');
@@ -183,69 +144,7 @@ export default function CustomBlock({activity}) {
     </button>
   );
 
-/**
- * Convert XML code to Blockly JavaScript code.
- * @param {string} xmlCode - The input XML code.
- * @returns {string} - The generated Blockly JavaScript code.
- */
-function xmlToBlocklyJs(xmlCode) {
-  // Parse the XML code into a DOM structure.
-  
-  var xmlDoc = new DOMParser().parseFromString(xmlCode, 'text/xml');
-
-  // Helper function to process a block and its children.
-  function parseBlock(block) {
-
-    var blockType = block.getAttribute('type') || 'unnamed';
-    var jsCode = "Blockly.Blocks['" + blockType + "'] = {\n";
-    jsCode += "  init: function() {\n";
-
-    // Process fields.
-    var fields = block.querySelectorAll('field');
-    if (fields.length > 0) {
-      fields.forEach(function (field) {
-        jsCode += "    this.appendField('" + field.textContent + "');\n";
-      });
-    }
-
-    // Process inputs.
-    var inputs = block.querySelectorAll('value, statement, shadow');
-    if (inputs.length > 0) {
-      inputs.forEach(function (input) {
-        var inputName = input.getAttribute('name');
-        jsCode += "    this.append" + input.tagName + "('" + inputName + "', " +
-          parseBlock(input.firstElementChild) + ");\n";
-      });
-    }
-
-    // Process mutations.
-    var mutation = block.querySelector('mutation');
-    if (mutation) {
-      for (var i = 0; i < mutation.attributes.length; i++) {
-        var attribute = mutation.attributes[i];
-        jsCode += "    this.setMutatorAttribute('" + attribute.name + "', '" +
-          attribute.value + "');\n";
-      }
-    }
-
-    jsCode += "  }\n";
-    jsCode += "};\n\n";
-
-    return jsCode;
-  }
-
-  // Get the root block and start parsing.
-  var rootBlock = xmlDoc.querySelector('block[type="factory_base"]');
-  if (rootBlock) {
-    return parseBlock(rootBlock);
-  } else {
-    return ''; // Return an empty string if no block is found.
-  }
-}
-
 function updateLanguage(xmlCode, varToChange) {
-  //const xml = Blockly.Xml.workspaceToDom(workspaceRef.current);
-  //const xmlCode2 = Blockly.Xml.domToText(xml);
   var xmlDoc = new DOMParser().parseFromString(xmlCode, 'text/xml');
   var blockX = xmlDoc.querySelector('block[type="factory_base"]');
   var temporaryWorkspace = new Blockly.Workspace();
@@ -260,10 +159,8 @@ function updateLanguage(xmlCode, varToChange) {
   blockType = blockType.replace(/\W/g, '_').replace(/^(\d)/, '_\\1');
 
   varToChange = formatJson_(blockType, rootBlock);
-  //var code = blockType;
   temporaryWorkspace.clear();
   temporaryWorkspace.dispose();  
-  //injectCode(code, 'blocklyCanvasMid')
   return varToChange;
   
 
@@ -371,7 +268,6 @@ function getFieldsJson_(block) {
     if (!block.disabled && !block.getInheritedDisabled()) {
       switch (block.type) {
         case 'field_static':
-          // Result: 'hello'
           fields.push(block.getFieldValue('TEXT'));
           break;
         case 'field_input':
@@ -545,114 +441,7 @@ function updatePreview(jsonCode, previewWorkspace) {
   } finally {
     Blockly.Blocks = backupBlocks;
   }
-
-  function updateGenerator(block) {
-    function makeVar(root, name) {
-      name = name.toLowerCase().replace(/\W/g, '_');
-      return '  var ' + root + '_' + name;
-    }
-    var language = document.getElementById('blocklyCanvasBottom').value;
-    var code = [];
-    code.push("Blockly." + language + "['" + block.type +
-              "'] = function(block) {");
-  
-    // Generate getters for any fields or inputs.
-    for (var i = 0, input; input = block.inputList[i]; i++) {
-      for (var j = 0, field; field = input.fieldRow[j]; j++) {
-        var name = field.name;
-        if (!name) {
-          continue;
-        }
-        if (field instanceof Blockly.FieldVariable) {
-          // Subclass of Blockly.FieldDropdown, must test first.
-          code.push(makeVar('variable', name) +
-                    " = Blockly." + language +
-                    ".variableDB_.getName(block.getFieldValue('" + name +
-                    "'), Blockly.Variables.NAME_TYPE);");
-        } else if (field instanceof Blockly.FieldAngle) {
-          // Subclass of Blockly.FieldTextInput, must test first.
-          code.push(makeVar('angle', name) +
-                    " = block.getFieldValue('" + name + "');");
-        } else if (Blockly.FieldDate && field instanceof Blockly.FieldDate) {
-          // Blockly.FieldDate may not be compiled into Blockly.
-          code.push(makeVar('date', name) +
-                    " = block.getFieldValue('" + name + "');");
-        } else if (field instanceof Blockly.FieldColour) {
-          code.push(makeVar('colour', name) +
-                    " = block.getFieldValue('" + name + "');");
-        } else if (field instanceof Blockly.FieldCheckbox) {
-          code.push(makeVar('checkbox', name) +
-                    " = block.getFieldValue('" + name + "') == 'TRUE';");
-        } else if (field instanceof Blockly.FieldDropdown) {
-          code.push(makeVar('dropdown', name) +
-                    " = block.getFieldValue('" + name + "');");
-        } else if (field instanceof Blockly.FieldTextInput) {
-          code.push(makeVar('text', name) +
-                    " = block.getFieldValue('" + name + "');");
-        }
-      }
-      var name = input.name;
-      if (name) {
-        if (input.type == Blockly.INPUT_VALUE) {
-          code.push(makeVar('value', name) +
-                    " = Blockly." + language + ".valueToCode(block, '" + name +
-                    "', Blockly." + language + ".ORDER_ATOMIC);");
-        } else if (input.type == Blockly.NEXT_STATEMENT) {
-          code.push(makeVar('statements', name) +
-                    " = Blockly." + language + ".statementToCode(block, '" +
-                    name + "');");
-        }
-      }
-    }
-    // Most languages end lines with a semicolon.  Python does not.
-    var lineEnd = {
-      'JavaScript': ';',
-      'Python': '',
-      'PHP': ';',
-      'Dart': ';'
-    };
-    code.push("  // TODO: Assemble " + language + " into code variable.");
-    if (block.outputConnection) {
-      code.push("  var code = '...';");
-      code.push("  // TODO: Change ORDER_NONE to the correct strength.");
-      code.push("  return [code, Blockly." + language + ".ORDER_NONE];");
-    } else {
-      code.push("  var code = '..." + (lineEnd[language] || '') + "\\n';");
-      code.push("  return code;");
-    }
-    code.push("};");
-  
-    injectCode(code.join('\n'), 'generatorPre');
-  }
 }
-
-
-function createWorkspaceInPreview() {
-  // Reference to the #preview element
-  const previewDiv = document.getElementById('preview');
-
-  // Create a Blockly workspace in the #preview element
-  const workspace = Blockly.inject(previewDiv, {
-    media: '../../media/', // Path to media files (icons, etc.)
-    scrollbars: true, // Enable scrollbars
-  });
-
-  // Create a new block (you can change the type to your desired block type)
-  const block = workspace.newBlock('math_number');
-
-  // Position the block within the workspace (optional)
-  block.moveBy(50, 50);
-
-  // Render the block in the workspace
-  block.initSvg();
-  block.render();
-
-  // Return the workspace object (optional, for further manipulation)
-  return workspace;
-}
-
-  // Get the root block and start parsing.
-  
 
   return (
     <div id='horizontal-container' className='flex flex-column'>
@@ -690,13 +479,11 @@ function createWorkspaceInPreview() {
                 </Row>
               </Col>
             </Row>
-            {/* Code to fix the workspace to half and provide space for the block def and gen code, will need to add a block preview */}
             <div id='newblockly-canvas'/>
             <Row id='block-bs'>{saveBlock('Save Block')}</Row>
             <Row id='pre-text'>Block Preview</Row>
             <div id='preview'  style={{ textAlign: 'left' }}>
               {/* Block Preview */}
-              {/* {preview} */}
             </div>
             <Row id='def-text'>Block Definition</Row>
             <Row id='blocklyCanvasMid'  style={{ textAlign: 'left' }}>

@@ -13,8 +13,6 @@ import {
 } from '../../Utils/consoleHelpers';
 import ArduinoLogo from '../Icons/ArduinoLogo';
 import PlotterLogo from '../Icons/PlotterLogo';
-import CustomBlock from './blockFactory/CustomBlock'
-import BlockList from './BlockList';
 
 let plotId = 1;
 
@@ -33,11 +31,6 @@ export default function PublicCanvas({ activity, isSandbox}) {
   const [forceUpdate] = useReducer((x) => x + 1, 0);
   const workspaceRef = useRef(null);
   const activityRef = useRef(null);
-
-    //  useStates for Program your Arduino... / Custom Blocks
-    const [selectedFeature, setSelectedFeature] = useState('Program your Arduino...');
-    const [notSelectedFeature, setNotSelectedFeature] = useState('Custom Blocks')
-    const [blockList, setBlockList] = useState(false);
 
   const setWorkspace = () => {
     workspaceRef.current = window.Blockly.inject('blockly-canvas', {
@@ -160,48 +153,7 @@ export default function PublicCanvas({ activity, isSandbox}) {
       </Menu.Item>
     </Menu>
   );
-
-    //Program you Arduino... / Custom Blocks | switch
-    const featureList = (buttonText, newFeature) => (
-        <button
-        // fix to switch to CustomBlock canvas
-        onClick={() => {setNotSelectedFeature(selectedFeature);setSelectedFeature(newFeature)}}
-          style={{
-            backgroundColor: 'teal',
-            color: 'white',
-            transition: 'background-color 0.3s',
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.backgroundColor = 'lightblue';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.backgroundColor = 'teal';
-          }}
-        >
-          {buttonText}
-        </button>
-      );
-
-      const BlockListButton = (buttonText) => (
-        <button
-        // fix to switch to CustomBlock canvas
-        onClick={() => {setBlockList(true)}}
-          style={{
-            backgroundColor: 'teal',
-            color: 'white',
-            transition: 'background-color 0.3s',
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.backgroundColor = 'lightblue';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.backgroundColor = 'teal';
-          }}
-        >
-          {buttonText}
-        </button>
-      );
-
+  
   return (
     <div id='horizontal-container' className='flex flex-column'>
       <div className='flex flex-row'>
@@ -217,7 +169,7 @@ export default function PublicCanvas({ activity, isSandbox}) {
           >
             <Row id='icon-control-panel'>
               <Col flex='none' id='section-header'>
-                {selectedFeature}
+                Program your Arduino...
               </Col>
               <Col flex='auto'>
                 <Row align='middle' justify='end' id='description-container'>
@@ -227,17 +179,10 @@ export default function PublicCanvas({ activity, isSandbox}) {
                         <Link id='link' to={'/'} className='flex flex-column'>
                           <i className='fa fa-home fa-lg' />
                         </Link>
-                        <Row flex='auto' id='tb-feature-bg'>
-                          {featureList(notSelectedFeature, notSelectedFeature)}
-                        </Row>
-                        <Row flex='auto' id='block-list'>
-                          {BlockListButton('Block List')}
-                        </Row>
                       </Col>
                     </Row>
                   </Col>
                   <Col flex='auto' />
-
                   <Col flex={'200px'}>
                     <Row>
                       <Col className='flex flex-row'>
